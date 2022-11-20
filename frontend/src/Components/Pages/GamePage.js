@@ -1,36 +1,47 @@
-import Phaser from 'phaser';
-import GameScene from '../Game/GameScene';
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+import { clearPage } from '../../utils/render';
+import { drawOneFrame,setCanvasContextAndSize, onClickForm}  from '../Game/FormSpawner';
 
-let game;
+const main = document.querySelector('main');
+const body = document.querySelector('body');
+
 
 const GamePage = () => {
-  const phaserGame = `
-<div id="gameDiv" class="d-flex justify-content-center my-3">
-</div>`;
-
-  const main = document.querySelector('main');
-  main.innerHTML = phaserGame;
-
-  const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-      default: 'arcade',
-      arcade: {
-        gravity: { y: 300 },
-        debug: false,
-      },
-    },
-    scene: [GameScene],
-    //  parent DOM element into which the canvas created by the renderer will be injected.
-    parent: 'gameDiv',
-  };
-
-  // there could be issues when a game was quit (events no longer working)
-  // therefore destroy any started game prior to recreate it
-  if (game) game.destroy(true);
-  game = new Phaser.Game(config);
+  clearPage();
+  renderPlayZone();
+  setCanvasContextAndSize();
+  removePotentialVerticalAndHorizontalScrollbars();
+  drawOneFrame();
+  setInterval(drawOneFrame,10000);
 };
+
+function renderPlayZone() {
+  const divGamePage = document.createElement('div');
+  divGamePage.id = 'gamePageDiv';
+  const divInformation = document.createElement('div');
+  divInformation.id = 'gameInformation';
+  const divTimer = document.createElement('div');
+  divTimer.id = 'timer';
+  divTimer.innerHTML = ' <p> timer TEST </p>';
+  const divSocre = document.createElement('div');
+  divSocre.id = 'score';
+  divSocre.innerHTML = ' <p> score TEST </p>';
+  divInformation.appendChild(divTimer);
+  divInformation.appendChild(divSocre);
+  divGamePage.appendChild(divInformation);
+
+  const divCanvas = document.createElement('div');
+  divCanvas.id = 'gameDiv';
+  divCanvas.innerHTML = '<canvas id="gameCanvas"/>';
+  divGamePage.appendChild(divCanvas);
+
+  main.appendChild(divGamePage);
+  
+}
+
+function removePotentialVerticalAndHorizontalScrollbars() {
+  body.style.overflow = 'hidden';
+}
 
 export default GamePage;

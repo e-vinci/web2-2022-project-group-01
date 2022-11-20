@@ -1,0 +1,26 @@
+/* game page part*/
+#gamePageDiv{
+    margin: 30px 100px;
+}
+
+#gameDiv {
+    margin:  10px;
+    border : 2px solid black;
+    height: 400px;
+}
+
+
+#gameInformation {
+    display: flex;
+    justify-content: space-between;
+}
+
+#gameInformation div {
+    margin:  10px;
+    border : 2px solid black;
+}
+
+#gameInformation div p {
+    margin:  10px;
+    
+}

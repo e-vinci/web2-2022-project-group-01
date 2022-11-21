@@ -8,6 +8,8 @@ let heightCanvas;
 let canvasContext;
 let x;
 let y;
+// eslint-disable-next-line import/no-mutable-exports
+let score = 0;
 
 function setCanvasContextAndSize() {
   canvas = document.querySelector('#gameCanvas');
@@ -43,20 +45,28 @@ function drawRectanglesAtRandomLocations() {
   canvasContext.beginPath();
   canvasContext.arc(x, y, radius, 0, 2 * Math.PI);
   canvasContext.fill();
-
 }
 
 function onClickForm(e) {
-  const xPosReal= x+canvas.offsetLeft;
-  const yPosReal= y+canvas.offsetTop;
+  const xPosReal = x + canvas.offsetLeft;
+  const yPosReal = y + canvas.offsetTop;
 
-  if ((
-    (e.clientX >= xPosReal && e.clientX <= xPosReal + radius) || (e.clientX<=xPosReal && e.clientX >= xPosReal-radius)) 
-    && ((e.clientY >= yPosReal && e.clientY <= yPosReal + radius ) || (e.clientY<=yPosReal && e.clientY>=yPosReal-radius))) {
-    console.log(true);
+  if (
+    ((e.clientX >= xPosReal && e.clientX <= xPosReal + radius) ||
+      (e.clientX <= xPosReal && e.clientX >= xPosReal - radius)) &&
+    ((e.clientY >= yPosReal && e.clientY <= yPosReal + radius) ||
+      (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
+  ) {
+    refreshScore();
   } else {
     console.log(false);
   }
 }
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm };
+function refreshScore() {
+  const divScore= document.querySelector('#score');
+  score += 5;
+  divScore.innerHTML=`<p> Your score : ${score} </p>`;
+}
+
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score };

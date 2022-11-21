@@ -1,4 +1,10 @@
 /* game page part*/
+
+#gamePageDiv div {
+    border-radius: 20px;
+}
+
+
 #gamePageDiv{
     margin: 30px 100px;
 }
@@ -23,4 +29,26 @@
 #gameInformation div p {
     margin:  10px;
     
+}
+
+#animationDiv{
+    background-color: rgb(34, 34, 34);
+    height: auto;
+    width: 25%;
+}
+
+#animationDiv p {
+    color: aliceblue;
+    font-size: large;
+}
+
+#start{
+    display: flex;
+    justify-self: center;
+    margin: auto;
+}
+
+#start p{
+    font-size:x-large;
+    margin: 5px;
 }

@@ -58,9 +58,7 @@ function onClickForm(e) {
       (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
   ) {
     refreshScore();
-  } else {
-    console.log(false);
-  }
+  } 
 }
 
 function refreshScore() {

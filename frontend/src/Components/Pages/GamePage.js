@@ -54,15 +54,13 @@ function renderPlayZone() {
   main.appendChild(divGamePage);
 }
 
-function removePotentialVerticalAndHorizontalScrollbars() {
-  body.style.overflow = 'hidden';
-}
 
 function testAnime() {
+  const divCanvas = document.querySelector('#gameDiv');
   // faire en sorte qu'il s'arrete au dessus
   anime({
     targets: '#animationDiv',
-    translateX: window.innerWidth / 2,
+    translateX: divCanvas.offsetWidth/2,
     // translateY:250,
     direction: 'alternate',
     loop: true,

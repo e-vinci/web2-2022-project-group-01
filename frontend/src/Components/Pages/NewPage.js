@@ -18,5 +18,4 @@ function renderGoBackHomeButton() {
   main.appendChild(submit);
 }
 
-
 export default NewPage;

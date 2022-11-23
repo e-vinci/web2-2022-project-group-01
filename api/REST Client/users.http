@@ -2,3 +2,13 @@
 
 ### Read all users
 GET {{baseUrl}}/users
+
+
+### Create a pizza
+POST {{baseUrl}}/users/addScore
+Content-Type: application/json
+
+{
+    "user":1,
+    "score":1000
+}

@@ -53,8 +53,17 @@
   font-size: large;
 }
 
-#start p {
-  font-size: x-large;
+
+#buttonDiv button {
+  margin: 5px;
+}
+#startButton p {
+  font-size: large;
+  margin: 5px;
+}
+
+#persoButton p {
+  font-size: large;
   margin: 5px;
 }
 

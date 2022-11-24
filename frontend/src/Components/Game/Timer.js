@@ -1,6 +1,7 @@
+/* eslint-disable import/no-mutable-exports */
 import { score } from './FormSpawner';
 // eslint-disable-next-line import/no-cycle
-import {intervalId} from '../Pages/GamePage'
+import { intervalId } from '../Pages/GamePage';
 
 let time = 10;
 
@@ -9,8 +10,8 @@ function timerUpdate() {
     const divCanvas = document.querySelector('#gameDiv');
     divCanvas.innerHTML = `<p> GAME FINISH your score :  ${score}</p>`;
     showDivButton();
-     // hideAnimation();
-    clearInterval(intervalId)
+    // hideAnimation();
+    clearInterval(intervalId);
     return;
   }
   time -= 1;
@@ -19,8 +20,10 @@ function timerUpdate() {
 }
 
 function showDivButton() {
-  const buttonStart = document.querySelector('#buttonDiv');
-  buttonStart.style.display = '';
+  const buttonContainer = document.querySelector('#buttonContainer');
+  buttonContainer.style.display = '';
+  const buttonStart = document.querySelector('#startButton');
+  buttonStart.innerHTML = 'Restart';
 }
 /*
 function hideAnimation(){
@@ -33,4 +36,11 @@ function initTimer() {
   time = 10;
 }
 
-export { initTimer, timerUpdate };
+function updateTime(addTime) {
+  time = addTime;
+  const timerDiv=document.querySelector("#timer")
+  timerDiv.innerHTML=`<p> Time left : ${time} second  </p>`
+  console.log("test");
+}
+
+export { initTimer, timerUpdate, updateTime, time };

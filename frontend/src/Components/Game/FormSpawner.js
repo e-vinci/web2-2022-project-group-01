@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-const radius = 40;
+let radius = 20;
 const color = 'dark';
 let canvas;
 let widthCanvas;
@@ -38,7 +38,6 @@ function clearFrame() {
 
 function drawRectanglesAtRandomLocations() {
   canvasContext.fillStyle = color;
-  // probleme de depassement de l'espace des canvas donc la forme n'est pas entière
   x = Math.random() * (widthCanvas - radius * 2);
   y = Math.random() * (heightCanvas - radius * 2);
 
@@ -72,4 +71,9 @@ function initScore() {
   score = 0;
 }
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore };
+function updateSize(size){
+  radius=parseInt(size,10);
+  setCanvasContextAndSize();
+}
+
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore , updateSize };

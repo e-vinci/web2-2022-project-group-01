@@ -38,9 +38,9 @@ function initTimer() {
 
 function updateTime(addTime) {
   time = addTime;
-  const timerDiv=document.querySelector("#timer")
-  timerDiv.innerHTML=`<p> Time left : ${time} second  </p>`
-  console.log("test");
+  const timerDiv = document.querySelector('#timer');
+  timerDiv.innerHTML = `<p> Time left : ${time} second  </p>`;
+  console.log('test');
 }
 
 export { initTimer, timerUpdate, updateTime, time };

@@ -112,8 +112,8 @@ function testAnime() {
 
 function startGame(e) {
   e.preventDefault();
-  if(time===0){
-    initTimer()
+  if (time === 0) {
+    initTimer();
   }
   initScore();
   initPlayGround();
@@ -171,7 +171,7 @@ function personnalisation(e) {
   const m = document.querySelector('#size').value;
   if (t !== undefined && m !== undefined) {
     updateTime(t);
-    updateSize(m)
+    updateSize(m);
   }
 
   console.log('testest');

@@ -71,9 +71,9 @@ function initScore() {
   score = 0;
 }
 
-function updateSize(size){
-  radius=parseInt(size,10);
+function updateSize(size) {
+  radius = parseInt(size, 10);
   setCanvasContextAndSize();
 }
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore , updateSize };
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, updateSize };

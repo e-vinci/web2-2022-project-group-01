@@ -1,54 +1,91 @@
 /* game page part*/
 
 #gamePageDiv div {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
-
-#gamePageDiv{
-    margin: 30px 100px;
+#gamePageDiv {
+  margin: 30px 100px;
 }
 
 #gameDiv {
-    margin:  10px;
-    border : 2px solid black;
-    height: 400px;
+  margin: 10px;
+  height: 400px;
 }
-
 
 #gameInformation {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-#gameInformation div {
-    margin:  10px;
-    border : 2px solid black;
+.divBorderWhite {
+  margin: 10px;
+  border: 2px solid white;
 }
 
-#gameInformation div p {
-    margin:  10px;
-    
+.divBorderWhite p {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#animationDiv{
-    background-color: rgb(34, 34, 34);
-    height: auto;
-    width: 25%;
+.divBorder {
+  margin: 10px;
+  border: 2px solid black;
+}
+
+.divBorder p {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#animationDiv {
+  background-color: rgb(34, 34, 34);
+  height: auto;
+  width: 25%;
 }
 
 #animationDiv p {
-    color: aliceblue;
-    font-size: large;
+  color: aliceblue;
+  font-size: large;
 }
 
-#start{
-    display: flex;
-    justify-self: center;
-    margin: auto;
+#start p {
+  font-size: x-large;
+  margin: 5px;
 }
 
-#start p{
-    font-size:x-large;
-    margin: 5px;
+#divHome{
+  margin: auto;
+  margin-top: 10%;
+  display: flex;
+  width: 15%;
+}
+
+#divHome2{
+  margin: auto;
+  display: flex;
+  width: 15%;
+}
+
+.btnClassed{
+  width: 100%;
+  height: 100%;
+}
+.buttonClass {
+  color: orangered;
+  background-color: black;
+}
+
+#buttonDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#divPerso{
+ display: flex;
+  justify-content: center;
 }

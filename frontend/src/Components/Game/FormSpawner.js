@@ -58,13 +58,18 @@ function onClickForm(e) {
       (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
   ) {
     refreshScore();
-  } 
+    drawOneFrame();
+  }
 }
 
 function refreshScore() {
-  const divScore= document.querySelector('#score');
+  const divScore = document.querySelector('#score');
   score += 5;
-  divScore.innerHTML=`<p> Your score : ${score} </p>`;
+  divScore.innerHTML = `<p> Your score : ${score} </p>`;
 }
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score };
+function initScore() {
+  score = 0;
+}
+
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore };

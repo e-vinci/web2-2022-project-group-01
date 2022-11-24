@@ -1,12 +1,36 @@
-let time = 45;
+import { score } from './FormSpawner';
+// eslint-disable-next-line import/no-cycle
+import {intervalId} from '../Pages/GamePage'
 
-function timerUpdate(){
-    if(time===0){
-        return;
-    }
-    time -=1;
-    const divTimer= document.querySelector('#timer');
-    divTimer.innerHTML=`<p> Time left : ${time} second  </p>`;
+let time = 10;
+
+function timerUpdate() {
+  if (time === 0) {
+    const divCanvas = document.querySelector('#gameDiv');
+    divCanvas.innerHTML = `<p> GAME FINISH your score :  ${score}</p>`;
+    showDivButton();
+     // hideAnimation();
+    clearInterval(intervalId)
+    return;
+  }
+  time -= 1;
+  const divTimer = document.querySelector('#timer');
+  divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
 }
 
-export default timerUpdate;
+function showDivButton() {
+  const buttonStart = document.querySelector('#buttonDiv');
+  buttonStart.style.display = '';
+}
+/*
+function hideAnimation(){
+  const divAnimation = document.getElementById('animationDiv');
+  divAnimation.style.display="none"
+
+}
+*/
+function initTimer() {
+  time = 10;
+}
+
+export { initTimer, timerUpdate };

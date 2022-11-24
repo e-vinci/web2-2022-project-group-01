@@ -53,13 +53,22 @@
   font-size: large;
 }
 
-#start {
-  display: flex;
-  justify-self: center;
-  margin: auto;
-}
-
 #start p {
   font-size: x-large;
   margin: 5px;
+}
+
+.buttonClass {
+  color: orangered;
+  background-color: black;
+}
+
+#buttonDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#divPerso{
+ display: flex;
+  justify-content: center;
 }

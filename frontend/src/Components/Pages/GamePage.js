@@ -1,3 +1,4 @@
+/* eslint-disable import/no-mutable-exports */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -5,29 +6,18 @@ import anime from 'animejs/lib/anime.es';
 import mojs from '@mojs/core';
 import { clearPage } from '../../utils/render';
 import { drawOneFrame, setCanvasContextAndSize, initScore } from '../Game/FormSpawner';
+// eslint-disable-next-line import/no-cycle
 import { timerUpdate, initTimer } from '../Game/Timer';
 
 const main = document.querySelector('main');
-const body = document.querySelector('body');
+let intervalId = 0;
 
 const GamePage = () => {
   clearPage();
   renderPlayZone();
-  color();
   setCanvasContextAndSize();
+  startPersonnalisation();
 };
-
-function color() {
-  if (main.style.backgroundColor > '#4B0B0B') {
-    const border = document.querySelectorAll('.divBorder');
-    console.log(border);
-    border.forEach((element) => {
-      console.log('ok');
-      // eslint-disable-next-line no-param-reassign
-      element.className = 'divBorderWhite';
-    });
-  }
-}
 
 function renderPlayZone() {
   const divGamePage = document.createElement('div');
@@ -57,21 +47,40 @@ function renderPlayZone() {
   divCanvas.innerHTML = '<canvas id="gameCanvas"/>';
   divGamePage.appendChild(divCanvas);
 
-  const divAnimation = document.createElement('div');
-  divAnimation.id = 'animationDiv';
-  divAnimation.innerHTML += '<p> you are actually playing, DO YOUR BEST </p>';
-  divGamePage.appendChild(divAnimation);
-
-  const button = document.createElement('button');
-  button.type = 'submit';
-  button.id = 'start';
-  button.innerHTML = '<p> Start </p> ';
-  button.addEventListener('click', startGame);
-  divGamePage.appendChild(button);
 
   main.appendChild(divGamePage);
 }
 
+function startPersonnalisation() {
+  const divGamePage = document.getElementById('gamePageDiv');
+  const divButton = document.createElement('div');
+  divButton.id='buttonDiv';
+
+  const buttonStart = document.createElement('button');
+  buttonStart.type = 'submit';
+  buttonStart.id = 'startButton';
+  buttonStart.className='buttonClass btn btn-primary'
+  buttonStart.innerHTML = '<p> Start </p> ';
+
+  divButton.appendChild(buttonStart);
+
+  if(true){
+    const buttonPerso = document.createElement('button');
+    buttonPerso.type = 'submit';
+    buttonPerso.id = 'persoButton';
+    buttonPerso.className='buttonClass btn btn-primary'
+    buttonPerso.innerHTML = '<p> personnalisé </p> ';
+    divButton.appendChild(buttonPerso)
+    buttonPerso.addEventListener('click', displayPerso);
+
+  }
+
+
+
+  buttonStart.addEventListener('click', startGame);
+  divGamePage.appendChild(divButton);
+}
+/*
 function testAnime() {
   const divCanvas = document.querySelector('#gameDiv');
   // faire en sorte qu'il s'arrete au dessus
@@ -84,30 +93,31 @@ function testAnime() {
     easing: 'spring(80, 80, 80, 0)',
   });
 }
-
-function animationPlaying() {
-  const divGamePage = document.createElement('div');
+*/
+/* function animationPlaying() {
+  const divGamePage = document.querySelector('#gamePageDiv');
   const divAnimation = document.createElement('div');
   divAnimation.id = 'animationDiv';
   divAnimation.innerHTML += '<p> you are actually playing, DO YOUR BEST </p>';
   divGamePage.appendChild(divAnimation);
-}
+} */
 
 function startGame(e) {
+  console.log('test444');
   e.preventDefault();
   initScore();
   initTimer();
   initPlayGround();
   hideButton();
-  animationPlaying();
+  // animationPlaying();
   drawOneFrame();
-  setInterval(timerUpdate, 1000);
-  testAnime();
+  intervalId = setInterval(timerUpdate, 1000);
+  // testAnime();
 }
 
 function hideButton() {
-  const buttonStart = document.querySelector('#start');
-  buttonStart.style.display = 'none';
+  const divButton = document.querySelector('#buttonDiv');
+  divButton.style.display = 'none';
 }
 
 function initPlayGround() {
@@ -116,6 +126,29 @@ function initPlayGround() {
   setCanvasContextAndSize();
 }
 
+
+function displayPerso(e){
+  e.preventDefault();
+  const divGamePage = document.getElementById('gamePageDiv');
+  const divPerso= document.createElement('div');
+  divPerso.id="divPerso"
+  divPerso.innerHTML=`  
+  <form>
+    <div class="form-group">
+      <label for="time">Time</label>
+      <input type="number" class="form-control" id="time" >
+    </div>  
+    <div class="form-group">
+      <label for="time">Size</label>
+      <input type="number" class="form-control" id="size" >
+    </div>
+    <button type="submit" class="buttonClass btn btn-primary">Submit</button>
+  </form>
+  
+  `
+  console.log("resresrres");
+  divGamePage.appendChild(divPerso)
+}
 /*
 const OPTS = {
   fill:           'none',
@@ -168,4 +201,4 @@ document.addEventListener( 'click', (e) => {
 });
 */
 
-export default GamePage;
+export { GamePage, intervalId };

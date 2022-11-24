@@ -1,4 +1,6 @@
 import { score } from './FormSpawner';
+// eslint-disable-next-line import/no-cycle
+import {intervalId} from '../Pages/GamePage'
 
 let time = 10;
 
@@ -6,7 +8,9 @@ function timerUpdate() {
   if (time === 0) {
     const divCanvas = document.querySelector('#gameDiv');
     divCanvas.innerHTML = `<p> GAME FINISH your score :  ${score}</p>`;
-    showButtonRestart();
+    showDivButton();
+     // hideAnimation();
+    clearInterval(intervalId)
     return;
   }
   time -= 1;
@@ -14,12 +18,17 @@ function timerUpdate() {
   divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
 }
 
-function showButtonRestart() {
-  const buttonStart = document.querySelector('#start');
+function showDivButton() {
+  const buttonStart = document.querySelector('#buttonDiv');
   buttonStart.style.display = '';
-  buttonStart.innerHTML = '<p> restart </p>';
 }
+/*
+function hideAnimation(){
+  const divAnimation = document.getElementById('animationDiv');
+  divAnimation.style.display="none"
 
+}
+*/
 function initTimer() {
   time = 10;
 }

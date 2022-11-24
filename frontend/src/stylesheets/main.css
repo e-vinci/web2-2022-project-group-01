@@ -63,3 +63,21 @@
   font-size: x-large;
   margin: 5px;
 }
+
+#divHome{
+  margin: auto;
+  margin-top: 10%;
+  display: flex;
+  width: 15%;
+}
+
+#divHome2{
+  margin: auto;
+  display: flex;
+  width: 15%;
+}
+
+.btnClassed{
+  width: 100%;
+  height: 100%;
+}

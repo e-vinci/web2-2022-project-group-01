@@ -1,23 +1,50 @@
+/* eslint-disable import/newline-after-import */
+import Navigate from '../Router/Navigate';
 const HomePage = () => {
   const main = document.querySelector('main');
-  
-  // buttonsHomePage();
-  
+
+
+
   const div = document.createElement("div");
   const div2 = document.createElement("div");
+  const div3 = document.createElement("div");
 
+  // Ranked game button
   div.id = 'divHome'
   div.innerHTML = `       
   <button type="submit" class="buttonClass Class btn btn-primary  ">
   Partie Classées
-  </button> `
+  </button> `;
+  div.addEventListener('click', () => {
+    Navigate('/game');
+  });
   main.appendChild(div);
-  
+
+  // Quick game button
   div2.id = 'divHome2'
-  div2.innerHTML = `<button type="submit" class="buttonClass Class btn btn-primary  ">
+  div2.innerHTML = `
+  <button type="submit" class="buttonClass Class btn btn-primary  ">
   Partie rapide
-  </button> `
+  </button>`
+  div2.addEventListener('click', () => {
+    Navigate('/game');
+  });
   main.appendChild(div2);
+
+  // Tutorial button
+
+  div3.id = 'divHome2'
+  div3.innerHTML = `
+    <button type="submit" class="buttonClass Class btn btn-primary  ">
+    Tutorial
+    </button>`
+  div3.addEventListener('click', () => {
+    Navigate('/game');
+  });
+  main.appendChild(div3);
+
+
+
 
 };
 /** 

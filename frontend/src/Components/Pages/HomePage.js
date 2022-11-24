@@ -11,6 +11,9 @@ const HomePage = () => {
 
   // Ranked game button
   div.id = 'divHome'
+
+
+  div.id = 'divHome';
   div.innerHTML = `       
   <button type="submit" class="buttonClass Class btn btn-primary  ">
   Partie Classées
@@ -42,7 +45,6 @@ const HomePage = () => {
     Navigate('/game');
   });
   main.appendChild(div3);
-
 
 
 

@@ -8,9 +8,9 @@
 import anime from 'animejs/lib/anime.es';
 import mojs from '@mojs/core';
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore } from '../Game/FormSpawner';
+import { drawOneFrame, setCanvasContextAndSize, initScore, updateSize } from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
-import { timerUpdate, initTimer } from '../Game/Timer';
+import { timerUpdate, time, updateTime, initTimer } from '../Game/Timer';
 
 const main = document.querySelector('main');
 let intervalId = 0;
@@ -32,7 +32,7 @@ function renderPlayZone() {
   const divTimer = document.createElement('div');
   divTimer.id = 'timer';
   divTimer.className = 'divBorder';
-  divTimer.innerHTML = `<p> Time left : 45 second  </p>`;
+  divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
 
   const divScore = document.createElement('div');
   divScore.id = 'score';
@@ -50,38 +50,46 @@ function renderPlayZone() {
   divCanvas.innerHTML = '<canvas id="gameCanvas"/>';
   divGamePage.appendChild(divCanvas);
 
-
   main.appendChild(divGamePage);
 }
 
 function startPersonnalisation() {
   const divGamePage = document.getElementById('gamePageDiv');
+  const buttonContainer = document.createElement('div');
+  buttonContainer.id = 'buttonContainer';
   const divButton = document.createElement('div');
-  divButton.id='buttonDiv';
+  divButton.id = 'buttonDiv';
 
   const buttonStart = document.createElement('button');
   buttonStart.type = 'submit';
   buttonStart.id = 'startButton';
-  buttonStart.className='buttonClass btn btn-primary'
+  buttonStart.className = 'buttonClass btn btn-primary';
   buttonStart.innerHTML = '<p> Start </p> ';
 
-  divButton.appendChild(buttonStart);
+  const buttonPerso = document.createElement('button');
+  buttonPerso.type = 'submit';
+  buttonPerso.id = 'persoButton';
+  buttonPerso.className = 'buttonClass btn btn-primary';
+  buttonPerso.innerHTML = '<p> personnalisé </p> ';
 
-  if(true){
-    const buttonPerso = document.createElement('button');
-    buttonPerso.type = 'submit';
-    buttonPerso.id = 'persoButton';
-    buttonPerso.className='buttonClass btn btn-primary'
-    buttonPerso.innerHTML = '<p> personnalisé </p> ';
-    divButton.appendChild(buttonPerso)
-    buttonPerso.addEventListener('click', displayPerso);
-
+  if (true) {
+    buttonPerso.style.display = '';
   }
 
+  const divPerso = document.createElement('div');
+  divPerso.style.display = 'none';
+  divPerso.id = 'divPerso';
 
-
+  buttonPerso.addEventListener('click', displayPerso);
   buttonStart.addEventListener('click', startGame);
-  divGamePage.appendChild(divButton);
+
+  divButton.appendChild(buttonStart);
+  divButton.appendChild(buttonPerso);
+
+  buttonContainer.appendChild(divButton);
+  buttonContainer.appendChild(divPerso);
+
+  divGamePage.appendChild(buttonContainer);
 }
 /*
 function testAnime() {
@@ -106,10 +114,11 @@ function testAnime() {
 } */
 
 function startGame(e) {
-  console.log('test444');
   e.preventDefault();
+  if (time === 0) {
+    initTimer();
+  }
   initScore();
-  initTimer();
   initPlayGround();
   hideButton();
   // animationPlaying();
@@ -119,8 +128,8 @@ function startGame(e) {
 }
 
 function hideButton() {
-  const divButton = document.querySelector('#buttonDiv');
-  divButton.style.display = 'none';
+  const buttonContainer = document.querySelector('#buttonContainer');
+  buttonContainer.style.display = 'none';
 }
 
 function initPlayGround() {
@@ -129,28 +138,47 @@ function initPlayGround() {
   setCanvasContextAndSize();
 }
 
-
-function displayPerso(e){
+function displayPerso(e) {
   e.preventDefault();
-  const divGamePage = document.getElementById('gamePageDiv');
-  const divPerso= document.createElement('div');
-  divPerso.id="divPerso"
-  divPerso.innerHTML=`  
-  <form>
-    <div class="form-group">
-      <label for="time">Time</label>
-      <input type="number" class="form-control" id="time" >
-    </div>  
-    <div class="form-group">
-      <label for="time">Size</label>
-      <input type="number" class="form-control" id="size" >
-    </div>
-    <button type="submit" class="buttonClass btn btn-primary">Submit</button>
-  </form>
+  const divPerso = document.querySelector('#divPerso');
+  if (divPerso.style.display === 'none') {
+    divPerso.style.display = '';
+    divPerso.innerHTML = `  
+    <form id = "persoForm" >
+      <div class="form-group">
+        <label for="time">Time</label>
+        <input type="number" class="form-control" id="time" >
+      </div>  
+      <div class="form-group">
+        <label for="time">Size</label>
+        <input type="number" class="form-control" id="size" >
+      </div>
+      <button type="submit" class="buttonClass btn btn-primary">Submit</button>
+    </form>
   
-  `
-  console.log("resresrres");
-  divGamePage.appendChild(divPerso)
+  `;
+
+    const form = document.querySelector('#persoForm');
+    form.addEventListener('submit', personnalisation);
+  } else {
+    divPerso.style.display = 'none';
+  }
+}
+
+function personnalisation(e) {
+  e.preventDefault();
+  const divPerso = document.querySelector('#divPerso');
+  divPerso.style.display = 'none';
+  console.log(divPerso);
+  const t = document.querySelector('#time').value;
+  const m = document.querySelector('#size').value;
+
+  if (t !== '' && m !== '') {
+    updateTime(t);
+    updateSize(m);
+  }
+
+
 }
 /*
 const OPTS = {

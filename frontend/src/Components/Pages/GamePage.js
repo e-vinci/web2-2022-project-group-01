@@ -169,12 +169,13 @@ function personnalisation(e) {
   console.log(divPerso);
   const t = document.querySelector('#time').value;
   const m = document.querySelector('#size').value;
-  if (t !== undefined && m !== undefined) {
+
+  if (t !== '' && m !== '') {
     updateTime(t);
     updateSize(m);
   }
 
-  console.log('testest');
+
 }
 /*
 const OPTS = {

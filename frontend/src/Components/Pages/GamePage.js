@@ -17,6 +17,7 @@ const GamePage = () => {
   renderPlayZone();
   setCanvasContextAndSize();
   startPersonnalisation();
+  // saveScoreButton();
 };
 
 function renderPlayZone() {
@@ -87,6 +88,24 @@ function startPersonnalisation() {
   buttonContainer.appendChild(divPerso);
 
   divGamePage.appendChild(buttonContainer);
+}
+
+function saveScoreButton(){
+  const divGame = document.querySelector('#gameDiv');
+  const SaveDiv = document.createElement('div')
+  SaveDiv.id = "saveDiv";
+  const texte = document.createElement('p')
+  texte.id='scoreEndDisplay'
+  const buttonSave= document.createElement('button')
+  buttonSave.id = 'buttonSave';
+  buttonSave.className = 'buttonClass btn btn-primary';
+  buttonSave.innerHTML = '<p> enregistrer </p> ';
+  
+  SaveDiv.style.display='none';
+
+  SaveDiv.appendChild(texte)
+  SaveDiv.appendChild(buttonSave)
+  divGame.appendChild(SaveDiv)
 }
 /*
 function testAnime() {
@@ -166,7 +185,7 @@ function personnalisation(e) {
   e.preventDefault();
   const divPerso = document.querySelector('#divPerso');
   divPerso.style.display = 'none';
-  console.log(divPerso);
+
   const t = document.querySelector('#time').value;
   const m = document.querySelector('#size').value;
 
@@ -228,5 +247,7 @@ document.addEventListener( 'click', (e) => {
   
 });
 */
+
+
 
 export { GamePage, intervalId };

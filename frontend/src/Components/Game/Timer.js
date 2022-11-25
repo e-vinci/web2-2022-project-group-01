@@ -8,7 +8,17 @@ let time = 10;
 function timerUpdate() {
   if (time === 0) {
     const divCanvas = document.querySelector('#gameDiv');
-    divCanvas.innerHTML = `<p> GAME FINISH your score :  ${score}</p>`;
+    divCanvas.innerHTML = ` 
+    <div id ="divEndGameDisplay">
+      <div id="textScore">
+        <p> Your score is ${score} </p>
+      </div>
+      <div>
+        <button type="submit" class = "buttonClass btn btn-primary">
+        <p> Save Score </p>
+      </div>
+    </div>
+    `
     showDivButton();
     // hideAnimation();
     clearInterval(intervalId);

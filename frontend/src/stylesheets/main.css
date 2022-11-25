@@ -124,3 +124,14 @@
   display: flex;
   justify-content: center;
 }
+
+#divEndGameDisplay{
+  display: table;
+  margin: auto;
+  height: 200%;
+}
+
+#divEndGameDisplay div {
+    display: flex;
+    justify-content: center;
+}

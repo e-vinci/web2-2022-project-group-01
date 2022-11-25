@@ -1,9 +1,15 @@
-const rankedGame = document.createElement('div');
+let typeGame;
 
-const getRankedGame  = () => {
+const getTypeGame  = () => typeGame;
 
- rankedGame.innerHTML = `<a class="nav-link" href="#" data-uri="/game">Quick Game</a>`
- return rankedGame;
+const setTypeGame = (game) => {    
+    typeGame = game;
 };
 
-export default getRankedGame;
+const isTypeGame = () => typeGame !== undefined;
+
+const clearTypeGame = () => {
+  typeGame = undefined;
+};
+
+export {getTypeGame, setTypeGame, isTypeGame, clearTypeGame};

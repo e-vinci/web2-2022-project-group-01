@@ -1,5 +1,6 @@
 let typeGame;
 
+
 const getTypeGame  = () => typeGame;
 
 const setTypeGame = (game) => {    

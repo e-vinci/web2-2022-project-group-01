@@ -21,7 +21,7 @@ function buttonTypeGame() {
   div.id = 'divHome';
   div.innerHTML = `       
   <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-  Partie Classées
+  Ranked Game
   </button> `;
   div.addEventListener('click', () => {
     if (isAuthenticated()){
@@ -38,7 +38,7 @@ function buttonTypeGame() {
   div2.id = 'divHome2'
   div2.innerHTML = `
   <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-  Partie rapide
+  Quick Game
   </button>`
   div2.addEventListener('click', () => {
     Navigate('/game');
@@ -53,7 +53,7 @@ function buttonTypeGame() {
     Tutorial
     </button>`
   div3.addEventListener('click', () => {
-    Navigate('/');
+    Navigate('/tutoriel');
   });
   main.appendChild(div3);
 

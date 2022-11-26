@@ -21,8 +21,10 @@ router.post('/login', (req, res) => {
 
   const userFound = getUser(userUsername);
 
-  if(!userFound) return undefined;
-  if(userFound.password !== userPassword) return undefined;
+  // il faut que tu return un res.send pour que on ai un message
+  // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
+  if(!userFound) return res.send('aucun user sous ce nom');
+  if(userFound.password !== userPassword) return res.send('mauvais mdp');
   
   const token = jwt.sign(
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
@@ -35,7 +37,7 @@ router.post('/login', (req, res) => {
     token,
   };
   res.json(authenticatedUser);
-  
+
 });
 
 router.post('/register', (req, res) => {
@@ -46,8 +48,9 @@ router.post('/register', (req, res) => {
   if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
   
   const userFound = getUser(userUsername);
-  
-  if (userFound) return undefined;
+  // il faut que tu return un res.send pour que on ai un message
+  // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
+  if (userFound) return res.send('il y a deja un user avec ce pseudo');
 
   addUser(userUsername,userPassword);
 

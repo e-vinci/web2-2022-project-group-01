@@ -1,15 +1,26 @@
+/* eslint-disable consistent-return */
+const GAME_TYPE='';
+
 let typeGame;
 
 
-const getTypeGame  = () => typeGame;
+const getTypeGame  = () => {
+    typeGame=localStorage.getItem(GAME_TYPE);
 
-const setTypeGame = (game) => {    
-    typeGame = game;
+    if(typeGame === undefined)return;
+
+    return typeGame;  
+}
+
+
+const setTypeGame = (game) => { 
+    localStorage.setItem(GAME_TYPE,game)
 };
 
 const isTypeGame = () => typeGame !== undefined;
 
 const clearTypeGame = () => {
+  localStorage.removeItem(GAME_TYPE)
   typeGame = undefined;
 };
 

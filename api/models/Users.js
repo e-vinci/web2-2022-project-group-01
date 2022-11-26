@@ -1,6 +1,10 @@
 /* eslint-disable camelcase */
 const db=require("./config_db");
 
+module.exports.addUser = (username, password, level , xp) => {
+db.prepare('INSERT INTO users(username, password, level, xp) VALUES (?,?,?,?)').run(username,password,level,xp);
+}
+
 module.exports.getUsers=(userName)=> {
     const test = db.prepare("SELECT * FROM users where username LIKE (?)")
     return test.all(`%${  userName.toLowerCase()  }%`)

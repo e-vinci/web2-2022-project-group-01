@@ -1,14 +1,65 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { getUsers, getUserFriends, isFriend, addFriend } = require('../models/Users');
+const { getUsers, getUserFriends, isFriend, addFriend, addUser } = require('../models/Users');
+const { authorize} = require('../utils/auths');
 
 const router = express.Router();
+const jwtSecret = 'ilovemygame!';
+const lifetimeJwt = 24 * 60 * 60 * 1000; // 24h
 
 /* GET users listing. */
-router.get('/', (req, res) => {
+router.get('/', authorize,(req, res) => {
   res.json({ users: [{ name: 'e-baron' }] });
+});
+
+router.post('/login', (req, res) => {
+  const userUsername = req.body.username;
+  const userPassword = req.body.password;
+  const userFound = getUsers(userUsername);
+  if(!userFound) return undefined;
+  if(userFound.password !== userPassword) return undefined;
+  
+  const token = jwt.sign(
+    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+  );
+
+  const authenticatedUser = {
+    userUsername,
+    token,
+  };
+  res.json(authenticatedUser);
+});
+
+router.post('/register', (req, res) => {
+  const userUsername = req?.body?.username?.length !== 0 ? req.body.username : undefined;
+  const userPassword = req?.body?.password?.length !== 0 ? req.body.password : undefined;
+  const userLevel = 1;
+  const userXp = 0;
+  if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
+  
+  const userFound = getUsers(userUsername);
+  
+  if (userFound) return undefined;
+
+  addUser(userUsername,userPassword,userLevel,userXp);
+
+  const token = jwt.sign(
+    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+  );
+
+  const authenticatedUser = {
+    userUsername,
+    token,
+  };
+ res.json(authenticatedUser);
+
 });
 
 // add the user score

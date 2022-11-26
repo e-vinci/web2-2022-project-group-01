@@ -80,16 +80,24 @@
   margin-top: 10%;
   display: flex;
   width: 50%;
+
 }
 
 #divHome2{
   margin: auto;
   display: flex;
   width: 50%;
+  
 }
 
 #divHome3 {
   margin: auto;
+  display: flex;
+  width: 50%;
+}
+
+#divHomeConnected{
+  margin-left: auto;
   display: flex;
   width: 50%;
 }
@@ -106,6 +114,17 @@
   width: 100%;
   height: 50px;
 }
+
+#divScoreTable{
+  float: left;
+  display: flex;
+  width: 40%;
+}
+
+#divAll{
+  border: 2px solid black;
+}
+
 /*****End HomePage part********/
 
 

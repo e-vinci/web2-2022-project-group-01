@@ -9,9 +9,9 @@ const Navbar = () => {
 };
 
 function renderNavbar() {
-  const authenticatedUser = getAuthenticatedUser();
+const authenticatedUser = getAuthenticatedUser();
 
-  const anonymousUserNavbar = `
+const anonymousUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">${SITE_NAME}</a>

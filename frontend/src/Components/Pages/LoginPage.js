@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getRememberMe, setAuthenticatedUser, setRememberMe } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';

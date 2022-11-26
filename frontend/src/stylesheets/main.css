@@ -65,19 +65,41 @@
   font-size: large;
   margin: 5px;
 }
+/******HomePage part***********/
 
-#divHome {
+#divHome{
   margin: auto;
   margin-top: 10%;
   display: flex;
-  width: 15%;
+  width: 50%;
 }
 
-#divHome2 {
+#divHome2{
   margin: auto;
   display: flex;
-  width: 15%;
+  width: 50%;
 }
+
+#divHome3 {
+  margin: auto;
+  display: flex;
+  width: 50%;
+}
+
+#buttonGame{
+  font-size: x-large;
+  width: 100%;
+  height: 100px;
+
+}
+
+#buttonTutorial{
+  font-size: x-large;
+  width: 100%;
+  height: 50px;
+}
+/*****End HomePage part********/
+
 
 .btnClassed {
   width: 100%;

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const main = document.querySelector('main');
 
 // eslint-disable-next-line no-unused-vars

@@ -1,11 +1,13 @@
 /* eslint-disable import/no-mutable-exports */
 import { score } from './FormSpawner';
 // eslint-disable-next-line import/no-cycle
-import { intervalId ,saveScoreButton} from '../Pages/GamePage';
+import { intervalId ,saveScore} from '../Pages/GamePage';
+import {getTypeGame} from '../../utils/games'
 
 let time = 10;
 
 function timerUpdate() {
+  console.log(getTypeGame());
   if (time === 0) {
     const divCanvas = document.querySelector('#gameDiv');
     divCanvas.innerHTML = ` 
@@ -20,11 +22,16 @@ function timerUpdate() {
     </div>
     `
     const saveButton = document.querySelector("#saveButton")
-    saveButton.addEventListener('click', saveScoreButton);
+    saveButton.addEventListener('click', saveScore);
 
+    if(getTypeGame()==='competition'){      
+      saveButton.style.display=''
+    }else{
+      saveButton.style.display='none'
+    }
+
+    clearTime();
     showDivButton();
-    // hideAnimation();
-    clearInterval(intervalId);
     return;
   }
   time -= 1;
@@ -45,6 +52,11 @@ function hideAnimation(){
 
 }
 */
+
+function clearTime(){
+  clearInterval(intervalId);
+
+}
 function initTimer() {
   time = 10;
 }
@@ -55,4 +67,4 @@ function updateTime(addTime) {
   timerDiv.innerHTML = `<p> Time left : ${time} second  </p>`;
 }
 
-export { initTimer, timerUpdate, updateTime, time };
+export { initTimer, timerUpdate, updateTime, time , clearTime };

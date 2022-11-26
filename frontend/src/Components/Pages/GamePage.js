@@ -8,18 +8,27 @@
 import anime from 'animejs/lib/anime.es';
 import mojs from '@mojs/core';
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore, updateSize } from '../Game/FormSpawner';
+import { drawOneFrame, setCanvasContextAndSize, initScore, updateSize, score } from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
-import { timerUpdate, time, updateTime, initTimer } from '../Game/Timer';
+import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
+import { getTypeGame } from '../../utils/games';
+import { getAuthenticatedUser } from '../../utils/auths';
+import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 let intervalId = 0;
 
 const GamePage = () => {
   clearPage();
+  clearTime();
+  initTimer();
   renderPlayZone();
   setCanvasContextAndSize();
   startPersonnalisation();
+  initScore();
+  initPlayGround();
+
+
   // saveScoreButton();
 };
 
@@ -73,8 +82,8 @@ function startPersonnalisation() {
   buttonPerso.className = 'buttonClass btn btn-primary';
   buttonPerso.innerHTML = '<p> personnalisé </p> ';
 
-  if (true) {
-    buttonPerso.style.display = '';
+  if (getTypeGame()!=='quick') {
+    buttonPerso.style.display = 'none';
   }
 
   const divPerso = document.createElement('div');
@@ -93,8 +102,32 @@ function startPersonnalisation() {
   divGamePage.appendChild(buttonContainer);
 }
 
-function saveScoreButton(){
+async function saveScore(){
   console.log('ok man');
+  // const user = getAuthenticatedUser()
+  // quand la co sera faites
+  const user = 1;
+  const scoreToAdd = score;
+
+  const options ={
+    method : 'POST',
+    body : JSON.stringify({
+      user,
+      score:scoreToAdd
+    }),
+    headers:{
+      'Content-Type' : 'application/json',
+    },
+  };
+
+  const response = await fetch (`${process.env.API_BASE_URL}/users/addScore`,options);
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  const etatAdding=await response.json();
+
+  console.log('adding ? ', etatAdding);
+
+  Navigate('/')
 }
 /*
 function testAnime() {
@@ -239,4 +272,4 @@ document.addEventListener( 'click', (e) => {
 
 
 
-export { GamePage, intervalId , saveScoreButton};
+export { GamePage, intervalId , saveScore};

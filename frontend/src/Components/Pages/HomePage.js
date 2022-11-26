@@ -2,6 +2,7 @@
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 import {  isAuthenticated } from '../../utils/auths';
+import { setTypeGame } from '../../utils/games';
 // import {getTypeGame, setTypeGame, isTypeGame, clearTypeGame} from '../../utils/games';
 const main = document.querySelector('main');
 
@@ -27,7 +28,8 @@ function buttonTypeGame() {
     if (isAuthenticated()){
       Navigate('/game');
     }else{
-      Navigate('/login');
+      setTypeGame("competition")
+      Navigate('/game');
     }
       
   });
@@ -41,6 +43,7 @@ function buttonTypeGame() {
   Quick Game
   </button>`
   div2.addEventListener('click', () => {
+    setTypeGame("quick")
     Navigate('/game');
   });
   main.appendChild(div2);

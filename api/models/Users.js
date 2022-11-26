@@ -1,11 +1,18 @@
 /* eslint-disable camelcase */
 const db=require("./config_db");
 
-module.exports.addUser = (username, password, level , xp) => {
-db.prepare('INSERT INTO users(username, password, level, xp) VALUES (?,?,?,?)').run(username,password,level,xp);
+
+// pas obliger de mettre le level et xp vu qu'il commencera forcement au niv1 0xp
+module.exports.addUser = (username, password) => {
+db.prepare('INSERT INTO users(username, password, level, xp) VALUES (?,?,1,0)').run(username,password);
 }
 
-module.exports.getUsers=(userName)=> {
+module.exports.getUser = (userName) => db.prepare("SELECT * FROM users where username=(?)").get(userName);
+
+
+
+
+module.exports.searchUser=(userName)=> {
     const test = db.prepare("SELECT * FROM users where username LIKE (?)")
     return test.all(`%${  userName.toLowerCase()  }%`)
 }

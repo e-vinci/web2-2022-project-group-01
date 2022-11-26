@@ -59,8 +59,11 @@ Content-Type: application/json
     "user2":1
 }
 
-### add a user
 
+
+
+
+### add a user
 POST {{baseUrl}}/users/register
 Content-Type: application/json
 

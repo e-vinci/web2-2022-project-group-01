@@ -1,9 +1,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { getUsers, getUserFriends, isFriend, addFriend, addUser } = require('../models/Users');
+const { searchUser, getUserFriends, isFriend, addFriend, addUser ,getUser} = require('../models/Users');
 const { authorize} = require('../utils/auths');
 
 const router = express.Router();
@@ -18,7 +18,9 @@ router.get('/', authorize,(req, res) => {
 router.post('/login', (req, res) => {
   const userUsername = req.body.username;
   const userPassword = req.body.password;
-  const userFound = getUsers(userUsername);
+
+  const userFound = getUser(userUsername);
+
   if(!userFound) return undefined;
   if(userFound.password !== userPassword) return undefined;
   
@@ -26,27 +28,28 @@ router.post('/login', (req, res) => {
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
     jwtSecret, // secret used for the signature (signature part 3 of a JWT)
     { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
-  );
+   );
 
   const authenticatedUser = {
     userUsername,
     token,
   };
   res.json(authenticatedUser);
+  
 });
 
 router.post('/register', (req, res) => {
   const userUsername = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const userPassword = req?.body?.password?.length !== 0 ? req.body.password : undefined;
-  const userLevel = 1;
-  const userXp = 0;
+
+  
   if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
   
-  const userFound = getUsers(userUsername);
+  const userFound = getUser(userUsername);
   
   if (userFound) return undefined;
 
-  addUser(userUsername,userPassword,userLevel,userXp);
+  addUser(userUsername,userPassword);
 
   const token = jwt.sign(
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
@@ -77,7 +80,7 @@ router.post('/addScore',  (req, res) => {
 
 // faire le authorized pour connecter
 router.get('/getUser', (req, res) => {
-  const user= getUsers(req.query.pseudo)
+  const user= searchUser(req.query.pseudo)
   res.json(user);
 });
 

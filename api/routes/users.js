@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 const express = require('express');
 const { addGame } = require('../models/Game');
+const { getUsers, getUserFriends, isFriend, addFriend } = require('../models/Users');
 
 const router = express.Router();
 
@@ -22,5 +24,29 @@ router.post('/addScore',  (req, res) => {
   res.json('adding true');
 });
 
+// faire le authorized pour connecter
+router.get('/getUser', (req, res) => {
+  const user= getUsers(req.query.pseudo)
+  res.json(user);
+});
+
+// faire le authorized pour connecter
+router.get('/getUserFriends', (req, res) => {
+  const user= getUserFriends(req.query.id)
+  res.json(user);
+});
+
+// faire le authorized pour connecter
+router.post('/addFriend', (req, res) => {
+  const user1 = parseInt(req.body.user1,10)
+  const user2= parseInt(req.body.user2,10)
+
+  if(isFriend(user1,user2)) return res.send("deja amis");
+  if(user1===user2) return res.send("pas possible d'ajouter en amis la meme personne")
+
+  addFriend(user1,user2);
+
+  res.json('true');
+});
 
 module.exports = router;

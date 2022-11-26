@@ -3,12 +3,58 @@
 ### Read all users
 GET {{baseUrl}}/users
 
-
-### Create a pizza
+### Insert a score
 POST {{baseUrl}}/users/addScore
 Content-Type: application/json
 
 {
     "user":1,
-    "score":1000
+    "score":3333
+}
+
+
+### get all player with the pseudo
+GET {{baseUrl}}/users/getUser?pseudo=j
+
+### get all friends
+GET {{baseUrl}}/users/getUserFriends?id=1
+
+
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":1,
+    "user2":5
+}
+
+
+# should all return error 
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":1,
+    "user2":2
+}
+
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":1,
+    "user2":1
+}
+
+### add a friend
+
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":2,
+    "user2":1
 }

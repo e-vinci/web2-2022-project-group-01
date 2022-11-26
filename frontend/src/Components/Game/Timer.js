@@ -1,7 +1,7 @@
 /* eslint-disable import/no-mutable-exports */
 import { score } from './FormSpawner';
 // eslint-disable-next-line import/no-cycle
-import { intervalId } from '../Pages/GamePage';
+import { intervalId ,saveScoreButton} from '../Pages/GamePage';
 
 let time = 10;
 
@@ -14,11 +14,14 @@ function timerUpdate() {
         <p> Your score is ${score} </p>
       </div>
       <div>
-        <button type="submit" class = "buttonClass btn btn-primary">
+        <button type="submit" id = "saveButton"class = "buttonClass btn btn-primary">
         <p> Save Score </p>
       </div>
     </div>
     `
+    const saveButton = document.querySelector("#saveButton")
+    saveButton.addEventListener('click', saveScoreButton);
+
     showDivButton();
     // hideAnimation();
     clearInterval(intervalId);
@@ -50,7 +53,6 @@ function updateTime(addTime) {
   time = addTime;
   const timerDiv = document.querySelector('#timer');
   timerDiv.innerHTML = `<p> Time left : ${time} second  </p>`;
-  console.log('test');
 }
 
 export { initTimer, timerUpdate, updateTime, time };

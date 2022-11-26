@@ -13,4 +13,4 @@ dist/*
 # but (re)include specific dist directory files, e.g.
 #!frontend-essentials/step-1/dist
 # ignore the configuration of the database
-models/config_db.js
+config_db.js

@@ -94,21 +94,7 @@ function startPersonnalisation() {
 }
 
 function saveScoreButton(){
-  const divGame = document.querySelector('#gameDiv');
-  const SaveDiv = document.createElement('div')
-  SaveDiv.id = "saveDiv";
-  const texte = document.createElement('p')
-  texte.id='scoreEndDisplay'
-  const buttonSave= document.createElement('button')
-  buttonSave.id = 'buttonSave';
-  buttonSave.className = 'buttonClass btn btn-primary';
-  buttonSave.innerHTML = '<p> enregistrer </p> ';
-  
-  SaveDiv.style.display='none';
-
-  SaveDiv.appendChild(texte)
-  SaveDiv.appendChild(buttonSave)
-  divGame.appendChild(SaveDiv)
+  console.log('ok man');
 }
 /*
 function testAnime() {
@@ -253,4 +239,4 @@ document.addEventListener( 'click', (e) => {
 
 
 
-export { GamePage, intervalId };
+export { GamePage, intervalId , saveScoreButton};

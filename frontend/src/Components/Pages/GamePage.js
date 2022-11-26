@@ -8,7 +8,7 @@
 import anime from 'animejs/lib/anime.es';
 import mojs from '@mojs/core';
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore, updateSize, score } from '../Game/FormSpawner';
+import { drawOneFrame, setCanvasContextAndSize, initScore, update, score } from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
@@ -29,7 +29,6 @@ const GamePage = () => {
   initPlayGround();
 
 
-  // saveScoreButton();
 };
 
 function renderPlayZone() {
@@ -129,6 +128,7 @@ async function saveScore(){
 
   Navigate('/')
 }
+
 /*
 function testAnime() {
   const divCanvas = document.querySelector('#gameDiv');
@@ -188,8 +188,12 @@ function displayPerso(e) {
         <input type="number" class="form-control" id="time" >
       </div>  
       <div class="form-group">
-        <label for="time">Size</label>
+        <label for="size">Size</label>
         <input type="number" class="form-control" id="size" >
+      </div>
+      <div class="form-group">
+        <label for="color">Color</label>
+        <input type="color" class="form-control" id="color" >
       </div>
       <button type="submit" class="buttonClass btn btn-primary">Submit</button>
     </form>
@@ -210,10 +214,11 @@ function personnalisation(e) {
 
   const t = document.querySelector('#time').value;
   const m = document.querySelector('#size').value;
+  const c=document.querySelector("#color").value;
 
   if (t !== '' && m !== '') {
     updateTime(t);
-    updateSize(m);
+    update(m,c);
   }
 
 

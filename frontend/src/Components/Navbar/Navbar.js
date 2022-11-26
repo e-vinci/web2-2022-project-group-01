@@ -13,9 +13,11 @@ function renderNavbar() {
 const authenticatedUser = getAuthenticatedUser();
 
 const anonymousUserNavbar = `
-<nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/" id = "logo" >${SITE_NAME}</a>
+<nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+      <div class="container-fluid navbar-custom" id="navbar">
+        <div id="logo">
+        <a class="navbar-brand " href="/" id = "logo" >${SITE_NAME}</a>
+        </div>
         <button
           class="navbar-toggler"
           type="button"
@@ -46,8 +48,8 @@ const anonymousUserNavbar = `
 `;
 
   const authenticatedUserNavbar = `
-<nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+      <div class="container-fluid navbar-custom">
         <a class="navbar-brand" href="/" id="logo" >${SITE_NAME}</a>
         <button
           class="navbar-toggler"
@@ -80,6 +82,7 @@ const anonymousUserNavbar = `
   const navbar = document.querySelector('#navbarWrapper');
 
   navbar.innerHTML = isAuthenticated() ? authenticatedUserNavbar : anonymousUserNavbar;
+
   const logo = document.querySelector('#logo');
   logo.addEventListener('click',redirectHome)
 }

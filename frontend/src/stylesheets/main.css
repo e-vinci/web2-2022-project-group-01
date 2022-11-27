@@ -1,6 +1,7 @@
 /*navbar*/
 
-.navbar-custom{  background-color: orangered;
+.navbar-custom{  
+  background-color: orangered;
 }
 
 
@@ -123,7 +124,7 @@
 }
 
 #divAll{
-  border: 2px solid black;
+  border: 2px solid white;
 }
 
 /*****End HomePage part********/
@@ -158,4 +159,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#divTutorial{
+  display: flex;
+  width: 60%;
+  margin-left: 5%;
+  margin-top: 4%;
+  background-color: rgb(130, 196, 253);
+  border-radius: 5%;
+  border: solid;
+  border-color: rgb(6, 135, 248);
 }

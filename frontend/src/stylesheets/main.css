@@ -19,6 +19,7 @@
 #gameDiv {
   margin: 10px;
   height: 400px;
+  
 }
 
 #gameInformation {
@@ -156,4 +157,5 @@
 #divEndGameDisplay div {
     display: flex;
     justify-content: center;
+    align-items: center;
 }

@@ -15,11 +15,11 @@ router.get('/', authorize,(req, res) => {
   res.json({ users: [{ name: 'e-baron' }] });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const userUsername = req.body.username;
   const userPassword = req.body.password;
 
-  const userFound = getUser(userUsername);
+  const userFound = await getUser(userUsername);
 
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
@@ -36,23 +36,23 @@ router.post('/login', (req, res) => {
     userUsername,
     token,
   };
-  res.json(authenticatedUser);
+ return res.json(authenticatedUser);
 
 });
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   const userUsername = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const userPassword = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
   
   if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
   
-  const userFound = getUser(userUsername);
+  const userFound = await getUser(userUsername);
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
   if (userFound) return res.send('il y a deja un user avec ce pseudo');
 
-  addUser(userUsername,userPassword);
+ await addUser(userUsername,userPassword);
 
   const token = jwt.sign(
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
@@ -64,7 +64,7 @@ router.post('/register', (req, res) => {
     userUsername,
     token,
   };
- res.json(authenticatedUser);
+ return res.json(authenticatedUser);
 
 });
 

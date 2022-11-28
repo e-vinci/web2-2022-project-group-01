@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { getUsers, getUserFriends, isFriend, addFriend } = require('../models/Users');
+const { getUsers, getUserFriends, isFriend, addFriend, getUsersScore } = require('../models/Users');
 
 const router = express.Router();
 
@@ -47,6 +47,12 @@ router.post('/addFriend', (req, res) => {
   addFriend(user1,user2);
 
   res.json('true');
+});
+
+// afficher la table des meilleurs scores
+router.get('/getUsersScore', (req, res) => {
+  const user = getUsersScore();
+  res.json(user);
 });
 
 module.exports = router;

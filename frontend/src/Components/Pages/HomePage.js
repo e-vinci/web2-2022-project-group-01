@@ -1,9 +1,12 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/newline-after-import */
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 import { isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
+import readUsersScore from '../../models/games';
 
 const main = document.querySelector('main');
 const divAll = document.createElement("div");
@@ -14,15 +17,25 @@ const divScoreTable = document.createElement('div');
 
 
 
-const HomePage = () => {
+const HomePage = async () => {
   clearPage();
 
-  if (isAuthenticated()) {
+  
+
+  if (!isAuthenticated()) {
+    const usersScore = await readUsersScore();
+    const table = getScoreTable(usersScore);
+    divScoreTable.id = 'divScoreTable';
+    divScoreTable.innerHTML = table;
+    divAll.appendChild(divScoreTable);
+    main.appendChild(divAll);
     getHomePageConnected();
   }
+
   else {
     getHomePageDisconnected();
   }
+  
 };
 
 
@@ -80,9 +93,6 @@ function getHomePageDisconnected() {
 // If the user is connected
 function getHomePageConnected() {
 
-  // Score Table
-  getScoreTable();
-
   // 'div' with the game buttons and the score table
   divAll.id = 'divAll';
 
@@ -128,18 +138,21 @@ function getHomePageConnected() {
     Navigate('/tutoriel');
   });
   divAll.appendChild(div3);
-
-
+/** 
+  divScoreTable.id = 'divScoreTable';
+  divScoreTable.innerHTML = scoreTable;
+  divAll.appendChild(divScoreTable);
   main.appendChild(divAll);
-
+*/
 };
 
-function getScoreTable() {
-  const scoreTable = `
+function getScoreTable(playersScore) {
+  let numPlayer = 1;
+  let scoreTable = `
           <table class="table table-striped">
           <thead class="table-dark">
             <tr>
-              <th colspan="3" style="text-align: center;">Score</th>
+              <th colspan="3" style="text-align: center;">Top Score</th>
             </tr>
           </thead>
           <tbody>
@@ -147,12 +160,19 @@ function getScoreTable() {
               <th>N°</th>
               <th>Player</th>
               <th>Score</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Player1</td>
-              <td>120</td>
-            </tr>
+            </tr>`;
+            
+            playersScore.forEach((element) => {
+              scoreTable += `
+              <tr>
+                <td> ${numPlayer}</td>
+                <td>${element.username}</td>
+                <td>${element.best_score}</td>
+              </tr>`
+              numPlayer ++;
+            });
+
+        /** 
             <tr>
               <td>2</td>
               <td>Player2</td>
@@ -164,10 +184,9 @@ function getScoreTable() {
               <td>60</td>
             </tr>
           </tbody>
-        </table>`;
-  divScoreTable.id = 'divScoreTable';
-  divScoreTable.innerHTML = scoreTable;
-  divAll.appendChild(divScoreTable);
+        </table>
+     */   
+    return scoreTable;
 };
 
 export default HomePage;

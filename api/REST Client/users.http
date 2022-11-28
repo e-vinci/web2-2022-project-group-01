@@ -58,3 +58,6 @@ Content-Type: application/json
     "user1":2,
     "user2":1
 }
+
+### read the best scores
+GET {{baseUrl}}/users/getUsersScore

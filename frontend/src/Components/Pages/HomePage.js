@@ -135,7 +135,7 @@ function getHomePageConnected() {
       Quick Game
       </button>`
   div2.addEventListener('click', () => {
-    setTypeGame("quick")
+    setTypeGame("quick");
     Navigate('/game');
   });
   div5.appendChild(div2);
@@ -147,8 +147,8 @@ function getHomePageConnected() {
       Troll game
       </button>`
   div4.addEventListener('click', () => {
-    setTypeGame("quick")
-    Navigate('/game');
+    setTypeGame("troll");
+    Navigate('/troll');
   });
   div5.appendChild(div4);
   divAll.appendChild(div5);

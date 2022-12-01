@@ -13,9 +13,9 @@ const divAll = document.createElement("div");
 const div = document.createElement("div");
 const div2 = document.createElement("div");
 const div3 = document.createElement("div");
+const div4 = document.createElement("div");
+const div5 = document.createElement("div");
 const divScoreTable = document.createElement('div');
-
-
 
 const HomePage = async () => {
   clearPage();
@@ -46,7 +46,9 @@ function getHomePageDisconnected() {
   divScoreTable.style.display = 'none';
   div.id = 'divHome';
   div2.id = 'divHome2';
-  div3.id = 'divHome3';
+  div3.id = 'divHome2';
+  div4.id = 'divHome2';
+  div5.id = 'divHome2';
 
 
   // Ranked game button
@@ -70,8 +72,17 @@ function getHomePageDisconnected() {
   Quick Game
   </button>`
   div2.addEventListener('click', () => {
-    setTypeGame("quick")
+    setTypeGame("quick");
     Navigate('/game');
+  });
+
+  div4.innerHTML = `
+  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+  Troll Game
+  </button>`
+  div4.addEventListener('click', () => {
+    setTypeGame("troll");
+    Navigate('/troll');
   });
 
 
@@ -85,7 +96,9 @@ function getHomePageDisconnected() {
   });
 
   main.appendChild(div);
-  main.appendChild(div2);
+  div5.appendChild(div2);
+  div5.appendChild(div4);
+  main.appendChild(div5);
   main.appendChild(div3);
 };
 
@@ -114,7 +127,7 @@ function getHomePageConnected() {
   divAll.appendChild(div);
 
 
-
+  div5.id = 'divHomeConnected'
   // Quick game button
   div2.id = 'divHomeConnected'
   div2.innerHTML = `
@@ -125,8 +138,20 @@ function getHomePageConnected() {
     setTypeGame("quick")
     Navigate('/game');
   });
-  divAll.appendChild(div2);
+  div5.appendChild(div2);
 
+  // Troll game button
+  div4.id='divHomeConnected'
+  div4.innerHTML = `
+      <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+      Troll game
+      </button>`
+  div4.addEventListener('click', () => {
+    setTypeGame("quick")
+    Navigate('/game');
+  });
+  div5.appendChild(div4);
+  divAll.appendChild(div5);
 
   // Tutorial button
   div3.id = 'divHomeConnected'
@@ -144,6 +169,8 @@ function getHomePageConnected() {
   divAll.appendChild(divScoreTable);
   main.appendChild(divAll);
 */
+
+
 };
 
 function getScoreTable(playersScore) {

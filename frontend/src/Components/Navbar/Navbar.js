@@ -40,6 +40,9 @@ const anonymousUserNavbar = `
             <li id="registerItem" class="nav-item">
               <a class="nav-link" href="#" data-uri="/register">Register</a>
             </li>  
+            <li id="test" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/friend">add friend</a>
+            </li>    
                      
           </ul>
         </div>

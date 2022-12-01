@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/newline-after-import */
+import { gsap } from "gsap";
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 import { isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
+import backgroundAnimation from '../../utils/background';
 
 const main = document.querySelector('main');
 const divAll = document.createElement("div");
@@ -13,16 +15,15 @@ const div3 = document.createElement("div");
 const divScoreTable = document.createElement('div');
 
 
-
 const HomePage = () => {
   clearPage();
-
   if (isAuthenticated()) {
     getHomePageConnected();
   }
   else {
     getHomePageDisconnected();
   }
+  buttonAnime();
 };
 
 
@@ -38,7 +39,7 @@ function getHomePageDisconnected() {
 
   // Ranked game button
   div.innerHTML = `       
-  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary">
   Ranked Game
   </button> `;
   div.addEventListener('click', () => {
@@ -88,6 +89,7 @@ function getHomePageConnected() {
 
   // Ranked game button
   div.id = 'divHomeConnected';
+  div.className="anim"
   div.innerHTML = `       
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Ranked Game
@@ -107,6 +109,7 @@ function getHomePageConnected() {
 
   // Quick game button
   div2.id = 'divHomeConnected'
+  div2.className="anim"
   div2.innerHTML = `
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Quick Game
@@ -120,6 +123,7 @@ function getHomePageConnected() {
 
   // Tutorial button
   div3.id = 'divHomeConnected'
+  div3.className="anim"
   div3.innerHTML = `
         <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
         Tutorial
@@ -170,4 +174,19 @@ function getScoreTable() {
   divAll.appendChild(divScoreTable);
 };
 
+
+function buttonAnime(){
+  gsap.from('#divHome',{ 
+    opacity: 5, 
+    y: 600, 
+    duration: 1});
+  gsap.from('#divHome2',{ 
+      opacity: 5, 
+      y: 600, 
+      duration: 1});
+  gsap.from('#divHome3',{ 
+        opacity: 5, 
+        y: 600, 
+        duration: 1});
+}
 export default HomePage;

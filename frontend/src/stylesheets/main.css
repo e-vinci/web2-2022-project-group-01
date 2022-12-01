@@ -1,13 +1,30 @@
 /*all pages*/
 body{
-  background-color: #00539CFF;
+  background-color: whitesmoke;
 }
+
+main div{
+  z-index: 1;
+}
+.background {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+
 .navbar-custom{  
   background-color: orangered;
 }
 
 
-
+.animation{
+  height: 200px;
+  width: 200px;
+  background-color: aliceblue;
+  z-index: 1;
+}
 
 /* game page part*/
 
@@ -193,4 +210,56 @@ body{
   border-radius: 5%;
   border: solid;
   border-color: rgb(6, 135, 248);
+}
+
+
+
+/* search PAGE */
+#searchDiv{
+  width: 30%;
+  margin: auto;
+  padding: 15px;
+}
+
+#searchInput{
+  border: solid orangered;
+}
+#searchSubmit{
+  display: block;
+  margin: auto;
+}
+
+
+
+
+
+
+***********Test*****************
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #000;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  text-align: center;
+}
+.bg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+}
+.el {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #000;
 }

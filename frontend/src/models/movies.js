@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getAuthenticatedUser } from '../utils/auths';
 
 const readAllMovies = async () => {

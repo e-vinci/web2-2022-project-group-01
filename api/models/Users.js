@@ -20,5 +20,10 @@ module.exports.isFriend=(id_user1,id_user2)=> {
 module.exports.addFriend=(id_user1,id_user2)=> 
 db.prepare("insert into friends (users1, users2) values (?,?)").run(id_user1,id_user2);
 
+module.exports.getUsersScore= () => {
+    const result = db.prepare("select u.username, max(g.score) as best_score from users u, games g where u.id_user = g.user group by u.username order by g.score desc limit 10").all();   
+    return result;
+}
+
 
 

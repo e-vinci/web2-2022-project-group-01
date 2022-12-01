@@ -20,8 +20,6 @@ const divScoreTable = document.createElement('div');
 const HomePage = async () => {
   clearPage();
 
-  
-
   if (!isAuthenticated()) {
     const usersScore = await readUsersScore();
     const table = getScoreTable(usersScore);
@@ -58,7 +56,7 @@ function getHomePageDisconnected() {
     if (isAuthenticated()) {
       Navigate('/game');
     } else {
-      setTypeGame("competition")
+      setTypeGame("competition");
       Navigate('/game');
     }
   });
@@ -160,8 +158,7 @@ function getScoreTable(playersScore) {
               <th>N°</th>
               <th>Player</th>
               <th>Score</th>
-            </tr>`;
-            
+              </tr>`;
             playersScore.forEach((element) => {
               scoreTable += `
               <tr>
@@ -171,21 +168,6 @@ function getScoreTable(playersScore) {
               </tr>`
               numPlayer ++;
             });
-
-        /** 
-            <tr>
-              <td>2</td>
-              <td>Player2</td>
-              <td>90</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Player3</td>
-              <td>60</td>
-            </tr>
-          </tbody>
-        </table>
-     */   
     return scoreTable;
 };
 

@@ -32,9 +32,7 @@ const HomePage = async () => {
     divAll.appendChild(divScoreTable);
     main.appendChild(divAll);
     getHomePageConnected();
-  }
-
-  else {
+  }else {
     getHomePageDisconnected();
   }
   buttonAnime();
@@ -196,17 +194,10 @@ function getScoreTable(playersScore) {
 
 
 function buttonAnime(){
-  gsap.from('#divHome',{ 
+  gsap.from('.anim',{ 
     opacity: 5, 
     y: 600, 
     duration: 1});
-  gsap.from('#divHome2',{ 
-      opacity: 5, 
-      y: 600, 
-      duration: 1});
-  gsap.from('#divHome3',{ 
-        opacity: 5, 
-        y: 600, 
-        duration: 1});
+
 }
 export default HomePage;

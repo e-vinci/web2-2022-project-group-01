@@ -94,12 +94,6 @@ body{
   
 }
 
-#divHome3 {
-  margin: auto;
-  display: flex;
-  width: 50%;
-}
-
 #divHomeConnected{
   margin-left: auto;
   display: flex;

@@ -9,7 +9,6 @@ import { setTypeGame } from '../../utils/games';
 import readUsersScore from '../../models/games';
 
 const main = document.querySelector('main');
-const divAll = document.createElement("div");
 const div = document.createElement("div");
 const div2 = document.createElement("div");
 const div3 = document.createElement("div");
@@ -19,157 +18,145 @@ const divScoreTable = document.createElement('div');
 
 const HomePage = async () => {
   clearPage();
-
-  if (!isAuthenticated()) {
-    const usersScore = await readUsersScore();
-    const table = getScoreTable(usersScore);
-    divScoreTable.id = 'divScoreTable';
-    divScoreTable.innerHTML = table;
-    divAll.appendChild(divScoreTable);
-    main.appendChild(divAll);
-    getHomePageConnected();
-  }
-
-  else {
-    getHomePageDisconnected();
-  }
+  
+  getHomePage();
   
 };
 
 
 
-// If the user is disconnected
-function getHomePageDisconnected() {
 
-  divScoreTable.style.display = 'none';
-  div.id = 'divHome';
-  div2.id = 'divHome2';
-  div3.id = 'divHome2';
-  div4.id = 'divHome2';
-  div5.id = 'divHome2';
+async function getHomePage() {
+  
+  // If the user is connected
 
+  if (isAuthenticated){
+    
+      // Top Score table
+      const usersScore = await readUsersScore();
+      const table = getScoreTable(usersScore);
+      divScoreTable.id = 'divScoreTable';
+      divScoreTable.innerHTML = table;
+      main.appendChild(divScoreTable);
 
-  // Ranked game button
-  div.innerHTML = `       
-  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-  Ranked Game
-  </button> `;
-  div.addEventListener('click', () => {
-    if (isAuthenticated()) {
-      Navigate('/game');
-    } else {
-      setTypeGame("competition");
-      Navigate('/game');
-    }
-  });
+      // Ranked game button
+      div.id = 'divHomeConnected';
+      div.innerHTML = `       
+          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+          Ranked Game
+          </button> `;
+      div.addEventListener('click', () => {
+        if (isAuthenticated()) {
+          Navigate('/game');
+        } else {
+          setTypeGame("competition")
+          Navigate('/game');
+        }
 
+      });
+      main.appendChild(div);
+      div5.id = 'divHomeConnected'
 
-  // Quick game button
-  div2.innerHTML = `
-  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-  Quick Game
-  </button>`
-  div2.addEventListener('click', () => {
-    setTypeGame("quick");
-    Navigate('/game');
-  });
+      // Quick game button
+      div2.id = 'divHomeConnected'
+      div2.innerHTML = `
+          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+          Quick Game
+          </button>`
+      div2.addEventListener('click', () => {
+        setTypeGame("quick");
+        Navigate('/game');
+      });
+      div5.appendChild(div2);
 
-  div4.innerHTML = `
-  <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-  Troll Game
-  </button>`
-  div4.addEventListener('click', () => {
-    setTypeGame("troll");
-    Navigate('/troll');
-  });
-
-
-  // Tutorial button
-  div3.innerHTML = `
-    <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
-    Tutorial
-    </button>`
-  div3.addEventListener('click', () => {
-    Navigate('/tutoriel');
-  });
-
-  main.appendChild(div);
-  div5.appendChild(div2);
-  div5.appendChild(div4);
-  main.appendChild(div5);
-  main.appendChild(div3);
-};
+      // Troll game button
+      div4.id='divHomeConnected'
+      div4.innerHTML = `
+          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+          Troll game
+          </button>`
+      div4.addEventListener('click', () => {
+        setTypeGame("troll");
+        Navigate('/troll');
+      });
+      div5.appendChild(div4);
 
 
-// If the user is connected
-function getHomePageConnected() {
+      main.appendChild(div5);
 
-  // 'div' with the game buttons and the score table
-  divAll.id = 'divAll';
+      // Tutorial button
+      div3.id = 'divHomeConnected'
+      div3.innerHTML = `
+            <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
+            Tutorial
+            </button>`
+      div3.addEventListener('click', () => {
+        Navigate('/tutoriel');
+      });
+      main.appendChild(div3);
+  }
+  // If the user is disconnected
+  else{ 
+      divScoreTable.style.display = 'none';
+      div.id = 'divHome';
+      div2.id = 'divHome2';
+      div3.id = 'divHome2';
+      div4.id = 'divHome2';
+      div5.id = 'divHome2';
 
-  // Ranked game button
-  div.id = 'divHomeConnected';
-  div.innerHTML = `       
+
+      // Ranked game button
+      div.innerHTML = `       
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Ranked Game
       </button> `;
-  div.addEventListener('click', () => {
-    if (isAuthenticated()) {
-      Navigate('/game');
-    } else {
-      setTypeGame("competition")
-      Navigate('/game');
-    }
-
-  });
-  divAll.appendChild(div);
+      div.addEventListener('click', () => {
+        if (isAuthenticated()) {
+          Navigate('/game');
+        } else {
+          setTypeGame("competition");
+          Navigate('/game');
+        }
+      });
 
 
-  div5.id = 'divHomeConnected'
-  // Quick game button
-  div2.id = 'divHomeConnected'
-  div2.innerHTML = `
+      // Quick game button
+      div2.innerHTML = `
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Quick Game
       </button>`
-  div2.addEventListener('click', () => {
-    setTypeGame("quick");
-    Navigate('/game');
-  });
-  div5.appendChild(div2);
+      div2.addEventListener('click', () => {
+        setTypeGame("quick");
+        Navigate('/game');
+      });
 
-  // Troll game button
-  div4.id='divHomeConnected'
-  div4.innerHTML = `
+      div4.innerHTML = `
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-      Troll game
+      Troll Game
       </button>`
-  div4.addEventListener('click', () => {
-    setTypeGame("troll");
-    Navigate('/troll');
-  });
-  div5.appendChild(div4);
-  divAll.appendChild(div5);
+      div4.addEventListener('click', () => {
+        setTypeGame("troll");
+        Navigate('/troll');
+      });
 
-  // Tutorial button
-  div3.id = 'divHomeConnected'
-  div3.innerHTML = `
+
+      // Tutorial button
+      div3.innerHTML = `
         <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
         Tutorial
         </button>`
-  div3.addEventListener('click', () => {
-    Navigate('/tutoriel');
-  });
-  divAll.appendChild(div3);
-/** 
-  divScoreTable.id = 'divScoreTable';
-  divScoreTable.innerHTML = scoreTable;
-  divAll.appendChild(divScoreTable);
-  main.appendChild(divAll);
-*/
+      div3.addEventListener('click', () => {
+        Navigate('/tutoriel');
+      });
 
-
+      main.appendChild(div);
+      div5.appendChild(div2);
+      div5.appendChild(div4);
+      main.appendChild(div5);
+      main.appendChild(div3);
+  }
 };
+
 
 function getScoreTable(playersScore) {
   let numPlayer = 1;

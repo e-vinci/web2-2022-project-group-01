@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+import $ from "jquery";
 import { getRememberMe, setAuthenticatedUser, setRememberMe } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
@@ -20,65 +21,67 @@ function renderRegisterForm() {
 *
 ************************************************************************************** */
   main.innerHTML=`
-  <!-- partial:index.partial.html -->
-<section class="forms-section">
-  <h1 class="section-title">Animated Forms</h1>
-  <div class="forms">
-    <div class="form-wrapper is-active">
-      <button type="button" class="switcher switcher-login">
-        Login
-        <span class="underline"></span>
-      </button>
-      <form class="form form-login">
-        <fieldset>
-          <legend>Please, enter your email and password for login.</legend>
-          <div class="input-block">
-            <label for="login-email">E-mail</label>
-            <input id="login-email" type="email" required>
-          </div>
-          <div class="input-block">
-            <label for="login-password">Password</label>
-            <input id="login-password" type="password" required>
-          </div>
-        </fieldset>
-        <button type="submit" class="btn-login">Login</button>
+  <div class="pen-title">
+  
+  </div>
+  <div class="rerun"><a href="">Reload</a></div>
+  <div class="container">
+    <div class="card"></div>
+    <div class="card">
+      <h1 class="title">Login</h1>
+      <form>
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Username</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button><span>Go</span></button>
+        </div>
+        <div class="footer"><a href="#">Forgot your password?</a></div>
       </form>
     </div>
-    <div class="form-wrapper">
-      <button type="button" class="switcher switcher-signup">
-        Sign Up
-        <span class="underline"></span>
-      </button>
-      <form class="form form-signup">
-        <fieldset>
-          <legend>Please, enter your email, password and password confirmation for sign up.</legend>
-          <div class="input-block">
-            <label for="signup-email">E-mail</label>
-            <input id="signup-email" type="email" required>
-          </div>
-          <div class="input-block">
-            <label for="signup-password">Password</label>
-            <input id="signup-password" type="password" required>
-          </div>
-          <div class="input-block">
-            <label for="signup-password-confirm">Confirm password</label>
-            <input id="signup-password-confirm" type="password" required>
-          </div>
-        </fieldset>
-        <button type="submit" class="btn-signup">Continue</button>
+    <div class="card alt">
+      <div class="toggle"></div>
+      <h1 class="title">Register
+        <div class="close"></div>
+      </h1>
+      <form>
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Username</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Repeat Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button><span>Next</span></button>
+        </div>
       </form>
     </div>
   </div>
-</section>
+  
   `
-
-const switchers = [...document.querySelectorAll('.switcher')]
-switchers.forEach(item => {
-	item.addEventListener('click', function() {
-		switchers.forEach(item2 => item2.parentElement.classList.remove('is-active'))
-		  this.parentElement.classList.add('is-active')
-	})
-})
+  $('.toggle').on('click', () => {
+    $('.container').stop().addClass('active');
+  });
+  
+  $('.close').on('click', () => {
+    $('.container').stop().removeClass('active');
+  });
 }
 
 function onCheckboxClicked(e) {

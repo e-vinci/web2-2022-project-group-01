@@ -1,5 +1,4 @@
 import { clearPage } from '../../utils/render';
-import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
@@ -124,7 +123,7 @@ async function addFriend(e) {
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   await response.json();
-  Navigate('/');
+  displayFriend();
 }
 
 async function getUserFriends(){

@@ -1,7 +1,6 @@
 import HomePage from '../Pages/HomePage';
 import Logout from '../Logout/Logout';
-import LoginPage from '../Pages/LoginPage';
-import RegisterPage from '../Pages/RegisterPage';
+import LoginRegisterPage from '../Pages/LoginRegisterPage';
 import { GamePage } from '../Pages/GamePage';
 import TutorielPage from '../Pages/TutorielPage';
 import TrollGamePage from '../Pages/TrollGamePage';
@@ -9,8 +8,8 @@ import FriendPage from '../Pages/FriendPage';
 
 const routes = {
   '/': HomePage,
-  '/login': LoginPage,
-  '/register': RegisterPage,
+  '/login': LoginRegisterPage,
+  '/register': LoginRegisterPage,
   '/logout': Logout,
   '/game': GamePage,
   '/tutoriel': TutorielPage,

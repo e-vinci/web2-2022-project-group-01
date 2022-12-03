@@ -18,7 +18,7 @@ module.exports.searchUser=(userName)=> {
 }
 
 module.exports.getUserFriends=(id_user)=> 
-db.prepare("Select * from friends where users1=(?) Or users2=(?)").all(id_user,id_user);
+db.prepare("Select u.* from friends f , users u where (users1=(?) and f.users2 = u.id_user) Or (users2=(?) and  f.users1 = u.id_user)").all(id_user,id_user);
 
 module.exports.isFriend=(id_user1,id_user2)=> {
     const result = db.prepare("select count(*) AS total from friends where (users1=(?) AND users2=(?)) OR (users1=(?) AND users2=(?))").all(id_user1,id_user2,id_user2,id_user1);

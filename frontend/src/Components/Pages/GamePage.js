@@ -18,6 +18,7 @@ import {
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
 let intervalId = 0;
@@ -106,19 +107,19 @@ function startPersonnalisation() {
 }
 
 async function saveScore() {
-  // const user = getAuthenticatedUser()
-  // quand la co sera faites
-  const user = 1;
+  const user = getAuthenticatedUser();
   const scoreToAdd = score;
 
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      user,
+      user : user.id,
       score: scoreToAdd,
     }),
     headers: {
       'Content-Type': 'application/json',
+      Authorization: user.token
+
     },
   };
 
@@ -209,57 +210,5 @@ function buttonAnime() {
     duration: 3,
   });
 }
-
-/*
-const OPTS = {
-  fill:           'none',
-  radius:         25,
-  strokeWidth:    { 50 : 0 },
-  scale:          { 0: 1 },
-  duration:       500,
-  left: 0,        top: 0,
-  easing: 'cubic.out'
-};
-
-const mainCircle = new mojs.Shape({
-  ...OPTS,
-  stroke:         'cyan',
-});
-
-const smallCircles = [];
-const colors = [ 'deeppink', 'magenta', 'yellow', '#00F87F' ]
-
-for ( let i = 0; i < 4; i++ ) {
-  smallCircles.push(new mojs.Shape({
-    ...OPTS,
-    parent:         mainCircle.el,
-    radius:         { 0 : 15 },
-    strokeWidth:    { 30: 0 },
-    left: '50%',    top: '50%',
-    stroke:         colors[ i % colors.length],
-    delay:          'rand(0, 350)',
-    x:              'rand(-50, 50)',
-    y:              'rand(-50, 50)',
-    // eslint-disable-next-line no-dupe-keys
-    radius:         'rand(5, 20)'
-  })
- );
-}
-
-document.addEventListener( 'click', (e) => {
-  
-   mainCircle
-    .tune({ x: e.pageX, y: e.pageY  })
-    .replay();
-  
-    // eslint-disable-next-line no-plusplus
-    for ( let i = 0; i < smallCircles.length; i++ ) {
-      smallCircles[i]
-        .generate()
-        .replay(); 
-    }
-  
-});
-*/
 
 export { GamePage, intervalId, saveScore };

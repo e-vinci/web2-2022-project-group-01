@@ -1,11 +1,15 @@
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
+let user=null;
 
 const FriendPage = () => {
   clearPage();
   displaySearch();
+  user = getAuthenticatedUser();
+
 };
 
 function displaySearch() {
@@ -32,9 +36,16 @@ function displaySearch() {
 }
 
 async function search() {
-  const input = document.querySelector('#searchInput').value;
 
-  const response = await fetch(`${process.env.API_BASE_URL}/users/getUser?pseudo=${input}`);
+  const input = document.querySelector('#searchInput').value;
+  
+  const options={
+    headers: {
+      Authorization: user.token
+    }
+   }
+
+  const response = await fetch(`${process.env.API_BASE_URL}/users/getUser?pseudo=${input}`,options);
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   const users = await response.json();
   return users;
@@ -43,11 +54,8 @@ async function search() {
 async function displayUser() {
   const users = await search();
 
-  const allButton = document.querySelectorAll('#addSubmit');
   await userAsDiv(users)
-  allButton.forEach((element) => {
-    element.addEventListener('click', addFriend);
-  });
+
 }
 
 async function displayFriend(){
@@ -70,8 +78,7 @@ async function userAsDiv(users){
               <p><span>Xp : </span>${element.xp}</p>
           `;
   
-          // mettre a jour this user id
-          if(!userFriends.some(e=>e.id_user===element.id_user) && element.id_user !== 2 ){
+          if(!userFriends.some(e=>e.id_user===element.id_user) && element.id_user !== user.id ){
               ligne+=`
               <button type="submit" id="addSubmit" class="buttonClass Class btn btn-primary" data-id="${element.id_user}" >Add as friend</button>
               `
@@ -85,37 +92,50 @@ async function userAsDiv(users){
     ligne += '</div>';
   
     divUsers.innerHTML = ligne;
+
+    
+  const allButton = document.querySelectorAll('#addSubmit');
+  allButton.forEach((element) => {
+    element.addEventListener('click', addFriend);
+  });
 }
 
 
 async function addFriend(e) {
   e.preventDefault();
+
   const { id } = e.target.dataset;
-  // a mettre a jour
-  const user = 2;
 
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      user1: user,
+      user1: user.id,
       user2: id,
     }),
     headers: {
       'Content-Type': 'application/json',
+      Authorization: user.token
+
     },
   };
+
 
   const response = await fetch(`${process.env.API_BASE_URL}/users/addFriend`, options);
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-    await response.json();
+  await response.json();
   Navigate('/');
 }
 
 async function getUserFriends(){
-    // a mettre a jour
-    const id=2;
-    const response=await fetch(`${process.env.API_BASE_URL}/users/getUserFriends?id=${id}`);
+
+  const options={
+    headers: {
+      Authorization: user.token
+    }
+   }
+
+    const response=await fetch(`${process.env.API_BASE_URL}/users/getUserFriends?id=${user.id}`,options);
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
     const userFriends=await response.json();
     return userFriends;

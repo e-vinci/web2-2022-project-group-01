@@ -101,7 +101,8 @@ if (!isAuthenticated()){
     divScoreTable.id = 'divScoreTable';
     divScoreTable.className="anim";
     divScoreTable.innerHTML = table;
-  
+    divScoreTable.style.display = '';
+
     main.appendChild(divScoreTable);
 
     // Ranked game button

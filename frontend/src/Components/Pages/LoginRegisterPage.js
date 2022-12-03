@@ -9,7 +9,7 @@ import Navigate from '../Router/Navigate';
 const LoginPage = () => {
   clearPage();
   renderPageTitle('Login');
-  renderRegisterForm();
+  renderRegisterForm(); 
 };
 
 function renderRegisterForm() {
@@ -31,19 +31,18 @@ function renderRegisterForm() {
       <h1 class="title">Login</h1>
       <form>
         <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Username</label>
+          <input type="text" id="usernameLogin" required="required"/>
+          <label for="username">Username</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Password</label>
+          <input type="password" id="passwordLogin" required="required"/>
+          <label for="password">Password</label>
           <div class="bar"></div>
         </div>
         <div class="button-container">
-          <button><span>Go</span></button>
+          <button id="loginButton"><span>Go</span></button>
         </div>
-        <div class="footer"><a href="#">Forgot your password?</a></div>
       </form>
     </div>
     <div class="card alt">
@@ -53,22 +52,22 @@ function renderRegisterForm() {
       </h1>
       <form>
         <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Username</label>
+          <input type="username" id="usernameRegister" required="required"/>
+          <label for="username">Username</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Password</label>
+          <input type="password" id="passwordRegister" required="required"/>
+          <label for="password">Password</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Repeat Password</label>
+          <input type="password" id="repeatPassword" required="required"/>
+          <label for="password">Repeat Password</label>
           <div class="bar"></div>
         </div>
         <div class="button-container">
-          <button><span>Next</span></button>
+          <button id="registerButton"><span>Next</span></button>
         </div>
       </form>
     </div>
@@ -82,6 +81,12 @@ function renderRegisterForm() {
   $('.close').on('click', () => {
     $('.container').stop().removeClass('active');
   });
+
+  const loginButton = document.querySelector("#loginButton");
+  const registerButton=document.querySelector("#registerButton")
+  loginButton.addEventListener('click',onLogin);
+  registerButton.addEventListener('click',onRegister);
+
 }
 
 function onCheckboxClicked(e) {
@@ -90,9 +95,9 @@ function onCheckboxClicked(e) {
 
 async function onLogin(e) {
   e.preventDefault();
+  const username = document.querySelector('#usernameLogin').value;
+  const password = document.querySelector('#passwordLogin').value;
 
-  const username = document.querySelector('#username').value;
-  const password = document.querySelector('#password').value;
 
   const options = {
     method: 'POST',
@@ -105,7 +110,7 @@ async function onLogin(e) {
     },
   };
 
-  const response = await fetch(`${process.env.API_BASE_URL}/auths/login`, options);
+  const response = await fetch(`${process.env.API_BASE_URL}/users/login`, options);
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
@@ -114,10 +119,50 @@ async function onLogin(e) {
   console.log('Authenticated user : ', authenticatedUser);
 
   setAuthenticatedUser(authenticatedUser);
+  
+  Navbar();
+
+  Navigate('/');
+}
+
+
+async function onRegister(e) {
+  e.preventDefault();
+
+  const username = document.querySelector('#usernameRegister').value;
+  const password = document.querySelector('#passwordRegister').value;
+  const passwordRepeat=document.querySelector('#repeatPassword').value;
+
+  if(password !== passwordRepeat){
+    console.log('pas bon mdp');
+    return;
+  }
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`${process.env.API_BASE_URL}/users/register`, options);
+
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  const authenticatedUser = await response.json();
+
+  console.log('Newly registered & authenticated user : ', authenticatedUser);
+
+  setAuthenticatedUser(authenticatedUser);
 
   Navbar();
 
   Navigate('/');
 }
+
 
 export default LoginPage;

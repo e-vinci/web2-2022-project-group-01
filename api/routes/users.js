@@ -15,11 +15,11 @@ router.get('/', authorize,(req, res) => {
   res.json({ users: [{ name: 'e-baron' }] });
 });
 
-router.post('/login', async (req, res) => {
-  const userUsername = req.body.username;
+router.post('/login',  (req, res) => {
+  const {username} = req.body;
   const userPassword = req.body.password;
 
-  const userFound = await getUser(userUsername);
+  const userFound =  getUser(username);
 
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
@@ -27,41 +27,44 @@ router.post('/login', async (req, res) => {
   if(userFound.password !== userPassword) return res.send('mauvais mdp');
   
   const token = jwt.sign(
-    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    {username }, // session data added to the payload (payload : part 2 of a JWT)
     jwtSecret, // secret used for the signature (signature part 3 of a JWT)
     { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
    );
 
   const authenticatedUser = {
-    userUsername,
+    username,
+    id: userFound.id_user,
     token,
   };
  return res.json(authenticatedUser);
 
 });
 
-router.post('/register', async (req, res) => {
-  const userUsername = req?.body?.username?.length !== 0 ? req.body.username : undefined;
+router.post('/register', (req, res) => {
+  const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const userPassword = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
   
-  if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
+  if (!username || !userPassword) return res.sendStatus(400); // 400 Bad Request
   
-  const userFound = await getUser(userUsername);
+  const userFound =  getUser(username);
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
   if (userFound) return res.send('il y a deja un user avec ce pseudo');
 
- await addUser(userUsername,userPassword);
+  addUser(username,userPassword);
+  const userAdd =  getUser(username);
 
   const token = jwt.sign(
-    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    { username }, // session data added to the payload (payload : part 2 of a JWT)
     jwtSecret, // secret used for the signature (signature part 3 of a JWT)
     { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
   );
 
   const authenticatedUser = {
-    userUsername,
+    username,
+    id: userAdd.id_user,
     token,
   };
  return res.json(authenticatedUser);
@@ -69,8 +72,7 @@ router.post('/register', async (req, res) => {
 });
 
 // add the user score
-// faire le authorized pour connecter
-router.post('/addScore',  (req, res) => {
+router.post('/addScore', authorize, (req, res) => {
   const {user} = req.body;
   const {score}=req.body;
 
@@ -81,20 +83,17 @@ router.post('/addScore',  (req, res) => {
   res.json('adding true');
 });
 
-// faire le authorized pour connecter
-router.get('/getUser', (req, res) => {
+router.get('/getUser',authorize, (req, res) => {
   const user= searchUser(req.query.pseudo)
   res.json(user);
 });
 
-// faire le authorized pour connecter
-router.get('/getUserFriends', (req, res) => {
+router.get('/getUserFriends',authorize, (req, res) => {
   const user= getUserFriends(req.query.id)
   res.json(user);
 });
 
-// faire le authorized pour connecter
-router.post('/addFriend', (req, res) => {
+router.post('/addFriend',authorize, (req, res) => {
   const user1 = parseInt(req.body.user1,10)
   const user2= parseInt(req.body.user2,10)
 
@@ -107,7 +106,7 @@ router.post('/addFriend', (req, res) => {
 });
 
 // afficher la table des meilleurs scores
-router.get('/getUsersScore', (req, res) => {
+router.get('/getUsersScore', authorize,(req, res) => {
   const user = getUsersScore();
   res.json(user);
 });

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 let radius = 20;
-let color = 'orangered';
+let color ="#ed2553";
 let canvas;
 let widthCanvas;
 let heightCanvas;

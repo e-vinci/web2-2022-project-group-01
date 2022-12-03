@@ -102,10 +102,8 @@ function startPersonnalisation() {
     initScore();
     initPlayGround();
     hideButton();
-    // animationPlaying();
     drawOneFrame();
     intervalId = setInterval(timerUpdate, 1000);
-    // testAnime();
   }
 
   function displayPerso(e) {

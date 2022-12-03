@@ -16,13 +16,19 @@ function displaySearch() {
   searchDiv.innerHTML = `
     <input type="search" id="searchInput" class="form-control rounded search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
     <br>
-    <button type="button" id="searchSubmit" class="btn btn-outline-primary buttonClass">search</button>
+    <div id="friendButton">
+        <button type="button" id="searchSubmit" class="btn btn-outline-primary buttonClass">search</button>
+        <button type="button" id="friendAll" class="btn btn-outline-primary buttonClass">your friends</button>
+    </div>
     `;
   main.appendChild(searchDiv);
   main.appendChild(userDiv);
   userDiv.style.display = 'none';
-  const button = document.querySelector('#searchSubmit');
-  button.addEventListener('click', displayUser);
+  const buttonSearch = document.querySelector('#searchSubmit');
+  buttonSearch.addEventListener('click', displayUser);
+  const buttonFriends = document.querySelector('#friendAll');
+  buttonFriends.addEventListener('click',displayFriend)
+
 }
 
 async function search() {
@@ -35,42 +41,52 @@ async function search() {
 }
 
 async function displayUser() {
-  const divUsers = document.querySelector('#divUsers');
-  divUsers.style.display = '';
   const users = await search();
-  const userFriends= await getUserFriends();
-  let ligne = "<h1>USER</h1><br> <div id='gridContainer'>";
-  if (users.length > 0) {
-    users.forEach((element) => {
-      ligne += `
-        <div class="gridItem">
-            <p><span>Name : </span> ${element.username}</p>
-            <p><span>Level :</span> ${element.level}</p> 
-            <p><span>Xp : </span>${element.xp}</p>
-        `;
-
-        // mettre a jour this user id
-        if(!userFriends.some(e=>e.id_user===element.id_user) && element.id_user !== 2 ){
-            ligne+=`
-            <button type="submit" id="addSubmit" class="buttonClass Class btn btn-primary" data-id="${element.id_user}" >Add as friend</button>
-            `
-        }
-        ligne+='</div>'
-    });
-
-  } else {
-    ligne += ' <p> NO USER FOUND </p> ';
-  }
-  ligne += '</div>';
-
-  divUsers.innerHTML = ligne;
 
   const allButton = document.querySelectorAll('#addSubmit');
-
+  await userAsDiv(users)
   allButton.forEach((element) => {
     element.addEventListener('click', addFriend);
   });
 }
+
+async function displayFriend(){
+    const friend=await getUserFriends();
+    await userAsDiv(friend);
+}
+
+async function userAsDiv(users){
+    const divUsers = document.querySelector('#divUsers');
+    divUsers.style.display = '';
+
+    let ligne = "<h1>USER</h1><br> <div id='gridContainer'>";
+    const userFriends= await getUserFriends();
+    if (users.length > 0) {
+      users.forEach((element) => {
+        ligne += `
+          <div class="gridItem">
+              <p><span>Name : </span> ${element.username}</p>
+              <p><span>Level :</span> ${element.level}</p> 
+              <p><span>Xp : </span>${element.xp}</p>
+          `;
+  
+          // mettre a jour this user id
+          if(!userFriends.some(e=>e.id_user===element.id_user) && element.id_user !== 2 ){
+              ligne+=`
+              <button type="submit" id="addSubmit" class="buttonClass Class btn btn-primary" data-id="${element.id_user}" >Add as friend</button>
+              `
+          }
+          ligne+='</div>'
+      });
+  
+    } else {
+      ligne += ' <p> NO USER FOUND </p> ';
+    }
+    ligne += '</div>';
+  
+    divUsers.innerHTML = ligne;
+}
+
 
 async function addFriend(e) {
   e.preventDefault();

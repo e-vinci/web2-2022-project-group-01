@@ -221,10 +221,12 @@ body{
 #searchInput{
   border: solid rgb(237, 38, 85);
 }
-#searchSubmit{
+#friendButton button {
   display: block;
-  margin: auto;
+  margin: 5px auto;
 }
+
+
 
 #gridContainer{
   display: grid;

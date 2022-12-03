@@ -20,21 +20,7 @@ const divScoreTable = document.createElement('div');
 
 const HomePage = async () => {
   clearPage();
-<<<<<<< Updated upstream
   getHomePage();
-=======
-  if (!isAuthenticated()) {
-    const usersScore = await readUsersScore();
-    const table = getScoreTable(usersScore);
-    divScoreTable.id = 'divScoreTable';
-    divScoreTable.innerHTML = table;
-    divAll.appendChild(divScoreTable);
-    main.appendChild(divAll);
-    getHomePageConnected();
-  }else {
-    getHomePageDisconnected();
-  }
->>>>>>> Stashed changes
   buttonAnime();
   
 };

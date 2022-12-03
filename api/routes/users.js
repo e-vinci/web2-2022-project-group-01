@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken')
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { searchUser, getUserFriends, isFriend, addFriend, addUser ,getUser} = require('../models/Users');
+const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser} = require('../models/Users');
 const { authorize} = require('../utils/auths');
 
 const router = express.Router();
@@ -104,6 +104,12 @@ router.post('/addFriend', (req, res) => {
   addFriend(user1,user2);
 
   res.json('true');
+});
+
+// afficher la table des meilleurs scores
+router.get('/getUsersScore', (req, res) => {
+  const user = getUsersScore();
+  res.json(user);
 });
 
 module.exports = router;

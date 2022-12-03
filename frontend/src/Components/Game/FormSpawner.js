@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 let radius = 20;
-const color = 'dark';
+let color = 'orangered';
 let canvas;
 let widthCanvas;
 let heightCanvas;
@@ -71,9 +71,12 @@ function initScore() {
   score = 0;
 }
 
-function updateSize(size) {
+function update(size,colorAdd) {
   radius = parseInt(size, 10);
+  color=colorAdd;
   setCanvasContextAndSize();
 }
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, updateSize };
+ 
+
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, update };

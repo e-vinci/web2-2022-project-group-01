@@ -91,3 +91,6 @@ Content-Type: application/json
     "username":"omar le j2",
     "password":"REAREZ"
 }
+
+### read the best scores
+GET {{baseUrl}}/users/getUsersScore

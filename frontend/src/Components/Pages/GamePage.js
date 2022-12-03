@@ -5,14 +5,18 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import anime from 'animejs/lib/anime.es';
-import mojs from '@mojs/core';
+import { gsap } from 'gsap';
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore, updateSize, score } from '../Game/FormSpawner';
+import {
+  drawOneFrame,
+  setCanvasContextAndSize,
+  initScore,
+  update,
+  score,
+} from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
-import { getAuthenticatedUser } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
@@ -28,8 +32,7 @@ const GamePage = () => {
   initScore();
   initPlayGround();
 
-
-  // saveScoreButton();
+  buttonAnime();
 };
 
 function renderPlayZone() {
@@ -82,7 +85,7 @@ function startPersonnalisation() {
   buttonPerso.className = 'buttonClass btn btn-primary';
   buttonPerso.innerHTML = '<p> personnalisé </p> ';
 
-  if (getTypeGame()!=='quick') {
+  if (getTypeGame() !== 'quick') {
     buttonPerso.style.display = 'none';
   }
 
@@ -102,54 +105,33 @@ function startPersonnalisation() {
   divGamePage.appendChild(buttonContainer);
 }
 
-async function saveScore(){
-  console.log('ok man');
+async function saveScore() {
   // const user = getAuthenticatedUser()
   // quand la co sera faites
   const user = 1;
   const scoreToAdd = score;
 
-  const options ={
-    method : 'POST',
-    body : JSON.stringify({
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
       user,
-      score:scoreToAdd
+      score: scoreToAdd,
     }),
-    headers:{
-      'Content-Type' : 'application/json',
+    headers: {
+      'Content-Type': 'application/json',
     },
   };
 
-  const response = await fetch (`${process.env.API_BASE_URL}/users/addScore`,options);
+  const response = await fetch(`${process.env.API_BASE_URL}/users/addScore`, options);
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-  const etatAdding=await response.json();
+  const etatAdding = await response.json();
 
   console.log('adding ? ', etatAdding);
 
-  Navigate('/')
+  Navigate('/');
 }
-/*
-function testAnime() {
-  const divCanvas = document.querySelector('#gameDiv');
-  // faire en sorte qu'il s'arrete au dessus
-  anime({
-    targets: '#animationDiv',
-    translateX: divCanvas.offsetWidth / 2,
-    // translateY:250,
-    direction: 'alternate',
-    loop: true,
-    easing: 'spring(80, 80, 80, 0)',
-  });
-}
-*/
-/* function animationPlaying() {
-  const divGamePage = document.querySelector('#gamePageDiv');
-  const divAnimation = document.createElement('div');
-  divAnimation.id = 'animationDiv';
-  divAnimation.innerHTML += '<p> you are actually playing, DO YOUR BEST </p>';
-  divGamePage.appendChild(divAnimation);
-} */
+
 
 function startGame(e) {
   e.preventDefault();
@@ -159,10 +141,8 @@ function startGame(e) {
   initScore();
   initPlayGround();
   hideButton();
-  // animationPlaying();
   drawOneFrame();
   intervalId = setInterval(timerUpdate, 1000);
-  // testAnime();
 }
 
 function hideButton() {
@@ -188,8 +168,12 @@ function displayPerso(e) {
         <input type="number" class="form-control" id="time" >
       </div>  
       <div class="form-group">
-        <label for="time">Size</label>
+        <label for="size">Size</label>
         <input type="number" class="form-control" id="size" >
+      </div>
+      <div class="form-group">
+        <label for="color">Color</label>
+        <input type="color" class="form-control" id="color" >
       </div>
       <button type="submit" class="buttonClass btn btn-primary">Submit</button>
     </form>
@@ -210,14 +194,22 @@ function personnalisation(e) {
 
   const t = document.querySelector('#time').value;
   const m = document.querySelector('#size').value;
+  const c = document.querySelector('#color').value;
 
   if (t !== '' && m !== '') {
     updateTime(t);
-    updateSize(m);
+    update(m, c);
   }
-
-
 }
+
+function buttonAnime() {
+  gsap.from('#buttonContainer', {
+    opacity: 0,
+    y: 600,
+    duration: 3,
+  });
+}
+
 /*
 const OPTS = {
   fill:           'none',
@@ -270,6 +262,4 @@ document.addEventListener( 'click', (e) => {
 });
 */
 
-
-
-export { GamePage, intervalId , saveScore};
+export { GamePage, intervalId, saveScore };

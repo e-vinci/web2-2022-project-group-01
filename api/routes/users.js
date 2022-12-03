@@ -1,14 +1,71 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
+const jwt = require('jsonwebtoken')
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { getUsers, getUserFriends, isFriend, addFriend, getUsersScore } = require('../models/Users');
+const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser} = require('../models/Users');
+const { authorize} = require('../utils/auths');
 
 const router = express.Router();
+const jwtSecret = 'ilovemygame!';
+const lifetimeJwt = 24 * 60 * 60 * 1000; // 24h
 
 /* GET users listing. */
-router.get('/', (req, res) => {
+router.get('/', authorize,(req, res) => {
   res.json({ users: [{ name: 'e-baron' }] });
+});
+
+router.post('/login', async (req, res) => {
+  const userUsername = req.body.username;
+  const userPassword = req.body.password;
+
+  const userFound = await getUser(userUsername);
+
+  // il faut que tu return un res.send pour que on ai un message
+  // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
+  if(!userFound) return res.send('aucun user sous ce nom');
+  if(userFound.password !== userPassword) return res.send('mauvais mdp');
+  
+  const token = jwt.sign(
+    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+   );
+
+  const authenticatedUser = {
+    userUsername,
+    token,
+  };
+ return res.json(authenticatedUser);
+
+});
+
+router.post('/register', async (req, res) => {
+  const userUsername = req?.body?.username?.length !== 0 ? req.body.username : undefined;
+  const userPassword = req?.body?.password?.length !== 0 ? req.body.password : undefined;
+
+  
+  if (!userUsername || !userPassword) return res.sendStatus(400); // 400 Bad Request
+  
+  const userFound = await getUser(userUsername);
+  // il faut que tu return un res.send pour que on ai un message
+  // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
+  if (userFound) return res.send('il y a deja un user avec ce pseudo');
+
+ await addUser(userUsername,userPassword);
+
+  const token = jwt.sign(
+    { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
+    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+  );
+
+  const authenticatedUser = {
+    userUsername,
+    token,
+  };
+ return res.json(authenticatedUser);
+
 });
 
 // add the user score
@@ -26,7 +83,7 @@ router.post('/addScore',  (req, res) => {
 
 // faire le authorized pour connecter
 router.get('/getUser', (req, res) => {
-  const user= getUsers(req.query.pseudo)
+  const user= searchUser(req.query.pseudo)
   res.json(user);
 });
 

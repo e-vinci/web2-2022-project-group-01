@@ -59,5 +59,38 @@ Content-Type: application/json
     "user2":1
 }
 
+
+
+
+
+### add a user
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "username":"Azard69",
+    "password":"123"
+}
+
+### login a user known
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username":"omar le j2",
+    "password":"mdp2"
+}
+
+### login a user wrong password
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username":"omar le j2",
+    "password":"REAREZ"
+}
+
 ### read the best scores
 GET {{baseUrl}}/users/getUsersScore

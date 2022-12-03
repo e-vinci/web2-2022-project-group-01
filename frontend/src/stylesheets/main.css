@@ -254,11 +254,11 @@ body{
 /*login*/
 /***************************************************************************************
 *    Author: Nothing4us
-*    Availability: https://codepen.io/nothing4us/pen/vYrpOya
+*    Availability:https://codepen.io/nothing4us/pen/JjZpBXL
 *
 ***************************************************************************************/
 body {
-  background: #180148;
+  background: #66FFFF;
   color: #666666;
   font-family: "RobotoDraft", "Roboto", sans-serif;
   font-size: 14px;
@@ -595,7 +595,7 @@ body {
   cursor: pointer;
 }
 .card.alt .toggle:before {
-  content: "";
+  content: "⌨️";
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;

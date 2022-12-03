@@ -35,11 +35,8 @@ const anonymousUserNavbar = `
               <a class="nav-link active" aria-current="page" href="/" data-uri="/">Home</a>
             </li>      
             <li id="loginItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/login">Login</a>
-            </li>
-            <li id="registerItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/register">Register</a>
-            </li>  
+              <a class="nav-link" href="#" data-uri="/login">Login/Register</a>
+            </li> 
             <li id="test" class="nav-item">
               <a class="nav-link" href="#" data-uri="/friend">add friend</a>
             </li>    
@@ -69,7 +66,10 @@ const anonymousUserNavbar = `
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
-            </li>            
+            </li>
+            <li id="test" class="nav-item">
+            <a class="nav-link" href="#" data-uri="/friend">add friend</a>
+            </li>             
             <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
             </li>    

@@ -1,11 +1,14 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-plusplus */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/newline-after-import */
+import { gsap } from "gsap";
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 import { isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
+import backgroundAnimation from '../../utils/background';
 import readUsersScore from '../../models/games';
 
 const main = document.querySelector('main');
@@ -18,85 +21,17 @@ const divScoreTable = document.createElement('div');
 
 const HomePage = async () => {
   clearPage();
-  
   getHomePage();
+  buttonAnime();
   
 };
 
 
 
-
 async function getHomePage() {
-  
-  // If the user is connected
 
-  if (isAuthenticated){
-    
-      // Top Score table
-      const usersScore = await readUsersScore();
-      const table = getScoreTable(usersScore);
-      divScoreTable.id = 'divScoreTable';
-      divScoreTable.innerHTML = table;
-      main.appendChild(divScoreTable);
-
-      // Ranked game button
-      div.id = 'divHomeConnected';
-      div.innerHTML = `       
-          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-          Ranked Game
-          </button> `;
-      div.addEventListener('click', () => {
-        if (isAuthenticated()) {
-          Navigate('/game');
-        } else {
-          setTypeGame("competition")
-          Navigate('/game');
-        }
-
-      });
-      main.appendChild(div);
-      div5.id = 'divHomeConnected'
-
-      // Quick game button
-      div2.id = 'divHomeConnected'
-      div2.innerHTML = `
-          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-          Quick Game
-          </button>`
-      div2.addEventListener('click', () => {
-        setTypeGame("quick");
-        Navigate('/game');
-      });
-      div5.appendChild(div2);
-
-      // Troll game button
-      div4.id='divHomeConnected'
-      div4.innerHTML = `
-          <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-          Troll game
-          </button>`
-      div4.addEventListener('click', () => {
-        setTypeGame("troll");
-        Navigate('/troll');
-      });
-      div5.appendChild(div4);
-
-
-      main.appendChild(div5);
-
-      // Tutorial button
-      div3.id = 'divHomeConnected'
-      div3.innerHTML = `
-            <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
-            Tutorial
-            </button>`
-      div3.addEventListener('click', () => {
-        Navigate('/tutoriel');
-      });
-      main.appendChild(div3);
-  }
-  // If the user is disconnected
-  else{ 
+// If the user is disconnected
+if (!isAuthenticated()){
       divScoreTable.style.display = 'none';
       div.id = 'divHome';
       div2.id = 'divHome2';
@@ -104,9 +39,9 @@ async function getHomePage() {
       div4.id = 'divHome2';
       div5.id = 'divHome2';
 
+    // Ranked game button
 
-      // Ranked game button
-      div.innerHTML = `       
+    div.innerHTML = `       
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Ranked Game
       </button> `;
@@ -120,8 +55,9 @@ async function getHomePage() {
       });
 
 
-      // Quick game button
-      div2.innerHTML = `
+    // Quick game button
+
+    div2.innerHTML = `
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Quick Game
       </button>`
@@ -140,8 +76,9 @@ async function getHomePage() {
       });
 
 
-      // Tutorial button
-      div3.innerHTML = `
+    // Tutorial button
+
+    div3.innerHTML = `
         <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
         Tutorial
         </button>`
@@ -154,6 +91,81 @@ async function getHomePage() {
       div5.appendChild(div4);
       main.appendChild(div5);
       main.appendChild(div3);
+  
+  }
+ 
+  // If the user is connected
+  else{ 
+    // Top Score table
+    const usersScore = await readUsersScore();
+    const table = getScoreTable(usersScore);
+    divScoreTable.id = 'divScoreTable';
+    divScoreTable.className="anim";
+    divScoreTable.innerHTML = table;
+  
+    main.appendChild(divScoreTable);
+
+    // Ranked game button
+    div.id = 'divHomeConnected';
+    div.className="anim";
+    div.innerHTML = `       
+    <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+    Ranked Game
+    </button> `;
+    div.addEventListener('click', () => {
+      if (!isAuthenticated()) {
+        Navigate('/game');
+      } else {
+        setTypeGame("competition");
+        Navigate('/game');
+      }
+    });
+    
+
+        // Quick game button
+        div2.id = 'divHomeConnected'
+        div2.innerHTML = `
+            <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+            Quick Game
+            </button>`
+        div2.addEventListener('click', () => {
+          setTypeGame("quick");
+          Navigate('/game');
+        });
+        
+
+        // Troll game button
+        div4.id='divHomeConnected'
+        div4.innerHTML = `
+            <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+            Troll game
+            </button>`
+        div4.addEventListener('click', () => {
+          setTypeGame("troll");
+          Navigate('/troll');
+        });
+        
+
+        // div5.className="anim";
+        
+
+        // Tutorial button
+        div3.id = 'divHomeConnected'
+        
+        div3.innerHTML = `
+              <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
+              Tutorial
+              </button>`
+        div3.addEventListener('click', () => {
+          Navigate('/tutoriel');
+        });
+        div.className = "anim";
+        div5.id = 'divHomeConnected';
+        main.appendChild(div);
+        div5.appendChild(div2);
+        div5.appendChild(div4);
+        main.appendChild(div5);
+        main.appendChild(div3);
   }
 };
 
@@ -185,4 +197,15 @@ function getScoreTable(playersScore) {
     return scoreTable;
 };
 
+
+function buttonAnime(){
+  gsap.from('#divHome',{ 
+    opacity: 5, 
+    y: 600, 
+    duration: 1});
+    gsap.from('#divHome2',{ 
+      opacity: 5, 
+      y: 600, 
+      duration: 1});
+}
 export default HomePage;

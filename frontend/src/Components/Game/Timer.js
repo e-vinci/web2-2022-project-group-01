@@ -7,7 +7,6 @@ import {getTypeGame} from '../../utils/games'
 let time = 10;
 
 function timerUpdate() {
-  console.log(getTypeGame());
   if (time === 0) {
     const divCanvas = document.querySelector('#gameDiv');
     divCanvas.innerHTML = ` 

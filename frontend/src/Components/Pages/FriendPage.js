@@ -108,10 +108,7 @@ async function addFriend(e) {
   const response = await fetch(`${process.env.API_BASE_URL}/users/addFriend`, options);
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
-  const addingFriend = await response.json();
-
-  console.log('adding state : ', addingFriend);
+    await response.json();
   Navigate('/');
 }
 

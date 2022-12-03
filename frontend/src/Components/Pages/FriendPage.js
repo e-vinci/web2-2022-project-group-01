@@ -38,22 +38,38 @@ async function displayUser(){
     const divUsers=document.querySelector("#divUsers");
     divUsers.style.display="";
     const users= await search();
-    let ligne="<h1>USER</h1><br>";
+    let ligne="<h1>USER</h1><br> <div id='gridContainer'>";
     if(users.length>0){
         users.forEach(element => {
-        ligne+=`<p>${element.username}</p> <br>`;
+        ligne+=`
+        <div class="gridItem">
+            <p><span>Name : </span> ${element.username}</p>
+            <p><span>Level :</span> ${element.level}</p> 
+            <p><span>Xp : </span>${element.xp}</p>
+            <button type="submit" id="addSubmit" class="buttonClass Class btn btn-primary" data-id="${element.id_user}" >Add as friend</button>
+        </div>
+        `;
     }); 
     }else{
-        ligne+=" NO USER FOUND"
+        ligne+=" <p> NO USER FOUND </p> "
     }
-  
-   
-
+    ligne+='</div>'
     
     divUsers.innerHTML=ligne;
 
+    const allButton = document.querySelectorAll( "#addSubmit");
+
+    allButton.forEach(element=>{
+        element.addEventListener("click",addFriend)
+    })
+
 }
 
+async function addFriend(e){
+    e.preventDefault();
+    const {id}=e.target.dataset;
+    console.log(id);
+}
 
 
 export default FriendPage;

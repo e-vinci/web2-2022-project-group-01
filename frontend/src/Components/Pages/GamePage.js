@@ -5,7 +5,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import mojs from '@mojs/core';
 import { gsap } from 'gsap';
 import { clearPage } from '../../utils/render';
 import {
@@ -18,9 +17,7 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
-import { getAuthenticatedUser } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
-import backgroundAnimation from '../../utils/background';
 
 const main = document.querySelector('main');
 let intervalId = 0;
@@ -28,7 +25,6 @@ let intervalId = 0;
 const GamePage = () => {
   clearPage();
   clearTime();
-  backgroundAnimation();
   initTimer();
   renderPlayZone();
   setCanvasContextAndSize();
@@ -110,7 +106,6 @@ function startPersonnalisation() {
 }
 
 async function saveScore() {
-  console.log('ok man');
   // const user = getAuthenticatedUser()
   // quand la co sera faites
   const user = 1;
@@ -137,13 +132,6 @@ async function saveScore() {
   Navigate('/');
 }
 
-/* function animationPlaying() {
-  const divGamePage = document.querySelector('#gamePageDiv');
-  const divAnimation = document.createElement('div');
-  divAnimation.id = 'animationDiv';
-  divAnimation.innerHTML += '<p> you are actually playing, DO YOUR BEST </p>';
-  divGamePage.appendChild(divAnimation);
-} */
 
 function startGame(e) {
   e.preventDefault();
@@ -153,10 +141,8 @@ function startGame(e) {
   initScore();
   initPlayGround();
   hideButton();
-  // animationPlaying();
   drawOneFrame();
   intervalId = setInterval(timerUpdate, 1000);
-  // testAnime();
 }
 
 function hideButton() {
@@ -220,7 +206,7 @@ function buttonAnime() {
   gsap.from('#buttonContainer', {
     opacity: 0,
     y: 600,
-    duration: 6,
+    duration: 3,
   });
 }
 

@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
+// eslint-disable-next-line import/no-unresolved
 const jwt = require('jsonwebtoken')
 const express = require('express');
 const { addGame } = require('../models/Game');

@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken')
 const express = require('express');
 const { addGame } = require('../models/Game');
-const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser} = require('../models/Users');
+const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser, getUsersTest} = require('../models/Users');
 const { authorize} = require('../utils/auths');
 
 const router = express.Router();
@@ -11,7 +11,9 @@ const jwtSecret = 'ilovemygame!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // 24h
 
 /* GET users listing. */
-router.get('/', authorize,(req, res) => {
+router.get('/', async (req, res) => {
+  const test = await getUsersTest();
+  console.log(test);
   res.json({ users: [{ name: 'e-baron' }] });
 });
 

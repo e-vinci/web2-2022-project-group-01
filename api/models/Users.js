@@ -1,6 +1,10 @@
 /* eslint-disable camelcase */
 const db=require("./config_db");
 
+module.exports.getUsersTest = async ()=> {
+    const users=await db`select * from users`
+    return users
+}
 
 // pas obliger de mettre le level et xp vu qu'il commencera forcement au niv1 0xp
 module.exports.addUser = (username, password) => {

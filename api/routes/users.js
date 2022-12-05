@@ -5,10 +5,12 @@ const express = require('express');
 const { addGame } = require('../models/Game');
 const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser} = require('../models/Users');
 const { authorize} = require('../utils/auths');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 const jwtSecret = 'ilovemygame!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // 24h
+const saltRounds = 10;
 
 /* GET users listing. */
 router.get('/', authorize,(req, res) => {
@@ -24,7 +26,8 @@ router.post('/login', async (req, res) => {
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
   if(!userFound) return res.send('aucun user sous ce nom');
-  if(userFound.password !== userPassword) return res.send('mauvais mdp');
+  const passwordMatch = await bcrypt.compare(userPassword, userFound.password);
+  if(!passwordMatch) return res.sendStatus(400)
   
   const token = jwt.sign(
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)
@@ -51,8 +54,8 @@ router.post('/register', async (req, res) => {
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
   if (userFound) return res.send('il y a deja un user avec ce pseudo');
-
- await addUser(userUsername,userPassword);
+  const encryptedData = await bcrypt.hash(userPassword, saltRounds);
+ await addUser(userUsername,encryptedData);
 
   const token = jwt.sign(
     { userUsername }, // session data added to the payload (payload : part 2 of a JWT)

@@ -6,7 +6,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore, update, score } from '../Game/FormSpawner';
+import { drawOneFrame, setCanvasContextAndSize, initScore, update, score } from '../Game/TrollFormSpawner';
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
 

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-mutable-exports */
-import { score } from './FormSpawner';
+import { score } from './TrollFormSpawner';
 // eslint-disable-next-line import/no-cycle
 import { intervalId ,saveScore} from '../Pages/GamePage';
 import {getTypeGame} from '../../utils/games'
@@ -56,6 +56,7 @@ function clearTime(){
   clearInterval(intervalId);
 
 }
+
 function initTimer() {
   time = 10;
 }

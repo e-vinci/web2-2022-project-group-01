@@ -24,7 +24,7 @@ Authorization: {{admin.response.body.token}}
 
 
 ### get all player with the pseudo
-GET {{baseUrl}}/users/getUser?pseudo=j
+GET {{baseUrl}}/users/getUser?pseudo=a
 Authorization: {{admin.response.body.token}}
 
 ### get all friends
@@ -38,8 +38,8 @@ Content-Type: application/json
 Authorization: {{admin.response.body.token}}
 
 {
-    "user1":1,
-    "user2":5
+    "user1":3,
+    "user2":4
 }
 
 

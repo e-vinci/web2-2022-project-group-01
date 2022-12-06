@@ -1,5 +1,3 @@
-DANS UN FICHIER GITHUB/WORKFLOWS
-
 name: CI secret
 
 on:

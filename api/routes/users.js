@@ -87,6 +87,7 @@ router.get('/getUserFriends',authorize, async(req, res) => {
   res.json(user);
 });
 
+
 router.post('/addFriend',authorize, async(req, res) => {
   const user1 = parseInt(req.body.user1,10)
   const user2= parseInt(req.body.user2,10)

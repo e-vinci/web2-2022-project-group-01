@@ -17,3 +17,5 @@ jobs:
       - run: npm ci
       - run: echo ${{secrets.PASSWORDDB}}
       - run : npm code:fix
+
+      

@@ -1,6 +1,6 @@
 DANS UN FICHIER GITHUB/WORKFLOWS
 
-name: DevOps 07 CI
+name: CI secret
 
 on:
   pull_request:

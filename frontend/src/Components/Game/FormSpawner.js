@@ -74,12 +74,14 @@ function initScore() {
 function updateSize(size) {
   radius = parseInt(size, 10);
   setCanvasContextAndSize();
+
 }
 
 function updateColor(colorAdd){  
   color=colorAdd;
   setCanvasContextAndSize();
 
+  
   
 }
 

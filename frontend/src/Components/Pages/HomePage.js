@@ -71,7 +71,7 @@ if (!isAuthenticated()){
       </button>`
       div4.addEventListener('click', () => {
         setTypeGame("troll");
-        Navigate('/troll');
+        Navigate('/game');
       });
 
 
@@ -141,8 +141,9 @@ if (!isAuthenticated()){
             Troll game
             </button>`
         div4.addEventListener('click', () => {
+
           setTypeGame("troll");
-          Navigate('/troll');
+          Navigate('/game');
         });
         
 

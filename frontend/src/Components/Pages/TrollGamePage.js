@@ -6,7 +6,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { clearPage } from '../../utils/render';
-import { drawOneFrame, setCanvasContextAndSize, initScore, update, score } from '../Game/TrollFormSpawner';
+import { drawOneFrame, setCanvasContextAndSize, initScore, update, score } from '../Game/FormSpawner';
+// eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
 
@@ -104,6 +105,7 @@ function startPersonnalisation() {
     hideButton();
     drawOneFrame();
     intervalId = setInterval(timerUpdate, 1000);
+
   }
 
   function displayPerso(e) {
@@ -163,4 +165,4 @@ function startPersonnalisation() {
     }
   }
 
-export default TrollGamePage;
+export {TrollGamePage, intervalId};

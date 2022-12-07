@@ -1,7 +1,9 @@
 /* eslint-disable import/no-mutable-exports */
-import { score } from './TrollFormSpawner';
+import { score } from './FormSpawner';
 // eslint-disable-next-line import/no-cycle
 import { intervalId ,saveScore} from '../Pages/GamePage';
+// eslint-disable-next-line import/no-cycle
+import { intervalId as intervalTrollGame } from '../Pages/TrollGamePage';
 import {getTypeGame} from '../../utils/games'
 
 let time = 10;
@@ -53,8 +55,12 @@ function hideAnimation(){
 */
 
 function clearTime(){
-  clearInterval(intervalId);
-
+  
+  if(getTypeGame() === "troll"){
+    clearInterval(intervalTrollGame);
+  }else{
+    clearInterval(intervalId);
+  }
 }
 
 function initTimer() {

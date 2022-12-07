@@ -1,4 +1,7 @@
 /* eslint-disable no-console */
+
+import { getTypeGame } from "../../utils/games";
+
 /* eslint-disable no-unused-vars */
 let radius = 20;
 let color ="#ed2553";
@@ -57,7 +60,9 @@ function onClickForm(e) {
       (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
   ) {
     refreshScore();
-    drawOneFrame();
+  
+    if(getTypeGame() === 'troll') drawOneFrameTroll();
+    else drawOneFrame();
   }
 }
 
@@ -77,6 +82,28 @@ function update(size,colorAdd) {
   setCanvasContextAndSize();
 }
 
+// ********* TROLL **************
+function drawOneFrameTroll() {
+  clearFrame();
+  setSizeCanvas();
+
+  // eslint-disable-next-line prefer-const
+  let tour = Math.random() * ((3-1)+1);
+
+  if(tour < 2 ){
+    drawMultipleRectangles();
+  }else{
+    drawRectanglesAtRandomLocations();
+  }
+}
+
+function drawMultipleRectangles(){
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 3; i++) {
+    drawRectanglesAtRandomLocations();
+  }
+}
+
  
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, update };
+export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, update, drawOneFrameTroll };

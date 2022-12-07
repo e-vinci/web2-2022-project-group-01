@@ -13,6 +13,7 @@ import {
   initScore,
   update,
   score,
+  drawOneFrameTroll,
 } from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
@@ -142,7 +143,11 @@ function startGame(e) {
   initScore();
   initPlayGround();
   hideButton();
-  drawOneFrame();
+  if(getTypeGame() === 'troll'){
+    console.log("Trol type");
+    drawOneFrameTroll();
+  }else drawOneFrame();
+  
   intervalId = setInterval(timerUpdate, 1000);
 }
 

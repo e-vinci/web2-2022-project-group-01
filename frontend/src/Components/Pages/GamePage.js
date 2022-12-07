@@ -11,7 +11,8 @@ import {
   drawOneFrame,
   setCanvasContextAndSize,
   initScore,
-  update,
+  updateSize,
+  updateColor,
   score,
 } from '../Game/FormSpawner';
 // eslint-disable-next-line import/no-cycle
@@ -199,7 +200,8 @@ function personnalisation(e) {
 
   if (t !== '' && m !== '') {
     updateTime(t);
-    update(m, c);
+    updateSize(m);
+    updateColor(c);
   }
 }
 

@@ -29,9 +29,19 @@ function setSizeCanvas() {
 function drawOneFrame() {
   clearFrame();
   setSizeCanvas();
-  drawRectanglesAtRandomLocations();
 
-  // ******************* créer une autre méhode ici
+  // eslint-disable-next-line prefer-const
+  let tour = Math.random() * ((3-1)+1);
+  
+  if(tour < 2 ){
+    drawMultipleRectangles();
+  }else{
+    drawRectanglesAtRandomLocations();
+  }
+}
+
+function drawMultipleRectangles(){
+  drawRectanglesAtRandomLocations();
   drawRectanglesAtRandomLocations();
   drawRectanglesAtRandomLocations();
 }

@@ -46,12 +46,9 @@ if (!isAuthenticated()){
       Ranked Game
       </button> `;
       div.addEventListener('click', () => {
-        if (isAuthenticated()) {
-          Navigate('/game');
-        } else {
-          setTypeGame("competition");
-          Navigate('/game');
-        }
+      
+          Navigate('/login');
+       
       });
 
 

@@ -65,25 +65,25 @@ const anonymousUserNavbar = `
             </li>
             <li id="test" class="nav-item">
               <a class="nav-link" href="#" data-uri="/friend">Friend</a>
-            </li>              
+            </li>   
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/user">${authenticatedUser?.username}</a>
+            </li>           
             <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
-            </li>    
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">${authenticatedUser?.username}</a>
-            </li>           
+            </li>         
           </ul>
         </div>
       </div>
     </nav>
 `;
-
+ // user : disabled
   const navbar = document.querySelector('#navbarWrapper');
 
   navbar.innerHTML = isAuthenticated() ? authenticatedUserNavbar : anonymousUserNavbar;
 
   const logo = document.querySelector('#logo');
-  logo.addEventListener('click',redirectHome)
+  logo.addEventListener('click',redirectHome);
 }
 
 

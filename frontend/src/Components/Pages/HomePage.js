@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-plusplus */
 /* eslint-disable prefer-const */
@@ -45,12 +46,9 @@ if (!isAuthenticated()){
       Ranked Game
       </button> `;
       div.addEventListener('click', () => {
-        if (isAuthenticated()) {
-          Navigate('/game');
-        } else {
-          setTypeGame("competition");
-          Navigate('/game');
-        }
+      
+          Navigate('/login');
+       
       });
 
 

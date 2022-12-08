@@ -2,7 +2,7 @@
 
 import { getAuthenticatedUser } from "../utils/auths";
 
-const readUsersScore = async () => {
+async function readUsersScore() {
   try {
     const options={
       headers: {

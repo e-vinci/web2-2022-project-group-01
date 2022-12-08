@@ -60,7 +60,7 @@ POST {{baseUrl}}/users/addFriend
 Content-Type: application/json
 
 {
-    "user1":1,
+    "user1":1,  
     "user2":1
 }
 

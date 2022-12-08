@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
+// eslint-disable-next-line import/no-unresolved
 const jwt = require('jsonwebtoken')
 const express = require('express');
 const bcrypt = require('bcrypt');
@@ -103,7 +104,7 @@ router.post('/addFriend',authorize, async(req, res) => {
 });
 
 // afficher la table des meilleurs scores
-router.get('/getUsersScore', authorize,async(req, res) => {
+router.get('/getUsersScore', authorize, async(req, res) => {
   const user = await getUsersScore();
   res.json(user);
 });

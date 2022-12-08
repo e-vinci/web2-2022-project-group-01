@@ -141,7 +141,7 @@ body{
 /*****End HomePage part********/
 
 /******UserPage part***********/
-
+/*
 #divUser{
   margin: auto;
   display: flex;
@@ -164,6 +164,11 @@ body{
 
 }
 
+#divLevXp{
+  border: 2px solid black;
+  height: 300px;
+  
+}
 
 #divLevNum{
   margin-left: auto;
@@ -181,7 +186,8 @@ body{
 }
 
 #divXp{
-  margin: auto;
+  float: left;
+  margin-left: 100px;
   display: flex;
   font-size: larger;
   color: #212121;
@@ -194,6 +200,24 @@ body{
   
 }
 
+#divXp2{
+  
+  display: flex;
+  font-size: larger;
+  color: #212121;
+  font-weight: bolder;
+  background-color: #ed2553;
+  width: 25%;
+  border: 2px solid black;
+  justify-content: center;
+  border-radius: 30px;
+  
+}
+*/
+
+#divUser{
+  border: 2px solid black;
+}
 
 /******End UserPage part***********/
 

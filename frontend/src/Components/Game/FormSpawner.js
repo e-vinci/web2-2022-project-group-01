@@ -71,12 +71,20 @@ function initScore() {
   score = 0;
 }
 
-function update(size,colorAdd) {
+function updateSize(size) {
   radius = parseInt(size, 10);
+  setCanvasContextAndSize();
+
+}
+
+function updateColor(colorAdd){  
   color=colorAdd;
   setCanvasContextAndSize();
+
+  
+  
 }
 
  
 
-export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, update };
+export { drawOneFrame, setCanvasContextAndSize, score, initScore, updateSize,updateColor};

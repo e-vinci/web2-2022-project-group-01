@@ -11,7 +11,8 @@
     "prettier:fix": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "code:fix": "prettier --write . && eslint --fix ."
+    "code:fix": "prettier --write . && eslint --fix .",
+    "commit": "cz"
   },
   "author": "e-baron",
   "license": "CC-BY-SA-4.0",
@@ -21,6 +22,7 @@
     "@babel/preset-env": "^7.14.4",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -44,5 +46,10 @@
     "jquery": "^3.6.1",
     "jsbarcode": "^3.11.5",
     "prettier": "^2.8.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

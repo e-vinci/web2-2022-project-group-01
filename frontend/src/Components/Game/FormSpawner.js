@@ -29,14 +29,14 @@ function setSizeCanvas() {
 function drawOneFrame() {
   clearFrame();
   setSizeCanvas();
-  drawRectanglesAtRandomLocations();
+  drawCircle();
 }
 
 function clearFrame() {
   canvasContext.clearRect(0, 0, widthCanvas, heightCanvas);
 }
 
-function drawRectanglesAtRandomLocations() {
+function drawCircle() {
   canvasContext.fillStyle = color;
   x = Math.random() * (widthCanvas - radius * 2);
   y = Math.random() * (heightCanvas - radius * 2);

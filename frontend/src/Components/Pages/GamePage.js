@@ -144,7 +144,6 @@ function startGame(e) {
   initPlayGround();
   hideButton();
   if(getTypeGame() === 'troll'){
-    console.log("Trol type");
     drawOneFrameTroll();
   }else drawOneFrame();
   

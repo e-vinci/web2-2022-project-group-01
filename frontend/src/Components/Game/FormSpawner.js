@@ -32,14 +32,14 @@ function setSizeCanvas() {
 function drawOneFrame() {
   clearFrame();
   setSizeCanvas();
-  drawRectanglesAtRandomLocations();
+  drawCircle();
 }
 
 function clearFrame() {
   canvasContext.clearRect(0, 0, widthCanvas, heightCanvas);
 }
 
-function drawRectanglesAtRandomLocations() {
+function drawCircle() {
   canvasContext.fillStyle = color;
   x = Math.random() * (widthCanvas - radius * 2);
   y = Math.random() * (heightCanvas - radius * 2);
@@ -88,22 +88,39 @@ function drawOneFrameTroll() {
   setSizeCanvas();
 
   // eslint-disable-next-line prefer-const
-  let tour = Math.random() * ((3-1)+1);
-
-  if(tour < 2 ){
-    drawMultipleRectangles();
-  }else{
-    drawRectanglesAtRandomLocations();
+  let tour = Math.round(Math.random() * ((3-1)+1));
+  console.log("TOUR", tour);
+  tour = 3;
+  switch(tour){
+    case 1 : drawCircle();
+    break;
+    case 2 : drawMultipleCircle();
+    break;
+    case 3 : teleportCircle();
+    break;
+    default : drawCircle();
   }
 }
 
-function drawMultipleRectangles(){
+function teleportCircle(e) {
+  const xPosReal = x + canvas.offsetLeft;
+  const yPosReal = y + canvas.offsetTop;
+
+  if (
+    ((e.clientX >= xPosReal && e.clientX <= xPosReal + radius) ||
+      (e.clientX <= xPosReal && e.clientX >= xPosReal - radius)) &&
+    ((e.clientY >= yPosReal && e.clientY <= yPosReal + radius) ||
+      (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
+  ) {
+    drawCircle();
+  }
+}
+
+function drawMultipleCircle(){
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 3; i++) {
-    drawRectanglesAtRandomLocations();
+    drawCircle();
   }
 }
-
- 
 
 export { drawOneFrame, setCanvasContextAndSize, onClickForm, score, initScore, update, drawOneFrameTroll };

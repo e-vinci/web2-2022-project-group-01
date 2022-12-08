@@ -215,9 +215,28 @@ body{
 }
 */
 
-#divUser{
+.divUser{
   border: 2px solid black;
+  display: flex;
+  flex-direction: row;
 }
+
+
+
+.divProfil{
+  border: 2px solid black;
+  margin: 20px;
+}
+
+.divProfil2{
+  border: 2px solid black;
+  margin: 20px;
+  width: 1000px;
+  text-align: center;
+  background-color: yellow;
+  
+}
+
 
 /******End UserPage part***********/
 

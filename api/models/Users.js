@@ -34,16 +34,11 @@ module.exports.isFriend= async (id_user1,id_user2)=> {
 }
 
 module.exports.addFriend= async (id_user1,id_user2)=> {
-    await db `insert into friends (users1, users2) values (${id_user1},${id_user2})`
+    await db `insert into friends (users1, users2) values (${id_user1},${id_user2})`;
 }
 
-<<<<<<< HEAD
-module.exports.getUsersScore= () => {
-    const result = db.prepare("select u.username, g.score as best_score from users u, games g where u.id_user = g.user order by g.score desc limit 10").all();   
-=======
-module.exports.getUsersScore= async() => {
-    const result =await db `select u.username, max(g.score) as best_score from users u, games g where u.id_user = g.user_id group by u.username order by max(g.score) desc limit 10`
->>>>>>> 26eccacee1808645ca870b5a80990cb9c66bfee6
+module.exports.getUsersScore= async () => {
+    const result = await db `select u.username, g.score as best_score from users u, games g where u.id_user = g.user_id order by g.score desc limit 10`   
     return result;
 }
 

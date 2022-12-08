@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const postgres=require('postgres');
 
 const sql = postgres('postgres://hrucaptp:rI2ySfCwwBW49L5KHTrNjd3PFCZ6ss1U@peanut.db.elephantsql.com/hrucaptp', {

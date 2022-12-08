@@ -101,7 +101,7 @@ router.post('/addFriend',authorize, async(req, res) => {
 });
 
 // afficher la table des meilleurs scores
-router.get('/getUsersScore', authorize,async(req, res) => {
+router.get('/getUsersScore', authorize, async(req, res) => {
   const user = await getUsersScore();
   res.json(user);
 });

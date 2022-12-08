@@ -141,79 +141,6 @@ body{
 /*****End HomePage part********/
 
 /******UserPage part***********/
-/*
-#divUser{
-  margin: auto;
-  display: flex;
-  font-size: larger;
-  color: #212121;
-  font-weight: bolder;
-  background-color: #ed2553;
-  width: 75%;
-  justify-content: center;
-  border: 2px solid black;
-  border-radius: 30px;
-}
-
-#divImg{
-  float: left;
-  display: flex;
-  border: 2px solid black;
-  width: 9.6%;
-  height: 150px;
-
-}
-
-#divLevXp{
-  border: 2px solid black;
-  height: 300px;
-  
-}
-
-#divLevNum{
-  margin-left: auto;
-  float: left;
-  display: flex;
-  font-size: larger;
-  color: #212121;
-  font-weight: bolder;
-  background-color: #ed2553;
-  width: 25%;
-  border: 2px solid black;
-  justify-content: center;
-  border-radius: 30px;
-  
-}
-
-#divXp{
-  float: left;
-  margin-left: 100px;
-  display: flex;
-  font-size: larger;
-  color: #212121;
-  font-weight: bolder;
-  background-color: #ed2553;
-  width: 25%;
-  border: 2px solid black;
-  justify-content: center;
-  border-radius: 30px;
-  
-}
-
-#divXp2{
-  
-  display: flex;
-  font-size: larger;
-  color: #212121;
-  font-weight: bolder;
-  background-color: #ed2553;
-  width: 25%;
-  border: 2px solid black;
-  justify-content: center;
-  border-radius: 30px;
-  
-}
-*/
 
 .divUser{
   border: 2px solid black;
@@ -226,6 +153,7 @@ body{
 .divProfil{
   border: 2px solid black;
   margin: 20px;
+  display: flex;
 }
 
 .divProfil2{
@@ -233,9 +161,53 @@ body{
   margin: 20px;
   width: 1000px;
   text-align: center;
-  background-color: yellow;
+  background-color: #ed2553;
+  border-radius: 10px 10px 10px 10px;
+  align-items: center;
+  justify-content: center;
+  color: #00539CFF;
+  font-size: larger;
+  display: flex;
+
+  
+}
+
+.divLevel{
+  display: flex;
+  flex-direction: row;
+}
+
+.divNiv{
+  border: 3px solid black;
+  margin: 20px;
+  width: 300px;
+  text-align: center;
+  background-color: #ed2553;
   border-radius: 10px 10px 10px 10px;
   
+  justify-content: center;
+  color: #00539CFF;
+  font-size: larger;
+  display: flex;
+}
+
+.divXp{
+  border: 3px solid black;
+  margin: 20px;
+  width: 400px;
+  text-align: center;
+  background-color: #ed2553;
+  border-radius: 10px 10px 10px 10px;
+  align-items: center;
+  justify-content: center;
+  color: #00539CFF;
+  font-size: larger;
+  display: flex;
+}
+
+.divGames{
+  height: 500px;
+  border: 2px solid black;
 }
 
 

@@ -42,5 +42,10 @@ module.exports.getUsersScore= async () => {
     return result;
 }
 
+module.exports.getUsersLevel= async ()=> {
+    const result = await db `select u.level from users u, levels l where l.num_level = u.level`;
+    return result;
+}
+
 
 

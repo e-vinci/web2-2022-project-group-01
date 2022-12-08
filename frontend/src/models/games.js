@@ -11,7 +11,6 @@ async function readUsersScore() {
     };
 
     const response = await fetch(`${process.env.API_BASE_URL}/users/getUsersScore`, options);
-
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
     }

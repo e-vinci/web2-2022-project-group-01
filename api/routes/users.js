@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 const jwt = require('jsonwebtoken')
 const express = require('express');
+const bcrypt = require('bcrypt');
 const { addGame } = require('../models/Game');
 const { searchUser, getUserFriends, isFriend, addFriend, getUsersScore, addUser ,getUser} = require('../models/Users');
 const { authorize} = require('../utils/auths');
@@ -9,6 +10,7 @@ const { authorize} = require('../utils/auths');
 const router = express.Router();
 const jwtSecret = 'ilovemygame!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // 24h
+const saltRounds = 10;
 
 
 router.post('/login', async (req, res) => {
@@ -19,7 +21,8 @@ router.post('/login', async (req, res) => {
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
   if(!userFound) return res.send('aucun user sous ce nom');
-  if(userFound.password !== userPassword) return res.send('mauvais mdp');
+  const passwordMatch = await bcrypt.compare(userPassword, userFound.password);
+  if(!passwordMatch) return res.sendStatus(400)
   
   const token = jwt.sign(
     {username }, // session data added to the payload (payload : part 2 of a JWT)
@@ -46,8 +49,8 @@ router.post('/register', async (req, res) => {
   const userFound =await  getUser(username);
 
   if (userFound) return res.send('il y a deja un user avec ce pseudo');
-
-  addUser(username,userPassword);
+  const encryptedData = await bcrypt.hash(userPassword, saltRounds);
+  await addUser(username,encryptedData);
   const userAdd = await getUser(username);
 
   const token = jwt.sign(

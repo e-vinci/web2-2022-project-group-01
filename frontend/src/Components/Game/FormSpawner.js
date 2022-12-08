@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 let radius = 20;
-let color ="#ed2553";
+let color = '#ed2553';
 let canvas;
 let widthCanvas;
 let heightCanvas;
@@ -74,17 +74,11 @@ function initScore() {
 function updateSize(size) {
   radius = parseInt(size, 10);
   setCanvasContextAndSize();
-
 }
 
-function updateColor(colorAdd){  
-  color=colorAdd;
+function updateColor(colorAdd) {
+  color = colorAdd;
   setCanvasContextAndSize();
-
-  
-  
 }
 
- 
-
-export { drawOneFrame, setCanvasContextAndSize, score, initScore, updateSize,updateColor};
+export { drawOneFrame, setCanvasContextAndSize, score, initScore, updateSize, updateColor };

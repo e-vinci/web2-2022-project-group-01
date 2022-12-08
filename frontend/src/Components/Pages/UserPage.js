@@ -1,23 +1,22 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import { getAuthenticatedUser } from "../../utils/auths";
-import { clearPage } from "../../utils/render";
-import profil from "../../img/profil.jpg";
+import { getAuthenticatedUser } from '../../utils/auths';
+import { clearPage } from '../../utils/render';
+import profil from '../../img/profil.jpg';
 
 const UserPage = () => {
-    clearPage();
-    getUserPage();
-
+  clearPage();
+  getUserPage();
 };
 
 function getUserPage() {
-    const main = document.querySelector("main");
-    const divUserPage = document.createElement("div");
-    const user = getAuthenticatedUser();
-    divUserPage.className = "divUser";
-    // https://www.synonyme-du-mot.com/les-articles/comment-mettre-deux-div-cote-a-cote
-    // https://youtu.be/0SktamdLLAQ
-    divUserPage.innerHTML = `
+  const main = document.querySelector('main');
+  const divUserPage = document.createElement('div');
+  const user = getAuthenticatedUser();
+  divUserPage.className = 'divUser';
+  // https://www.synonyme-du-mot.com/les-articles/comment-mettre-deux-div-cote-a-cote
+  // https://youtu.be/0SktamdLLAQ
+  divUserPage.innerHTML = `
         <div>
             <div class="divProfil">
                 <img src="${profil}" />
@@ -39,8 +38,7 @@ function getUserPage() {
 
         `;
 
-    main.appendChild(divUserPage);
-
+  main.appendChild(divUserPage);
 }
 
 export default UserPage;

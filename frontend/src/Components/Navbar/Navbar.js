@@ -10,9 +10,9 @@ const Navbar = () => {
 };
 
 function renderNavbar() {
-const authenticatedUser = getAuthenticatedUser();
+  const authenticatedUser = getAuthenticatedUser();
 
-const anonymousUserNavbar = `
+  const anonymousUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
       <div class="container-fluid navbar-custom" id="navbar">
         <div id="logo">
@@ -77,18 +77,17 @@ const anonymousUserNavbar = `
       </div>
     </nav>
 `;
- // user : disabled
+  // user : disabled
   const navbar = document.querySelector('#navbarWrapper');
 
   navbar.innerHTML = isAuthenticated() ? authenticatedUserNavbar : anonymousUserNavbar;
 
   const logo = document.querySelector('#logo');
-  logo.addEventListener('click',redirectHome);
+  logo.addEventListener('click', redirectHome);
 }
 
-
-function redirectHome(){
-  Navigate("/");
+function redirectHome() {
+  Navigate('/');
 }
 
 export default Navbar;

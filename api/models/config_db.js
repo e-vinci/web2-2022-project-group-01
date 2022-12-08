@@ -9,7 +9,6 @@ const sql = postgres('postgres://hrucaptp:rI2ySfCwwBW49L5KHTrNjd3PFCZ6ss1U@peanu
 
 })
 
-console.log(process.env.DBPASSWORD);
 
 
 

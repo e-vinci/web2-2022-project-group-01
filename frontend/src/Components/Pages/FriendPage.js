@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { clearPage } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 
@@ -47,6 +48,7 @@ async function search() {
   );
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   const users = await response.json();
+  console.log("ppppppppppppppppppppppppppppp",users.level);
   return users;
 }
 

@@ -12,7 +12,7 @@ const {
   addFriend,
   getUsersScore,
   addUser,
-  getUser, getUsersLevel ,
+  getUser,
   } = require('../models/Users');
   
 const { authorize } = require('../utils/auths');
@@ -111,12 +111,6 @@ router.post('/addFriend', authorize, async (req, res) => {
 // afficher la table des meilleurs scores
 router.get('/getUsersScore', authorize, async (req, res) => {
   const user = await getUsersScore();
-  res.json(user);
-});
-
-// get the level of the user
-router.get('/getLevelUser', authorize, async(req, res) => {
-  const user = await getUsersLevel();
   res.json(user);
 });
 

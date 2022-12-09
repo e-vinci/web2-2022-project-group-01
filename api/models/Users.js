@@ -33,14 +33,10 @@ module.exports.isFriend = async (id_user1, id_user2) => {
 module.exports.addFriend = async (id_user1, id_user2) => {
   await db`insert into friends (users1, users2) values (${id_user1},${id_user2})`;
 }
-module.exports.getUsersLevel= async ()=> {
-    const result = await db `select u.level from users u, levels l where l.num_level = u.level`;
-    return result;
-}
-
 
 module.exports.getUsersScore = async () => {
   const result = await db`select u.username, g.score as best_score from users u, games g where u.id_user = g.user_id order by g.score desc limit 10`;
   return result;
 
 }
+

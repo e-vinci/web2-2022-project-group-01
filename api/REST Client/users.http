@@ -111,6 +111,5 @@ Content-Type: application/json
 GET {{baseUrl}}/users/getUsersScore
 Authorization: {{admin.response.body.token}}
 
-### read the user's level
-GET {{baseUrl}}/users/getLevelUser
-Authorization: {{admin.response.body.token}}
+
+

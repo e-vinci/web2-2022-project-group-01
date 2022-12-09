@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
@@ -8,9 +9,9 @@
 import { gsap } from 'gsap';
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
-import { isAuthenticated } from '../../utils/auths';
+import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
-import { readUsersScore } from '../../models/games';
+// import { readUsersScore } from '../../models/games';
 
 const main = document.querySelector('main');
 const div = document.createElement('div');
@@ -20,7 +21,7 @@ const div4 = document.createElement('div');
 const div5 = document.createElement('div');
 const divScoreTable = document.createElement('div');
 
-const HomePage = async () => {
+const HomePage = () => {
   clearPage();
   getHomePage();
   buttonAnime();
@@ -88,6 +89,8 @@ async function getHomePage() {
     // Top Score table
     const usersScore = await readUsersScore();
     const table = getScoreTable(usersScore);
+
+    console.log(getAuthenticatedUser());
     
     divScoreTable.id = 'divScoreTable';
     divScoreTable.className = 'anim';
@@ -181,6 +184,30 @@ function getScoreTable(playersScore) {
     numPlayer++;
   });
   return scoreTable;
+}
+
+async function readUsersScore() {
+  try {
+    const options = {
+      headers: {
+        Authorization: getAuthenticatedUser().token,
+      },
+    };
+
+    const response = await fetch(`${process.env.API_BASE_URL}/users/getUsersScore`, options);
+    
+
+    if (!response.ok) {
+      throw new Error(`readUsersScore:: fetch error : ${response.status} : ${response.statusText}`);
+    }
+
+    const usersScore = await response.json();
+    return usersScore;
+    
+  } catch (err) {
+    console.error('readUsersScore::error: ', err);
+    throw err;
+  }
 }
 
 function buttonAnime() {

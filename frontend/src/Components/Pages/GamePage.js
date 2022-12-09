@@ -115,13 +115,12 @@ async function saveScore() {
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      user : user.id,
+      user: user.id,
       score: scoreToAdd,
     }),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: user.token
-
+      Authorization: user.token,
     },
   };
 
@@ -134,7 +133,6 @@ async function saveScore() {
 
   Navigate('/');
 }
-
 
 function startGame(e) {
   e.preventDefault();

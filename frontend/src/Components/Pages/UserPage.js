@@ -6,9 +6,8 @@ import profil from "../../img/profil.jpg";
 import { readUsersLevel } from "../../models/games";
 
 const UserPage = () => {
-    clearPage();
-    getUserPage();
-
+  clearPage();
+  getUserPage();
 };
 
 function getUserPage() {

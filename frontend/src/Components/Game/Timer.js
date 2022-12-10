@@ -11,11 +11,11 @@ function timerUpdate() {
     const divCanvas = document.querySelector('#gameDiv');
     divCanvas.innerHTML = ` 
     <div id ="divEndGameDisplay">
-      <div id="textScore">
+      <div id="textScore" class="infoGame">
         <p> Your score is ${score} </p>
       </div>
-      <div>
-        <button type="submit" id = "saveButton"class = "buttonClass btn btn-primary">
+      <div id="save">
+        <button type="submit" id ="saveButton" class = "buttonClass btn btn-primary">
         <p> Save Score </p>
       </div>
     </div>

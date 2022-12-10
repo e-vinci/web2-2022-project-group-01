@@ -13,6 +13,7 @@ const {
   getUsersScore,
   addUser,
   getUser,
+  getUserIdScore,
 } = require('../models/Users');
 const { authorize } = require('../utils/auths');
 
@@ -107,10 +108,22 @@ router.post('/addFriend', authorize, async (req, res) => {
   res.json('true');
 });
 
-// afficher la table des meilleurs scores
+// read the table of the top score
 router.get('/getUsersScore', authorize, async (req, res) => {
   const user = await getUsersScore();
   res.json(user);
+});
+
+// read the best User's scores
+router.get('/getBestUserScore', authorize, async (req, res) => {
+  const bestUserScore = await getUserIdScore(req.query.id, false);
+  res.json(bestUserScore);
+});
+
+// read all the User's scores
+router.get('/getAllUserScore', authorize, async (req, res) => {
+  const bestUserScore = await getUserIdScore(req.query.id, true);
+  res.json(bestUserScore);
 });
 
 

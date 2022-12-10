@@ -111,5 +111,13 @@ Content-Type: application/json
 GET {{baseUrl}}/users/getUsersScore
 Authorization: {{admin.response.body.token}}
 
+### read the best user'scores
+GET {{baseUrl}}/users/getBestUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
+### read the best user'scores
+GET {{baseUrl}}/users/getAllUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
 
 

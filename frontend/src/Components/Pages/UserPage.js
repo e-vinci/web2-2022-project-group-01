@@ -9,27 +9,23 @@
 import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
 import profil from "../../img/profil.jpg";
-import { readUsersScore, getUserInfo } from "../../models/games";
+import { readUsersScore, getUserInfo, readBestUserScore, readAllUserScore } from "../../models/games";
 // import { getUserInfo } from "../../models/users";
 
-const user =  getAuthenticatedUser();
+// const user =  getAuthenticatedUser();
 
 
 const UserPage = () => {
     clearPage();
     getUserPage();
-    
+
 };
 
 async function getUserPage() {
     const main = document.querySelector("main");
     const divUserPage = document.createElement("div");
-    const userLevel = await getUserInfo();
-   
-    
-    const userGames = await displayGamesInfos();
-    console.log("kkkkkkkkkkkkkkkkkkkkkkk", userGames);
-    
+    const user = await getUserInfo();
+
     const divGamesLeft = document.createElement("div");
     const divGamesRight = document.createElement("div");
     divUserPage.id = "divUser";
@@ -48,7 +44,7 @@ async function getUserPage() {
             </div>
             <div class="divLevel">    
                 <div class="divNiv">
-                    <p> Niveau : ${userLevel.level} </p>
+                    <p> Niveau : ${user.level} </p>
                 </div>
                 <div class="divXp">
                     <p> 16/25 xp </p>   
@@ -56,23 +52,30 @@ async function getUserPage() {
             </div>
         </div>`;
     // ************************************************************************ //
-    
-    
+
+
     divGamesLeft.className = "divGames";
-    console.log(userGames);
 
-    const userDiv = document.createElement('div');
-    userDiv.id = 'divUsers2';
-    
-    divGamesLeft.appendChild(userDiv);
 
+    const userBestScore = await readBestUserScore(user.id_user);
+
+    const userBestGames = getGamesInfos(userBestScore);
+
+    const divBestScore = document.createElement("div");
+    divBestScore.innerHTML = `<div class="divXp">
+    <p> 16/25 xp </p>   
+</div>`;
+
+    divGamesLeft.appendChild(divBestScore);
+    divGamesLeft.innerHTML = userBestGames;
+
+
+    const userAllScore = await readAllUserScore(user.id_user);
+
+    const userAllGames = getGamesInfos(userAllScore);
 
     divGamesRight.className = "divGames2";
-    divGamesRight.innerHTML = `
-        <div>
-            oui
-        </div>
-    `;
+    divGamesRight.innerHTML = userAllGames;
 
     main.appendChild(divUserPage);
     main.appendChild(divGamesLeft);
@@ -82,38 +85,27 @@ async function getUserPage() {
     // main.appendChild(divGames);
 }
 
-async function displayGamesInfos() {
-     
-    const gameInfos = await readUsersScore();
-    
-  
-    const result = getGamesInfos(gameInfos);
-    console.log("MMMMMMMMMMMMMMMMMMMMMMMMM", result);
-    return result;
-  }
+
 
 function getGamesInfos(gameInfos) {
-    const divUsers = document.querySelector('#divUsers2');
-    divUsers.style.display = '';
-  
-    let ligne = "<h1>USER</h1><br> <div id='gridContainer'>";
+
+    let ligne = "<br> <div id='gridContainer'>";
     if (gameInfos.length > 0) {
         gameInfos.forEach((element) => {
-          ligne += `
+            ligne += `
               <div class="gridItem">
-                  <p><span>Name : </span> ${element.username}</p>
-                  <p><span>Level :</span> ${element.best_score}</p> 
+                  <p><span>Score :</span> ${element.best_score}</p> 
               `;
-          ligne += '</div>';
+            ligne += '</div>';
         });
-      } else {
-        ligne += ' <p> NO USER FOUND </p> ';
-      }
-      ligne += '</div>';
-    
-      divUsers.innerHTML = ligne;
-    
-  }
+    } else {
+        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
+    }
+    ligne += '</div>';
+
+    return ligne;
+
+}
 
 
 export default UserPage;

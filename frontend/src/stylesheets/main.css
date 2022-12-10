@@ -215,6 +215,7 @@ body{
   display: flex;
   float: left;
   width: 50%;
+  justify-content: center;
 }
 
 .divGames2{
@@ -224,6 +225,7 @@ body{
   display: flex;
   float: left;
   width: 50%;
+  justify-content: center;
  
 }
 

@@ -25,9 +25,11 @@ async function getUserPage() {
     const main = document.querySelector("main");
     const divUserPage = document.createElement("div");
     const userLevel = await getUserInfo();
-    console.log("kkkkkkkkkkkkkkkkkkkkkkk", userLevel.level);
-    const games = await readUsersScore();
-    const userGames = getGamesInfos(games);
+   
+    
+    const userGames = await displayGamesInfos();
+    console.log("kkkkkkkkkkkkkkkkkkkkkkk", userGames);
+    
     const divGamesLeft = document.createElement("div");
     const divGamesRight = document.createElement("div");
     divUserPage.id = "divUser";
@@ -58,7 +60,11 @@ async function getUserPage() {
     
     divGamesLeft.className = "divGames";
     console.log(userGames);
-    divGamesLeft.innerHTML = userGames;
+
+    const userDiv = document.createElement('div');
+    userDiv.id = 'divUsers2';
+    
+    divGamesLeft.appendChild(userDiv);
 
 
     divGamesRight.className = "divGames2";
@@ -76,23 +82,37 @@ async function getUserPage() {
     // main.appendChild(divGames);
 }
 
+async function displayGamesInfos() {
+     
+    const gameInfos = await readUsersScore();
+    
+  
+    const result = getGamesInfos(gameInfos);
+    console.log("MMMMMMMMMMMMMMMMMMMMMMMMM", result);
+    return result;
+  }
 
-async function getGamesInfos(gameInfos) {
-    const divUsers = document.querySelector('#divUsers');
+function getGamesInfos(gameInfos) {
+    const divUsers = document.querySelector('#divUsers2');
     divUsers.style.display = '';
   
     let ligne = "<h1>USER</h1><br> <div id='gridContainer'>";
-   
-      gameInfos.forEach((element) => {
-        ligne += `
-            <div class="gridItem">
-                <p><span>Name : </span> ${element.username}</p>
-                <p><span>Level :</span> ${element.best_score}</p> 
-                
-            `;
-      });
-
-    divUsers.innerHTML = ligne;
+    if (gameInfos.length > 0) {
+        gameInfos.forEach((element) => {
+          ligne += `
+              <div class="gridItem">
+                  <p><span>Name : </span> ${element.username}</p>
+                  <p><span>Level :</span> ${element.best_score}</p> 
+              `;
+          ligne += '</div>';
+        });
+      } else {
+        ligne += ' <p> NO USER FOUND </p> ';
+      }
+      ligne += '</div>';
+    
+      divUsers.innerHTML = ligne;
+    
   }
 
 

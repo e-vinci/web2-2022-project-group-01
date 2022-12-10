@@ -90,7 +90,7 @@ async function getHomePage() {
     const usersScore = await readUsersScore();
     const table = getScoreTable(usersScore);
 
-    console.log(getAuthenticatedUser());
+    console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLL",usersScore);
     
     divScoreTable.id = 'divScoreTable';
     divScoreTable.className = 'anim';

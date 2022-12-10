@@ -136,7 +136,7 @@ body{
 /******UserPage part***********/
 
 #divUser {
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   display: flex;
   flex-direction: row;
 }
@@ -201,9 +201,30 @@ body{
   
 }
 
-.divGames{
+/**.divGames{
   height: 500px;
   border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+}**/
+
+.divGames{
+  padding-bottom: 35%;
+  border: 2px solid black;
+  border-style : none solid none none;
+  display: flex;
+  float: left;
+  width: 50%;
+}
+
+.divGames2{
+  padding-bottom: 35%;
+  border: 2px solid black;
+  border-style : none none none solid;
+  display: flex;
+  float: left;
+  width: 50%;
+ 
 }
 
 /******End UserPage part***********/

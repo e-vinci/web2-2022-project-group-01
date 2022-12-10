@@ -11,7 +11,7 @@ import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
-// import { readUsersScore } from '../../models/games';
+import { readUsersScore } from '../../models/games';
 
 const main = document.querySelector('main');
 const div = document.createElement('div');
@@ -184,30 +184,6 @@ function getScoreTable(playersScore) {
     numPlayer++;
   });
   return scoreTable;
-}
-
-async function readUsersScore() {
-  try {
-    const options = {
-      headers: {
-        Authorization: getAuthenticatedUser().token,
-      },
-    };
-
-    const response = await fetch(`${process.env.API_BASE_URL}/users/getUsersScore`, options);
-    
-
-    if (!response.ok) {
-      throw new Error(`readUsersScore:: fetch error : ${response.status} : ${response.statusText}`);
-    }
-
-    const usersScore = await response.json();
-    return usersScore;
-    
-  } catch (err) {
-    console.error('readUsersScore::error: ', err);
-    throw err;
-  }
 }
 
 function buttonAnime() {

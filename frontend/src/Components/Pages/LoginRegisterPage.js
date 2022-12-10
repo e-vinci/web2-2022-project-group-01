@@ -122,7 +122,7 @@ async function onLogin(e) {
     errorDiv.innerHTML="<p>password or username wrong</p>"
     loginButton.innerHTML='<span>Go</span>'
     return;
-  };
+  }
 
   const authenticatedUser = await response.json();
 
@@ -172,7 +172,7 @@ async function onRegister(e) {
     errorDiv.innerHTML='<p>Username already in use</p>'
     registerButton.innerHTML="<span>GO</span>"
     return;
-  };
+  }
   
   const authenticatedUser = await response.json();
 

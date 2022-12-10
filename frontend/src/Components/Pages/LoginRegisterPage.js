@@ -5,12 +5,10 @@ import {  setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
-import {addModal,showLoad} from '../Popup/LoadingPopUp';
 
 const LoginPage = () => {
   clearPage();
   renderPageTitle('Login');
-  addModal();
   renderRegisterForm();
 };
 

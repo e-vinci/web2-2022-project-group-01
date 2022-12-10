@@ -8,10 +8,12 @@ import Navigate from '../Router/Navigate';
 
 const LoginPage = () => {
   clearPage();
-  renderPageTitle('Login');
   renderRegisterForm();
 };
 
+/*
+**function that add all the div at the loading of the page
+*/
 function renderRegisterForm() {
   const main = document.querySelector('main');
   // eslint-disable-next-line spaced-comment
@@ -94,6 +96,9 @@ function renderRegisterForm() {
 
 
 
+/*
+**function that log in the user or put an error message
+*/
 async function onLogin(e) {
   e.preventDefault();
   const errorDiv=document.querySelector("#errorLogin");
@@ -132,6 +137,9 @@ async function onLogin(e) {
   Navigate('/');
 }
 
+/*
+**function that register the user or put an error message
+*/
 async function onRegister(e) {
   e.preventDefault();
   const errorDiv=document.querySelector("#errorRegister");

@@ -13,8 +13,7 @@ const {
   getUsersScore,
   addUser,
   getUser,
-  } = require('../models/Users');
-  
+} = require('../models/Users');
 const { authorize } = require('../utils/auths');
 
 const router = express.Router();
@@ -29,7 +28,7 @@ router.post('/login', async (req, res) => {
   const userFound = await getUser(username);
   // il faut que tu return un res.send pour que on ai un message
   // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
-  if (!userFound) return res.send('aucun user sous ce nom');
+  if (!userFound) return res.sendStatus(404);
   const passwordMatch = await bcrypt.compare(userPassword, userFound.password);
   if (!passwordMatch) return res.sendStatus(400);
 
@@ -55,7 +54,7 @@ router.post('/register', async (req, res) => {
 
   const userFound = await getUser(username);
 
-  if (userFound) return res.send('il y a deja un user avec ce pseudo');
+  if (userFound) return res.sendStatus(400);
   const encryptedData = await bcrypt.hash(userPassword, saltRounds);
   await addUser(username, encryptedData);
   const userAdd = await getUser(username);
@@ -100,8 +99,8 @@ router.post('/addFriend', authorize, async (req, res) => {
   const user1 = parseInt(req.body.user1, 10);
   const user2 = parseInt(req.body.user2, 10);
 
-  if (await isFriend(user1, user2)) return res.send('deja amis');
-  if (user1 === user2) return res.send("pas possible d'ajouter en amis la meme personne");
+  if (await isFriend(user1, user2)) return res.sendStatus(400);
+  if (user1 === user2) return res.sendStatus(404);
 
   await addFriend(user1, user2);
 

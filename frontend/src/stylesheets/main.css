@@ -1,7 +1,8 @@
 /*all pages*/
-/*
+
 body{
-  background: linear-gradient(90deg, #03000e,#11064d9a);
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   background-size: 400% 400%;
   animation: anim 9s infinite ease-in-out;
 }
@@ -17,7 +18,7 @@ body{
     background-position: 0 50%;
   }
 }
-*/
+
 .navbar-custom {
   background-color: #ed2553;
 }
@@ -334,13 +335,28 @@ body{
 }
 
 /*login*/
+
+.errorDiv p{
+  text-align: center;
+  font-size:x-large;
+  margin: 10px;
+}
+
+#errorLogin{
+  color: red;
+}
+#errorRegister{
+  color: rgb(0, 0, 0);
+}
+
+
+
 /***************************************************************************************
 *    Author: Nothing4us
 *    Availability:https://codepen.io/nothing4us/pen/JjZpBXL
 *
 ***************************************************************************************/
 body {
-  background: #66ffff;
   color: #666666;
   font-family: 'RobotoDraft', 'Roboto', sans-serif;
   font-size: 14px;

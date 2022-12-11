@@ -7,15 +7,15 @@ import {  setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
-// import {addModal,showLoad} from '../Popup/LoadingPopUp';
 
 const LoginPage = () => {
   clearPage();
-  renderPageTitle('Login');
-  // addModal();
   renderRegisterForm();
 };
 
+/*
+**function that add all the div at the loading of the page
+*/
 function renderRegisterForm() {
   const main = document.querySelector('main');
   // eslint-disable-next-line spaced-comment
@@ -98,6 +98,9 @@ function renderRegisterForm() {
 
 
 
+/*
+**function that log in the user or put an error message
+*/
 async function onLogin(e) {
   e.preventDefault();
   const errorDiv=document.querySelector("#errorLogin");
@@ -116,16 +119,16 @@ async function onLogin(e) {
     },
   };
 
+  loginButton.innerHTML="<span>LOADING...</span>"
   const response = await fetch(`${process.env.API_BASE_URL}/users/login`, options);
   // showLoad();
   errorDiv.style.display="";
-  loginButton.innerHTML="<span>LOADING...</span>"
 
   if (!response.ok) {
     errorDiv.innerHTML="<p>password or username wrong</p>"
     loginButton.innerHTML='<span>Go</span>'
     return;
-  };
+  }
 
   const authenticatedUser = await response.json();
 
@@ -137,6 +140,9 @@ async function onLogin(e) {
   Navigate('/');
 }
 
+/*
+**function that register the user or put an error message
+*/
 async function onRegister(e) {
   e.preventDefault();
   const errorDiv=document.querySelector("#errorRegister");
@@ -162,10 +168,10 @@ async function onRegister(e) {
     },
   };
 
+  registerButton.innerHTML="<span>LOADING...</span>"
+
   const response = await fetch(`${process.env.API_BASE_URL}/users/register`, options);
 
-  registerButton.innerHTML="<span>LOADING...</span>"
-  console.log(password !== passwordRepeat);
   if (password !== passwordRepeat) {
     errorDiv.innerHTML='<p>Password wrong</p>'
     registerButton.innerHTML="<span>GO</span>"
@@ -175,7 +181,7 @@ async function onRegister(e) {
     errorDiv.innerHTML='<p>Username already in use</p>'
     registerButton.innerHTML="<span>GO</span>"
     return;
-  };
+  }
   
   const authenticatedUser = await response.json();
 

@@ -4,7 +4,7 @@ import { score } from './FormSpawner';
 import { intervalId, saveScore } from '../Pages/GamePage';
 import { getTypeGame } from '../../utils/games';
 
-let time = 10;
+let time = 30;
 
 /*
 **function that update the timer while the time is different from 0
@@ -64,7 +64,7 @@ function clearTime() {
 **function that init the timer to 0
 */
 function initTimer() {
-  time = 10;
+  time = 30;
 }
 
 /*

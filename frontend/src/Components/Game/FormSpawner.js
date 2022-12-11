@@ -90,7 +90,6 @@ function drawOneFrameTroll() {
   // eslint-disable-next-line prefer-const
   let tour = Math.round(Math.random() * ((3-1)+1));
   console.log("TOUR", tour);
-  tour = 3;
   switch(tour){
     case 1 : drawCircle();
     break;

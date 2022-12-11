@@ -25,30 +25,6 @@ async function getUserPage() {
     const divUserPage = document.createElement("div");
     const user = await getUserInfo();
 
-    const target = document.querySelector("#divXp");
-    let xpBar = new CircularFluidMeter(target, {
-        initialProgress: 33,
-        borderWidth: [
-            {
-              resolution: 0,
-              value: 15
-            },
-            {
-              resolution: 1024,
-              value: 60
-            }
-          ],
-          fontSize: [
-            {
-              resolution: 0,
-              value: 25
-            },
-            {
-              resolution: 768,
-              value: 50
-            }
-          ]
-        });
 
     const divGamesLeft = document.createElement("div");
     const divGamesRight = document.createElement("div");
@@ -111,6 +87,13 @@ async function getUserPage() {
     // divGames.appendChild(divGamesLeft);
     // divGames.appendChild(divGamesRight);
     // main.appendChild(divGames);
+
+        // eslint-disable-next-line no-new
+        new CircularFluidMeter(document.querySelector("#divXp"), {
+            initialProgress: 33,
+
+            });
+    
 }
 
 

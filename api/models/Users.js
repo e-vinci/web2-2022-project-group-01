@@ -43,9 +43,9 @@ module.exports.getUsersScore = async () => {
 module.exports.getUserIdScore= async (id, allGame) => {
   let result = null;
   if (allGame === false){
-    result = await db`select g.score as best_score from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc limit 3`;
+    result = await db`select g.score as best_score, u.xp from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc limit 3`;
   }else{
-     result = await db`select g.score as best_score from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc`;
+     result = await db`select g.score as best_score, u.xp from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc`;
   }
 
   return result;

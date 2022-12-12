@@ -11,6 +11,7 @@ let heightCanvas;
 let canvasContext;
 let x;
 let y;
+let interval = 0;
 // eslint-disable-next-line import/no-mutable-exports
 let score = 0;
 
@@ -78,9 +79,13 @@ function onClickForm(e) {
       (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
   ) {
     refreshScore();
-  
-    if(getTypeGame() === 'troll') drawOneFrameTroll();
-    else drawOneFrame();
+
+    if (getTypeGame() === 'troll'){
+      drawOneFrameTroll();
+    } else{
+      drawOneFrame();
+    } 
+
   }
 }
 
@@ -114,34 +119,28 @@ function drawOneFrameTroll() {
   setSizeCanvas();
 
   // eslint-disable-next-line prefer-const
-  let tour = Math.round(Math.random() * ((3-1)+1));
+  let tour = Math.round(Math.random() * ((3 - 1) + 1));
   console.log("TOUR", tour);
-  switch(tour){
-    case 1 : drawCircle();
-    break;
-    case 2 : drawMultipleCircle();
-    break;
-    case 3 : teleportCircle();
-    break;
-    default : drawCircle();
+  if(interval !== 0)
+  clearInterval(interval);
+  switch (tour) {
+    case 1: drawCircle();
+      break;
+    case 2: drawMultipleCircle();
+      break;
+    case 3: fastClick();
+      break;
+    default: drawCircle();
   }
 }
 
-function teleportCircle(e) {
-  const xPosReal = x + canvas.offsetLeft;
-  const yPosReal = y + canvas.offsetTop;
+function fastClick() {
+  drawOneFrame()
+  interval = setInterval(drawOneFrame, 850);
 
-  if (
-    ((e.clientX >= xPosReal && e.clientX <= xPosReal + radius) ||
-      (e.clientX <= xPosReal && e.clientX >= xPosReal - radius)) &&
-    ((e.clientY >= yPosReal && e.clientY <= yPosReal + radius) ||
-      (e.clientY <= yPosReal && e.clientY >= yPosReal - radius))
-  ) {
-    drawCircle();
-  }
 }
 
-function drawMultipleCircle(){
+function drawMultipleCircle() {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 3; i++) {
     drawCircle();
@@ -156,4 +155,4 @@ function updateColor(colorAdd) {
   setCanvasContextAndSize();
 }
 
-export { drawOneFrame, setCanvasContextAndSize, score,onClickForm, initScore, updateSize, updateColor ,drawOneFrameTroll};
+export { drawOneFrame, setCanvasContextAndSize, score, onClickForm, initScore, updateSize, updateColor, drawOneFrameTroll };

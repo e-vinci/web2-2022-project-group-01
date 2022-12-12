@@ -27,8 +27,7 @@ router.post('/login', async (req, res) => {
   const userPassword = req.body.password;
 
   const userFound = await getUser(username);
-  // il faut que tu return un res.send pour que on ai un message
-  // avant tu faisais juste un return undifined donc on voyait pas la difference entre le prog qui s'arrete ou qui continue
+
   if (!userFound) return res.sendStatus(404);
   const passwordMatch = await bcrypt.compare(userPassword, userFound.password);
   if (!passwordMatch) return res.sendStatus(400);

@@ -139,6 +139,7 @@ function drawOneFrameTroll() {
 function changeSizeClick(){
   updateSize(10);
   drawCircle();
+  updateSize(20);
 }
 
 function fastClick() {

@@ -22,7 +22,7 @@ const TutorielPage = () => {
     const img = document.createElement("img");
 
     // img.setAttribute("src","gif_path");
-    img.src = "img/groot.jpg";
+    img.src = "../../img/groot.jpg";
 
     div11.innerHTML = `The rules are simple. You have to click on the circle form several times before the time is up. Each every time you click successfully on the form, this last one change its place so you have to click on it again. 
     For one click on the form you have 5 points. Challenge yourself and increase your reactivity and try to reach as much point as possible.`

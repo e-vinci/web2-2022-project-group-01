@@ -33,7 +33,7 @@ async function getUserPage() {
 
     const divGamesLeft = document.createElement("div");
     const divGamesRight = document.createElement("div");
-    divUserPage.id = "divUser";
+    divUserPage.className = "divUser";
 
 
     divUserPage.innerHTML = ` 
@@ -42,24 +42,26 @@ async function getUserPage() {
                 <img src="${profil}" />
             </div>    
             <div class="divUser2">  
-                <div class="divProfil2">    
-                    <p> Welcome to your profil ${user.username} </p>
-            </div>
-                <div class="divLevel">
+               
+                    <div class="divProfil2">    
+                            <p> Welcome to your profil <b> ${user.username} </b> </p>
+                    </div>
+               
                     <div id="divNiv">
-                            <p> Level : 
+                            <p> <u> Level </u>
                             <br> 
                             <span id="divNumber">
-                                ${user.level} </p>
-                            </span>    
+                                ${user.level} 
+                            </span>
+                            </p>    
                     </div>
-                    <div id="divXp"></div>
-                </div>
+                         
+                    <div id="divXp"> </div>   
             </div>`;
 
     // ************************************************************************ //
 
-    // <div class="divLevel"> 
+  
     divGamesLeft.className = "divGames";
 
 
@@ -79,7 +81,7 @@ async function getUserPage() {
     const userAllGames = getGamesInfos(userAllScore, false);
 
     divGamesRight.className = "divGames2";
-    divGamesRight.innerHTML = userAllGames + `<a> Précédant </a> <a> Suivant </a>`;
+    divGamesRight.innerHTML = userAllGames;
 
 
     main.appendChild(divUserPage);
@@ -131,7 +133,7 @@ function getGamesInfos(gameInfos, onlyBestScore) {
                       <p><span>Score :</span> ${element.best_score}</p>
                       <p><span>Xp :</span> ${element.xp}</p> 
                   `;
-                ligne += '</div>';
+                ligne += '</div><br>';
             };
 
 

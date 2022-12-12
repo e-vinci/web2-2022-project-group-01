@@ -10,9 +10,9 @@ const Navbar = () => {
 };
 
 function renderNavbar() {
-const authenticatedUser = getAuthenticatedUser();
+  const authenticatedUser = getAuthenticatedUser();
 
-const anonymousUserNavbar = `
+  const anonymousUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
       <div class="container-fluid navbar-custom" id="navbar">
         <div id="logo">
@@ -65,30 +65,53 @@ const anonymousUserNavbar = `
             </li>
             <li id="test" class="nav-item">
               <a class="nav-link" href="#" data-uri="/friend">Friend</a>
-            </li>              
+            </li>   
             <li class="nav-item">
-              <a class="nav-link" href="#" data-uri="/logout">Logout</a>
-            </li>    
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">${authenticatedUser?.username}</a>
+              <a class="nav-link" href="#" data-uri="/user">${authenticatedUser?.username}</a>
             </li>           
+            <li class="nav-item">
+            <a class="nav-link modal-trigger" href="#" data-bs-toggle="modal" data-bs-target="#popup">Logout</a>
+            </li>         
           </ul>
         </div>
       </div>
+
+      <div id="popup" class="modal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p> Voulez-vous vraiment vous déconnecté? </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button"  id="logout" class="btn btn-secondary" data-dismiss="modal"> Oui </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </nav>
 `;
-
+  // user : disabled
   const navbar = document.querySelector('#navbarWrapper');
 
   navbar.innerHTML = isAuthenticated() ? authenticatedUserNavbar : anonymousUserNavbar;
 
   const logo = document.querySelector('#logo');
-  logo.addEventListener('click',redirectHome)
+  logo.addEventListener('click', redirectHome);
+  if(isAuthenticated()){
+    const logout= document.querySelector("#logout")
+    logout.addEventListener('click',logoutEvent);
+  }
 }
 
+function logoutEvent(){
+  const modalZone=document.querySelector(".modal-backdrop");
+  modalZone.outerHTML=''
+  Navigate('/logout')
+}
 
-function redirectHome(){
-  Navigate("/");
+function redirectHome() {
+  Navigate('/');
 }
 
 export default Navbar;

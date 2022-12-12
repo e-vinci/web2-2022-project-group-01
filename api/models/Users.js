@@ -1,40 +1,54 @@
 /* eslint-disable camelcase */
-const db=require("./config_db");
-
+const db = require('./config_db');
 
 // pas obliger de mettre le level et xp vu qu'il commencera forcement au niv1 0xp
-module.exports.addUser = (username, password) => {
-db.prepare('INSERT INTO users(username, password, level, xp) VALUES (?,?,1,0)').run(username,password);
+module.exports.addUser = async (username, password) => {
+  await db`INSERT INTO users(username, password, level, xp) VALUES (${username},${password},1,0)`;
+};
+
+module.exports.getUser = async (userName) => {
+  const user = await db`SELECT * FROM users where username=${userName}`;
+  return user.at(0);
+};
+
+module.exports.searchUser = async (userName) => {
+  // eslint-disable-next-line prefer-template
+  const users = await db`SELECT * FROM users where username LIKE ${'%' + userName + '%'}`;
+  return users
+};
+
+module.exports.getUserFriends = async (id_user) => {
+  const friends = await db`Select u.* from friends f , users u where (users1=${id_user} and f.users2 = u.id_user) Or (users2=${id_user} and  f.users1 = u.id_user)`;
+  return friends 
+};
+
+module.exports.isFriend = async (id_user1, id_user2) => {
+  const result = await db` select count(*) AS total from friends where (users1=(${id_user1}) AND users2=(${id_user2})) OR (users1=(${id_user2}) AND users2=(${id_user1}))`;
+  const number = parseInt(result[0].total, 10);
+
+  return number !== 0 
+
+};
+
+module.exports.addFriend = async (id_user1, id_user2) => {
+  await db`insert into friends (users1, users2) values (${id_user1},${id_user2})`;
 }
 
-module.exports.getUser = (userName) => db.prepare("SELECT * FROM users where username=(?)").get(userName);
+module.exports.getUsersScore = async () => {
+  const result = await db`select u.username, g.score as best_score from users u, games g where u.id_user = g.user_id order by g.score desc limit 10`;
+  return result;
 
-
-
-
-module.exports.searchUser=(userName)=> {
-    const test = db.prepare("SELECT * FROM users where username LIKE (?)")
-    return test.all(`%${  userName.toLowerCase()  }%`)
 }
 
-module.exports.getUserFriends=(id_user)=> 
-db.prepare("Select u.* from friends f , users u where (users1=(?) and f.users2 = u.id_user) Or (users2=(?) and  f.users1 = u.id_user)").all(id_user,id_user);
+module.exports.getUserIdScore= async (id, allGame) => {
+  let result = null;
+  if (allGame === false){
+    result = await db`select g.score as best_score, u.xp from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc limit 3`;
+  }else{
+     result = await db`select g.score as best_score, u.xp from users u, games g where u.id_user = g.user_id and u.id_user = ${id} order by g.score desc`;
+  }
 
-module.exports.isFriend=(id_user1,id_user2)=> {
-    const result = db.prepare("select count(*) AS total from friends where (users1=(?) AND users2=(?)) OR (users1=(?) AND users2=(?))").all(id_user1,id_user2,id_user2,id_user1);
-   
-    const number=result[0].total;
-   
-    return number!==0;
+  return result;
+
 }
-
-module.exports.addFriend=(id_user1,id_user2)=> 
-db.prepare("insert into friends (users1, users2) values (?,?)").run(id_user1,id_user2);
-
-module.exports.getUsersScore= () => {
-    const result = db.prepare("select u.username, max(g.score) as best_score from users u, games g where u.id_user = g.user group by u.username order by g.score desc limit 10").all();   
-    return result;
-}
-
-
 

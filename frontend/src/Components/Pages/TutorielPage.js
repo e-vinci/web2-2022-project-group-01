@@ -3,7 +3,7 @@ import { clearPage } from '../../utils/render';
 const main = document.querySelector('main');
 
 const TutorielPage = () => {
-    clearPage();
+  clearPage();
 
     const div1 = document.createElement("div");
     const div2 = document.createElement("div");

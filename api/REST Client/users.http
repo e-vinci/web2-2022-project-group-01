@@ -5,8 +5,8 @@ POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-    "username":"admin",
-    "password":"admin"
+    "username":"admin2",
+    "password":"admin2"
 }
 
 ### Read all users
@@ -24,7 +24,7 @@ Authorization: {{admin.response.body.token}}
 
 
 ### get all player with the pseudo
-GET {{baseUrl}}/users/getUser?pseudo=j
+GET {{baseUrl}}/users/getUser?pseudo=a
 Authorization: {{admin.response.body.token}}
 
 ### get all friends
@@ -38,8 +38,8 @@ Content-Type: application/json
 Authorization: {{admin.response.body.token}}
 
 {
-    "user1":1,
-    "user2":5
+    "user1":3,
+    "user2":4
 }
 
 
@@ -60,7 +60,7 @@ POST {{baseUrl}}/users/addFriend
 Content-Type: application/json
 
 {
-    "user1":1,
+    "user1":1,  
     "user2":1
 }
 
@@ -83,8 +83,8 @@ POST {{baseUrl}}/users/register
 Content-Type: application/json
 
 {
-    "username":"admin",
-    "password":"admin"
+    "username":"admin2",
+    "password":"admin2"
 }
 
 ### login a user known
@@ -110,3 +110,14 @@ Content-Type: application/json
 ### read the best scores
 GET {{baseUrl}}/users/getUsersScore
 Authorization: {{admin.response.body.token}}
+
+### read the best user'scores
+GET {{baseUrl}}/users/getBestUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
+### read the best user'scores
+GET {{baseUrl}}/users/getAllUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
+
+

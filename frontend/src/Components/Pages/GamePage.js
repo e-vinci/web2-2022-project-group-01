@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-constant-condition */
 /* eslint-disable import/no-unresolved */
 // changes
@@ -11,11 +13,11 @@ import {
   drawOneFrame,
   setCanvasContextAndSize,
   initScore,
-  update,
+  updateSize,
+  updateColor,
   score,
   drawOneFrameTroll,
 } from '../Game/FormSpawner';
-// eslint-disable-next-line import/no-cycle
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
 import Navigate from '../Router/Navigate';
@@ -37,6 +39,9 @@ const GamePage = () => {
   buttonAnime();
 };
 
+/*
+**function that add all the div at the loading of the page
+*/
 function renderPlayZone() {
   const divGamePage = document.createElement('div');
   divGamePage.id = 'gamePageDiv';
@@ -46,12 +51,12 @@ function renderPlayZone() {
 
   const divTimer = document.createElement('div');
   divTimer.id = 'timer';
-  divTimer.className = 'divBorder';
+  divTimer.className = 'divBorder infoGame';
   divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
 
   const divScore = document.createElement('div');
   divScore.id = 'score';
-  divScore.className = 'divBorder';
+  divScore.className = 'divBorder infoGame';
   divScore.innerHTML = ' <p> your score : 0 </p>';
 
   divInformation.appendChild(divTimer);
@@ -68,6 +73,9 @@ function renderPlayZone() {
   main.appendChild(divGamePage);
 }
 
+/*
+**function that add the different button to considering the different type of games
+*/
 function startPersonnalisation() {
   const divGamePage = document.getElementById('gamePageDiv');
   const buttonContainer = document.createElement('div');
@@ -85,7 +93,7 @@ function startPersonnalisation() {
   buttonPerso.type = 'submit';
   buttonPerso.id = 'persoButton';
   buttonPerso.className = 'buttonClass btn btn-primary';
-  buttonPerso.innerHTML = '<p> personnalisé </p> ';
+  buttonPerso.innerHTML = '<p> personnalisation </p> ';
 
   if (getTypeGame() !== 'quick') {
     buttonPerso.style.display = 'none';
@@ -107,6 +115,9 @@ function startPersonnalisation() {
   divGamePage.appendChild(buttonContainer);
 }
 
+/*
+**function that call the api to save a score in competition game
+*/
 async function saveScore() {
   const user = getAuthenticatedUser();
   const scoreToAdd = score;
@@ -114,13 +125,12 @@ async function saveScore() {
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      user : user.id,
+      user: user.id,
       score: scoreToAdd,
     }),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: user.token
-
+      Authorization: user.token,
     },
   };
 
@@ -134,7 +144,9 @@ async function saveScore() {
   Navigate('/');
 }
 
-
+/*
+**function that start the game and call all the method necessary
+*/
 function startGame(e) {
   e.preventDefault();
   if (time === 0) {
@@ -150,17 +162,26 @@ function startGame(e) {
   intervalId = setInterval(timerUpdate, 1000);
 }
 
+/*
+**function that hide the button div
+*/
 function hideButton() {
   const buttonContainer = document.querySelector('#buttonContainer');
   buttonContainer.style.display = 'none';
 }
 
+/*
+**function that set the canvas 
+*/
 function initPlayGround() {
   const divCanvas = document.querySelector('#gameDiv');
   divCanvas.innerHTML = '<canvas id="gameCanvas"/>';
   setCanvasContextAndSize();
 }
 
+/*
+**function that set personalisation option 
+*/
 function displayPerso(e) {
   e.preventDefault();
   const divPerso = document.querySelector('#divPerso');
@@ -192,6 +213,9 @@ function displayPerso(e) {
   }
 }
 
+/*
+**function that update the personnalisation
+*/
 function personnalisation(e) {
   e.preventDefault();
   const divPerso = document.querySelector('#divPerso');
@@ -203,16 +227,35 @@ function personnalisation(e) {
 
   if (t !== '' && m !== '') {
     updateTime(t);
-    update(m, c);
+    updateSize(m);
+    updateColor(c);
   }
 }
 
+/*
+**function that animate the div comming
+*/
 function buttonAnime() {
   gsap.from('#buttonContainer', {
     opacity: 0,
     y: 600,
-    duration: 3,
+    duration: 2,
   });
+
+  gsap.from('#score', {
+    opacity: 0,
+    x: 300,
+    duration: 2,
+  });
+
+  gsap.from('#timer', {
+    opacity: 0,
+    x: -100,
+    duration: 2,
+  });
+
+
+
 }
 
 export { GamePage, intervalId, saveScore };

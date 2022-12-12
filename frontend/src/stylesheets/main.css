@@ -329,7 +329,7 @@ body{
 
 /*Tutorial Page*/
 #divTuto{
-  margin-top: 10%;
+  margin-top: 5%;
   display: flex;
   width: 100%;
   color:#ed2553;
@@ -343,6 +343,11 @@ body{
   font-size: x-large;
   font-style: bold;
   font-weight: 700;
+}
+
+#gif{
+  border: solid;
+  border-radius: 5%;
 }
 
 .searchTitle{

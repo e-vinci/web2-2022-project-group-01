@@ -119,10 +119,10 @@ function drawOneFrameTroll() {
   setSizeCanvas();
 
   // eslint-disable-next-line prefer-const
-  let tour = Math.round(Math.random() * ((3 - 1) + 1));
+  let tour = Math.round(Math.random() * ((4 - 1) + 1));
   console.log("TOUR", tour);
-  if(interval !== 0)
-  clearInterval(interval);
+  if(interval !== 0) clearInterval(interval);
+ 
   switch (tour) {
     case 1: drawCircle();
       break;
@@ -130,8 +130,15 @@ function drawOneFrameTroll() {
       break;
     case 3: fastClick();
       break;
+    case 4: changeSizeClick();
+      break;
     default: drawCircle();
   }
+}
+
+function changeSizeClick(){
+  updateSize(10);
+  drawCircle();
 }
 
 function fastClick() {

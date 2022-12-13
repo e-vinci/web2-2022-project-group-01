@@ -106,7 +106,7 @@ async function getUserPage() {
     afterButton.addEventListener('click', () => {
         console.log("erzre", gameInfos);
         count += 3;
-        pageNext(gameInfos, count);
+        pageNext(userAllScore, count);
     });
 
     // eslint-disable-next-line no-new
@@ -121,6 +121,7 @@ async function getUserPage() {
 
 
 function pageNext(gameInfos, count) {
+    
     let ligne = "";
     ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
     if (gameInfos.length > 0) {
@@ -129,6 +130,7 @@ function pageNext(gameInfos, count) {
             if (i < gameInfos.length) {
                 let element = gameInfos[i];
                 console.log("GGGGGGGGGGGGGGGGGGGGGGGGG", count);
+                console.log("et donc",gameInfos[i]);
             ligne += `
                 <div class="gridItem">
                     <p><span>Score :</span> ${element.best_score}</p>

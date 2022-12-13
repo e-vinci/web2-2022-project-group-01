@@ -80,7 +80,7 @@ async function getUserPage() {
 
 
 
-    const userAllScore = await readAllUserScore(1);
+    const userAllScore = await readAllUserScore(user.id_user);
     // const userAllScore = await readAllUserScore(randomId);
 
 
@@ -89,13 +89,14 @@ async function getUserPage() {
 
     divPreviousNext.id = "divPreviousNext"
     divPreviousNext.innerHTML = ` <br> 
-            <button type =\"submbit\" id=\"btnBefore\"><-- Précédent</button> 
-            <button type =\"submbit\" id=\"btnAfter\">Suivant --></button>
+            <div id="divPreviousNextButton"  >
+                <button type ="submbit" id="btnBefore" class="buttonClass Class btn btn-primary" ><-- Précédent</button> 
+                <button type ="submbit" id="btnAfter" class="buttonClass Class btn btn-primary" >Suivant --></button>
+            </div>
             `;
 
     main.appendChild(divUserPage);
     main.appendChild(divGamesLeft);
-
     main.appendChild(divGamesRight);
     main.appendChild(divPreviousNext);
     getGamesInfos(userAllScore, false);
@@ -106,6 +107,7 @@ async function getUserPage() {
         count -= 3;
         previousPage(userAllScore, count);
     });
+
     const afterButton = document.querySelector('#btnAfter');
     afterButton.addEventListener('click', () => {
         count += 3;
@@ -114,10 +116,15 @@ async function getUserPage() {
 
 
     // eslint-disable-next-line no-new
-    const xpBar = new CircularFluidMeter(document.querySelector("#divXp"), {
-        initialProgress: user.xp,
+    new CircularFluidMeter(document.querySelector("#divXp"), {
+        // initialProgress: user.xp,
+        initialProgress: 45,
+        backgroundColor: "#ed2553",
+        borderWidth: { value: 15 },
+
+
     });
-    xpBar.backgroundColor = "#ed2553";
+
 
 }
 
@@ -125,6 +132,7 @@ async function getUserPage() {
 function previousPage(gameInfos, count) {
     let ligne = "";
     ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
+
     if (gameInfos.length > 0) {
         for (let i = count; i < count + 3; i++) {
             if (i < gameInfos.length) {
@@ -135,21 +143,25 @@ function previousPage(gameInfos, count) {
                     <p><span>Xp :</span> ${element.xp}</p> 
                 `;
                 ligne += '</div>';
-            };
+            }
         }
+
+
+
     } else {
         ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
     ligne += '</div>';
     const divGamesRight = document.querySelector(".divGames2");
     divGamesRight.innerHTML = ligne;
-}
 
+}
 
 
 function nextPage(gameInfos, count) {
     let ligne = "";
-    ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
+    ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
+    
     if (gameInfos.length > 0) {
         for (let i = count; i < count + 3; i++) {
             if (i < gameInfos.length) {
@@ -160,14 +172,17 @@ function nextPage(gameInfos, count) {
                     <p><span>Xp :</span> ${element.xp}</p> 
                 `;
                 ligne += '</div>';
-            };
-        }
+            }
+        };
+
     } else {
         ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
     ligne += '</div>';
+
     const divGamesRight = document.querySelector(".divGames2");
     divGamesRight.innerHTML = ligne;
+
 }
 
 
@@ -175,7 +190,7 @@ function getGamesInfos(gameInfos, onlyBestScore) {
     let ligne = "";
     // *****************************************************
     if (onlyBestScore === true) {
-        ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> Your Best Games </p> </div>";
+        ligne = "<br> <div id=\"divLigne\"> <p> Your Best Games </p> </div> <div id='gridContainer'>";
         if (gameInfos.length > 0) {
             gameInfos.forEach((element) => {
                 ligne += `
@@ -191,7 +206,7 @@ function getGamesInfos(gameInfos, onlyBestScore) {
     }
     // *****************************************************
     else {
-        ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
+        ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
         if (gameInfos.length > 0) {
             for (let i = 0; i < 3; i++) {
                 let element = gameInfos[i];
@@ -206,8 +221,10 @@ function getGamesInfos(gameInfos, onlyBestScore) {
             ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
         }
         ligne += '</div>';
+
         const divGamesRight = document.querySelector(".divGames2");
         divGamesRight.innerHTML = ligne;
+
     }
     return ligne;
 }

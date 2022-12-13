@@ -220,21 +220,23 @@ body {
 
 
 .divGames {
-  border: 0px solid black;
+  border: 3px solid black;
   border-style: none solid none none;
-  display: flex;
+  display: grid;
   float: left;
   width: 50%;
+  height: 100%;
   justify-content: center;
 }
 
 .divGames2 {
 
-  border: 5px solid black;
+  border: 0px solid black;
   border-style: none none none solid;
-  display: flex;
+  display: grid;
   float: left;
   width: 50%;
+  height: px;
   justify-content: center;
 }
 
@@ -249,11 +251,27 @@ body {
   color: #00539CFF;
   font-size: larger;
   font-weight: bolder;
-
+  display: flex;
 }
 
 #divPreviousNext{
-  float: right;
+  float: right; 
+  display: flex;
+  width: 50%;
+  height: 50%;
+  border: 0px solid black;
+  justify-content: center;
+  
+}
+
+#btnBefore{
+  font-size: large;
+  margin: 5px;
+}
+
+#btnAfter{
+  font-size: large;
+  margin: 5px;
 }
 
 /******End UserPage part***********/

@@ -64,7 +64,7 @@ async function getHomePage() {
       </button>`;
     div4.addEventListener('click', () => {
       setTypeGame('troll');
-      Navigate('/troll');
+      Navigate('/game');
     });
 
     // Tutorial button
@@ -89,8 +89,6 @@ async function getHomePage() {
     // Top Score table
     const usersScore = await readUsersScore();
     const table = getScoreTable(usersScore);
-
-    console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLL",usersScore);
     
     divScoreTable.id = 'divScoreTable';
     divScoreTable.className = 'anim';
@@ -134,7 +132,7 @@ async function getHomePage() {
             </button>`;
     div4.addEventListener('click', () => {
       setTypeGame('troll');
-      Navigate('/troll');
+      Navigate('/game');
     });
 
     // div5.className="anim";

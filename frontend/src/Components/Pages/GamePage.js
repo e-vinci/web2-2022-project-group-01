@@ -16,6 +16,7 @@ import {
   updateSize,
   updateColor,
   score,
+  drawOneFrameTroll,
 } from '../Game/FormSpawner';
 import { timerUpdate, time, updateTime, initTimer, clearTime } from '../Game/Timer';
 import { getTypeGame } from '../../utils/games';
@@ -154,7 +155,10 @@ function startGame(e) {
   initScore();
   initPlayGround();
   hideButton();
-  drawOneFrame();
+  if(getTypeGame() === 'troll'){
+    drawOneFrameTroll();
+  }else drawOneFrame();
+  
   intervalId = setInterval(timerUpdate, 1000);
 }
 

@@ -40,7 +40,10 @@ function timerUpdate() {
   }
   time -= 1;
   const divTimer = document.querySelector('#timer');
-  divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
+  if(divTimer!==null){
+    divTimer.innerHTML = `<p> Time left : ${time} second  </p>`;
+
+  }
 }
 
 /*

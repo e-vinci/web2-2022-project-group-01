@@ -83,7 +83,7 @@ function renderNavbar() {
               <p> Voulez-vous vraiment vous déconnecté? </p>
             </div>
             <div class="modal-footer">
-              <button type="button"  id="logout" class="btn btn-secondary" data-dismiss="modal"> Oui </button>
+              <button type="button"  id="logout" class="btn btn-secondary buttonClass" data-dismiss="modal"> Oui </button>
             </div>
           </div>
         </div>

@@ -295,15 +295,16 @@ body {
   justify-content: center;
 }
 
-#divTutorial {
-  display: flex;
-  width: 60%;
-  margin-left: 5%;
-  margin-top: 4%;
-  background-color: rgb(130, 196, 253);
-  border-radius: 5%;
-  border: solid;
-  border-color: rgb(6, 135, 248);
+#divEndGameDisplay{
+  display: table;
+  margin: auto;
+  height: 200%;
+}
+
+#divEndGameDisplay div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* search PAGE */
@@ -345,6 +346,29 @@ body {
 
 #addSubmit {
   height: auto;
+} 
+
+/*Tutorial Page*/
+#divTuto{
+  margin-top: 5%;
+  display: flex;
+  width: 100%;
+  color:#ed2553;
+}
+
+#divTuto2{
+  margin: auto;
+  margin-left: 3%;
+  display: flex;
+  width: 50%;
+  font-size: x-large;
+  font-style: bold;
+  font-weight: 700;
+}
+
+#gif{
+  border: solid;
+  border-radius: 5%;
 }
 
 .searchTitle {

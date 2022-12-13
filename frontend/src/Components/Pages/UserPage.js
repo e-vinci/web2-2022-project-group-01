@@ -36,7 +36,10 @@ async function getUserPage() {
 
     const divPreviousNext = document.createElement("div");
     const divGamesLeft = document.createElement("div");
+    divGamesLeft.className='card'
     const divGamesRight = document.createElement("div");
+    divGamesRight.className='card'
+
     divUserPage.className = "divUser";
 
 
@@ -94,21 +97,31 @@ async function getUserPage() {
                 <button type ="submbit" id="btnAfter" class="buttonClass Class btn btn-primary" >Suivant --></button>
             </div>
             `;
+    const divGamesInfos=document.createElement('div');
+    divGamesInfos.id="containerGamesInfo";
+    divGamesInfos.appendChild(divGamesLeft);
+    divGamesInfos.appendChild(divGamesRight);
+
 
     main.appendChild(divUserPage);
-    main.appendChild(divGamesLeft);
-    main.appendChild(divGamesRight);
+    main.appendChild(divGamesInfos);
     main.appendChild(divPreviousNext);
     getGamesInfos(userAllScore, false);
 
     let count = 0;
     const beforeButton = document.querySelector('#btnBefore');
+    beforeButton.style.display="none";
+
     beforeButton.addEventListener('click', () => {
         count -= 3;
         previousPage(userAllScore, count);
     });
 
     const afterButton = document.querySelector('#btnAfter');
+    if(userAllScore.length===3){
+        afterButton.style.display="none";
+    }
+
     afterButton.addEventListener('click', () => {
         count += 3;
         nextPage(userAllScore, count);
@@ -119,7 +132,7 @@ async function getUserPage() {
     new CircularFluidMeter(document.querySelector("#divXp"), {
         // initialProgress: user.xp,
         initialProgress: 45,
-        backgroundColor: "#ed2553",
+        backgroundColor: "#fd6186",
         borderWidth: { value: 15 },
 
 
@@ -129,14 +142,17 @@ async function getUserPage() {
 }
 
 
-function previousPage(gameInfos, count) {
+function previousPage(userAllScore, count) {
+    hideShowButtonNextPrevious(count,userAllScore);
     let ligne = "";
-    ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
 
-    if (gameInfos.length > 0) {
+
+    ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'>";
+
+    if (userAllScore.length > 0) {
         for (let i = count; i < count + 3; i++) {
-            if (i < gameInfos.length) {
-                let element = gameInfos[i];
+            if (i < userAllScore.length) {
+                let element = userAllScore[i];
                 ligne += `
                 <div class="gridItem">
                     <p><span>Score :</span> ${element.best_score}</p>
@@ -158,14 +174,15 @@ function previousPage(gameInfos, count) {
 }
 
 
-function nextPage(gameInfos, count) {
+function nextPage(userAllScore, count) {
+    hideShowButtonNextPrevious(count,userAllScore);
     let ligne = "";
     ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
     
-    if (gameInfos.length > 0) {
+    if (userAllScore.length > 0) {
         for (let i = count; i < count + 3; i++) {
-            if (i < gameInfos.length) {
-                let element = gameInfos[i];
+            if (i < userAllScore.length) {
+                let element = userAllScore[i];
                 ligne += `
                 <div class="gridItem">
                     <p><span>Score :</span> ${element.best_score}</p>
@@ -186,13 +203,13 @@ function nextPage(gameInfos, count) {
 }
 
 
-function getGamesInfos(gameInfos, onlyBestScore) {
+function getGamesInfos(userAllScore, onlyBestScore) {
     let ligne = "";
     // *****************************************************
     if (onlyBestScore === true) {
         ligne = "<br> <div id=\"divLigne\"> <p> Your Best Games </p> </div> <div id='gridContainer'>";
-        if (gameInfos.length > 0) {
-            gameInfos.forEach((element) => {
+        if (userAllScore.length > 0) {
+            userAllScore.forEach((element) => {
                 ligne += `
                   <div class="gridItem">
                       <p><span>Score :</span> ${element.best_score}</p>
@@ -207,9 +224,9 @@ function getGamesInfos(gameInfos, onlyBestScore) {
     // *****************************************************
     else {
         ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
-        if (gameInfos.length > 0) {
+        if (userAllScore.length > 0) {
             for (let i = 0; i < 3; i++) {
-                let element = gameInfos[i];
+                let element = userAllScore[i];
                 ligne += `
                   <div class="gridItem">
                       <p><span >Score : </span> ${element.best_score} </p>
@@ -229,6 +246,21 @@ function getGamesInfos(gameInfos, onlyBestScore) {
     return ligne;
 }
 
+
+function hideShowButtonNextPrevious(count,userAllScore){
+    const beforeButton = document.querySelector('#btnBefore');
+        if(count===0){
+            beforeButton.style.display="none";
+        }else{
+        beforeButton.style.display="";
+    }
+    const afterButton = document.querySelector('#btnAfter');
+    if(count>=userAllScore.length-3){
+        afterButton.style.display="none";
+    }else{
+        afterButton.style.display="";
+    }
+}
 
 
 export default UserPage;

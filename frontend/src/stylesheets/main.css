@@ -168,7 +168,7 @@ body {
   width: 100%;
   height: 200px;
   text-align: center;
-  background-color: #ed2553;
+  background-color: #fd6186;
   border-radius: 10px 10px 10px 10px;
   align-items: center;
   justify-content: center;
@@ -188,7 +188,7 @@ body {
   width: 500px;
   height: 200px;
   text-align: center;
-  background-color: #ed2553;
+  background-color: #fd6186;
   border-radius: 10px 10px 10px 10px;
   justify-content: center;
   color: #00539CFF;
@@ -206,7 +206,7 @@ body {
 }
 
 #divXp {
-  margin: 20px;
+  margin: auto;
   width: 500px;
   height: 200px;
   text-align: center;
@@ -216,36 +216,14 @@ body {
   font-size: larger;
   display: flex;
 
-}
-
-
-.divGames {
-  border: 3px solid black;
-  border-style: none solid none none;
-  display: grid;
-  float: left;
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-}
-
-.divGames2 {
-
-  border: 0px solid black;
-  border-style: none none none solid;
-  display: grid;
-  float: left;
-  width: 50%;
-  height: px;
-  justify-content: center;
-}
+} 
 
 #divLigne {
   border: 3px solid black;
   margin: 20px;
   width: 100%;
   text-align: center;
-  background-color: #ed2553;
+  background-color: #fd6186;
   border-radius: 10px 10px 10px 10px;
   justify-content: center;
   color: #00539CFF;
@@ -255,10 +233,8 @@ body {
 }
 
 #divPreviousNext{
-  float: right; 
   display: flex;
-  width: 50%;
-  height: 50%;
+  margin:20px;
   border: 0px solid black;
   justify-content: center;
   
@@ -272,6 +248,18 @@ body {
 #btnAfter{
   font-size: large;
   margin: 5px;
+}
+
+#containerGamesInfo{
+  display: grid;
+}
+
+@media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(1, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
 }
 
 /******End UserPage part***********/

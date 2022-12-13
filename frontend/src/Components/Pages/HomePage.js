@@ -27,6 +27,9 @@ const HomePage = () => {
   animation();
 };
 
+/**
+* function that display the HomePage
+*/
 async function getHomePage() {
   // If the user is disconnected
   if (!isAuthenticated()) {
@@ -38,17 +41,15 @@ async function getHomePage() {
     div5.id = 'divHome2';
 
     // Ranked game button
-
     div.innerHTML = `       
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-      Ranked Game
+      Ranked Game? <u> Log in </u>
       </button> `;
     div.addEventListener('click', () => {
       Navigate('/login');
     });
 
     // Quick game button
-
     div2.innerHTML = `
       <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
       Quick Game
@@ -68,7 +69,6 @@ async function getHomePage() {
     });
 
     // Tutorial button
-
     div3.innerHTML = `
         <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
         Tutorial
@@ -135,8 +135,6 @@ async function getHomePage() {
       Navigate('/game');
     });
 
-    // div5.className="anim";
-
     // Tutorial button
     div3.id = 'divHomeConnected';
 
@@ -157,6 +155,9 @@ async function getHomePage() {
   }
 }
 
+/*
+**function that display the top score table
+*/
 function getScoreTable(playersScore) {
   let numPlayer = 1;
   let scoreTable = `
@@ -171,7 +172,7 @@ function getScoreTable(playersScore) {
               <th>N°</th>
               <th>Player</th>
               <th>Score</th>
-              </tr>`;
+            </tr>`;
   playersScore.forEach((element) => {
     scoreTable += `
               <tr>

@@ -1,3 +1,7 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-param-reassign */
 /* eslint-disable prefer-template */
 /* eslint-disable operator-assignment */
 /* eslint-disable no-extra-semi */
@@ -19,6 +23,9 @@ import { getUserInfo, readBestUserScore, readAllUserScore } from "../../models/g
 import { CircularFluidMeter } from 'fluid-meter';
 import { FluidLayerConfiguration } from "fluid-meter/dist/meters/CircularFluidMeter/Layers/FluidLayer";
 
+var index = 0;
+var lastIndex = 3;
+
 const UserPage = () => {
     clearPage();
     getUserPage();
@@ -30,25 +37,25 @@ async function getUserPage() {
     const divUserPage = document.createElement("div");
     const user = await getUserInfo();
 
-
+    const divPreviousNext = document.createElement("div");
     const divGamesLeft = document.createElement("div");
     const divGamesRight = document.createElement("div");
     divUserPage.className = "divUser";
 
 
     divUserPage.innerHTML = ` 
-            
+               
             <div class="divProfil">
                 <img src="${profil}" />
             </div>    
-            <div class="divUser2">  
-               
+          
+                <div class="divUser2">
                     <div class="divProfil2">    
                             <p> Welcome to your profil <b> ${user.username} </b> </p>
                     </div>
                
                     <div id="divNiv">
-                            <p> <u> Level </u>
+                            <p> <b><u> Level </u></b>
                             <br> 
                             <span id="divNumber">
                                 ${user.level} 
@@ -61,35 +68,46 @@ async function getUserPage() {
 
     // ************************************************************************ //
 
-  
+
     divGamesLeft.className = "divGames";
 
 
-    // const userBestScore = await readBestUserScore(user.id_user);
-    const userBestScore = await readBestUserScore(1);
+    const userBestScore = await readBestUserScore(user.id_user);
+    // const randomId = 1;
+    // const userBestScore = await readBestUserScore(randomId);
 
     const userBestGames = getGamesInfos(userBestScore, true);
 
 
     divGamesLeft.innerHTML = userBestGames;
-    
 
 
-    // const userAllScore = await readAllUserScore(user.id_user);
+
     const userAllScore = await readAllUserScore(1);
+    // const userAllScore = await readAllUserScore(randomId);
 
-    const userAllGames = getGamesInfos(userAllScore, false);
 
     divGamesRight.className = "divGames2";
-    divGamesRight.innerHTML = userAllGames;
+    // *********************************************************************** //
+
+    divPreviousNext.id = "divPreviousNext"
+    divPreviousNext.innerHTML = ` <br> <div> <button type =\"submbit\" id=\"btnAfter\">Suivant</button> </div>`;
+
 
 
     main.appendChild(divUserPage);
     main.appendChild(divGamesLeft);
+
     main.appendChild(divGamesRight);
-    // divGames.appendChild(divGamesLeft);
-    // divGames.appendChild(divGamesRight);
-    // main.appendChild(divGames);
+    main.appendChild(divPreviousNext);
+    let gameInfos = getGamesInfos(userAllScore, false);
+    let count = 0;
+    const afterButton = document.querySelector('#btnAfter');
+    afterButton.addEventListener('click', () => {
+        console.log("erzre", gameInfos);
+        count += 3;
+        pageNext(gameInfos, count);
+    });
 
     // eslint-disable-next-line no-new
 
@@ -97,15 +115,45 @@ async function getUserPage() {
     const xpBar = new CircularFluidMeter(document.querySelector("#divXp"), {
         initialProgress: 33,
     });
-
     xpBar.backgroundColor = "#ed2553";
 
 }
 
 
+function pageNext(gameInfos, count) {
+    let ligne = "";
+    ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
+    if (gameInfos.length > 0) {
+        
+        for (let i = count; i < count + 3; i++) {
+            if (i < gameInfos.length) {
+                let element = gameInfos[i];
+                console.log("GGGGGGGGGGGGGGGGGGGGGGGGG", count);
+            ligne += `
+                <div class="gridItem">
+                    <p><span>Score :</span> ${element.best_score}</p>
+                    <p><span>Xp :</span> ${element.xp}</p> 
+                `;
+                ligne += '</div>';
+
+            };
+            
+        }
+       
+    } else {
+        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
+    }
+    ligne += '</div>';
+
+
+    const divGamesRight = document.querySelector(".divGames2");
+    divGamesRight.innerHTML = ligne;
+}
+
 
 function getGamesInfos(gameInfos, onlyBestScore) {
-    let ligne;
+    let ligne = "";
+    // *****************************************************
     if (onlyBestScore === true) {
         ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> Your Best Games </p> </div>";
         if (gameInfos.length > 0) {
@@ -114,44 +162,46 @@ function getGamesInfos(gameInfos, onlyBestScore) {
                   <div class="gridItem">
                       <p><span>Score :</span> ${element.best_score}</p>
                       <p><span>Xp :</span> ${element.xp}</p> 
-                  `;
-                ligne += '</div>';
+                    </div>`;
+
             });
         } else {
             ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
         }
         ligne += '</div>';
     }
-
+    // *****************************************************
     else {
-        ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p> </div>";
+
+        ligne = "<br> <div id='gridContainer'> <div id=\"divLigne\"> <p> All Your Games </p>  </div> ";
         if (gameInfos.length > 0) {
             for (let i = 0; i < 3; i++) {
-                const element = gameInfos[i];
+
+                let element = gameInfos[i];
+
                 ligne += `
                   <div class="gridItem">
-                      <p><span>Score :</span> ${element.best_score}</p>
-                      <p><span>Xp :</span> ${element.xp}</p> 
+                      <p><span >Score : </span> ${element.best_score} </p>
+                      <p><span>Xp : </span> ${element.xp} </p> 
                   `;
-                ligne += '</div><br>';
-            };
+                ligne += '</div>';
 
+
+            };
+            console.log("GGGGGGGGGGGGGGGGGGGGGGGGG", gameInfos[3]);
 
         } else {
             ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
         }
         ligne += '</div>';
-        /** 
-            let next = "<a> Précédant </a> <a> Suivant </a>";
 
-            ligne = ligne + next;
-        */
+        const divGamesRight = document.querySelector(".divGames2");
+        divGamesRight.innerHTML = ligne;
+
     }
-
-
     return ligne;
-
 }
+
 
 
 export default UserPage;

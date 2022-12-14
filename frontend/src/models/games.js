@@ -27,25 +27,6 @@ async function readUsersScore() {
   }
 }
 
-async function getUserInfo() {
-  const pseudo = getAuthenticatedUser().username;
-
-  const options = {
-      headers: {
-          Authorization: getAuthenticatedUser().token,
-      },
-  };
-
-  const response = await fetch(`${process.env.API_BASE_URL}/users/getUser?pseudo=${pseudo}`, options);
-
-  if (!response.ok) {
-      throw new Error(`readUsersScore:: fetch error : ${response.status} : ${response.statusText}`);
-  }
-
-  const userId = await response.json();
-  return userId[0];
-
-}
 
 
 async function readBestUserScore(id) {
@@ -100,4 +81,4 @@ async function readAllUserScore(id) {
   }
 }
 
-export { readUsersScore, getUserInfo, readBestUserScore, readAllUserScore };
+export { readUsersScore, readBestUserScore, readAllUserScore };

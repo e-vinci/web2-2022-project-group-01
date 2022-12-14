@@ -93,7 +93,7 @@ function startPersonnalisation() {
   buttonPerso.type = 'submit';
   buttonPerso.id = 'persoButton';
   buttonPerso.className = 'buttonClass btn btn-primary';
-  buttonPerso.innerHTML = '<p> personnalisation </p> ';
+  buttonPerso.innerHTML = '<p> Customization </p> ';
 
   if (getTypeGame() !== 'quick') {
     buttonPerso.style.display = 'none';

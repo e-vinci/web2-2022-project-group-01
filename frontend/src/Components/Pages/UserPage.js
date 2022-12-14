@@ -157,15 +157,15 @@ function previousPage(userAllScore, count) {
     ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'>";
     if (userAllScore.length > 0) {
         for (let i = count; i < count + 3; i++) {
-                let element = userAllScore[i];
-                ligne += `
+            let element = userAllScore[i];
+            ligne += `
                 <div class="gridItem">
                     <p><span>Score :</span> ${element.best_score}</p>
                     <p><span>Xp :</span> ${element.xp}</p> 
                 `;
-                ligne += '</div>';
-            }
-    } 
+            ligne += '</div>';
+        }
+    }
     ligne += '</div>';
     const divAllGames = document.querySelector(".divGames2");
     divAllGames.innerHTML = ligne;
@@ -178,9 +178,12 @@ function previousPage(userAllScore, count) {
 function nextPage(userAllScore, count) {
     hideShowButtonNextPrevious(count, userAllScore);
     let ligne = "";
+    let nbr = 0;
     ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
     if (userAllScore.length > 0) {
-        for (let i = count; i < count + 3; i++) {
+        if (count < 3) {
+            nbr = count;
+            for (let i = count; i < nbr; i++) {
                 let element = userAllScore[i];
                 ligne += `
                 <div class="gridItem">
@@ -188,10 +191,22 @@ function nextPage(userAllScore, count) {
                     <p><span>Xp :</span> ${element.xp}</p> 
                 `;
                 ligne += '</div>';
-        };
-    } 
+            };
+        } else{
+            for (let i = count; i < count + 3; i++) {
+                let element = userAllScore[i];
+                ligne += `
+                <div class="gridItem">
+                    <p><span>Score :</span> ${element.best_score}</p>
+                    <p><span>Xp :</span> ${element.xp}</p> 
+                `;
+                ligne += '</div>';
+            };
+        }
+    }
     ligne += '</div>';
     const divAllGames = document.querySelector(".divGames2");
+    console.log("UUUUUUUUUUUUUUUUUUUUUUU", userAllScore);
     divAllGames.innerHTML = ligne;
 }
 

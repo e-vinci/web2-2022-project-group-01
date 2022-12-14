@@ -23,7 +23,6 @@ function setCanvasContextAndSize() {
   canvas.addEventListener('click', onClickForm);
   canvasContext = canvas.getContext('2d');
   if(interval !== 0) clearInterval(interval);
-
   setSizeCanvas();
 }
 
@@ -121,12 +120,10 @@ function drawOneFrameTroll() {
   setSizeCanvas();
 
   // eslint-disable-next-line prefer-const
-  let tour = Math.round(Math.random() * ((3 - 1) + 1));
-  
-  if(interval !== 0) clearInterval(interval);
+  let tour = Math.round(Math.random() * ((4 - 1) + 1));
+  console.log("tour", tour);
+  if(interval !== 0) clearInterval(interval); 
   tour = 3;
-  console.log("TOUR", tour);
-  console.log("interval switch", interval);
   switch (tour) {
     case 1: drawCircle();
       break;
@@ -143,13 +140,12 @@ function drawOneFrameTroll() {
 function changeSizeClick(){
   updateSize(10);
   drawCircle();
+  radius = 20;
 }
 
 function fastClick() {
   drawOneFrame()
-  interval = setInterval(drawOneFrame,750);
-  console.log("interval fast", interval);
-
+  interval = setInterval(drawOneFrame,700);
 }
 
 function drawMultipleCircle() {

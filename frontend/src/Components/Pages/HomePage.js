@@ -31,41 +31,73 @@ const HomePage = () => {
 * function that display the HomePage
 */
 async function getHomePage() {
-  // If the user is disconnected
-  if (!isAuthenticated()) {
-    divScoreTable.style.display = 'none';
-    div.id = 'divHome';
-    div2.id = 'divHome2';
-    div3.id = 'divHome2';
-    div4.id = 'divHome2';
-    div5.id = 'divHome2';
+    // If the user is disconnected
+    if (!isAuthenticated()) {
+      divScoreTable.style.display = 'none';
+      div.id = 'divHome';
+      div2.id = 'divHome2';
+      div3.id = 'divHome2';
+      div4.id = 'divHome2';
+      div5.id = 'divHome2';
 
-    // Ranked game button
-    div.innerHTML = `       
-      <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-      Ranked Game? <u> Log in </u>
-      </button> `;
-    div.addEventListener('click', () => {
-      Navigate('/login');
-    });
+      // Ranked game button
+      div.innerHTML = `       
+            <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+            Ranked Game? <u> Log in </u>
+            </button> `;
+      div.addEventListener('click', () => {
+            Navigate('/login');
+      }); 
+    }else{
+        div.id = 'divHomeConnected';
+        div.className = 'anim';
+        div2.id = 'divHomeConnected';
+        div3.id = 'divHomeConnected';
+        div4.id = 'divHomeConnected';
+        div5.id = 'divHomeConnected';
+
+        // Ranked game button
+        div.innerHTML = `       
+        <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+        Ranked Game
+        </button> `;
+
+        div.addEventListener('click', () => {
+            setTypeGame('competition');
+            Navigate('/game');
+        });
+        
+        // Top Score table
+        const usersScore = await readUsersScore();
+        const table = getScoreTable(usersScore);
+        
+        divScoreTable.id = 'divScoreTable';
+        divScoreTable.className = 'anim';
+        divScoreTable.innerHTML = table;
+        divScoreTable.style.display = '';
+
+        main.appendChild(divScoreTable)
+    }
 
     // Quick game button
     div2.innerHTML = `
-      <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-      Quick Game
-      </button>`;
+    <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+    Quick Game
+    </button>`
+
     div2.addEventListener('click', () => {
-      setTypeGame('quick');
-      Navigate('/game');
+        setTypeGame('quick');
+        Navigate('/game');
     });
 
+    // Troll game button
     div4.innerHTML = `
-      <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-      Troll Game
-      </button>`;
+        <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
+        Troll Game
+        </button>`;
     div4.addEventListener('click', () => {
-      setTypeGame('troll');
-      Navigate('/game');
+        setTypeGame('troll');
+        Navigate('/game');
     });
 
     // Tutorial button
@@ -82,77 +114,7 @@ async function getHomePage() {
     div5.appendChild(div4);
     main.appendChild(div5);
     main.appendChild(div3);
-  }
-
-  // If the user is connected
-  else {
-    // Top Score table
-    const usersScore = await readUsersScore();
-    const table = getScoreTable(usersScore);
-    
-    divScoreTable.id = 'divScoreTable';
-    divScoreTable.className = 'anim';
-    divScoreTable.innerHTML = table;
-    divScoreTable.style.display = '';
-
-    main.appendChild(divScoreTable);
-
-    // Ranked game button
-    div.id = 'divHomeConnected';
-    div.className = 'anim';
-    div.innerHTML = `       
-    <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-    Ranked Game
-    </button> `;
-    div.addEventListener('click', () => {
-      if (!isAuthenticated()) {
-        Navigate('/game');
-      } else {
-        setTypeGame('competition');
-        Navigate('/game');
-      }
-    });
-
-    // Quick game button
-    div2.id = 'divHomeConnected';
-    div2.innerHTML = `
-            <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-            Quick Game
-            </button>`;
-    div2.addEventListener('click', () => {
-      setTypeGame('quick');
-      Navigate('/game');
-    });
-
-    // Troll game button
-    div4.id = 'divHomeConnected';
-    div4.innerHTML = `
-            <button type="submit" id="buttonGame" class="buttonClass Class btn btn-primary  ">
-            Troll game
-            </button>`;
-    div4.addEventListener('click', () => {
-      setTypeGame('troll');
-      Navigate('/game');
-    });
-
-    // Tutorial button
-    div3.id = 'divHomeConnected';
-
-    div3.innerHTML = `
-              <button type="submit" id="buttonTutorial" class="buttonClass Class btn btn-primary  ">
-              Tutorial
-              </button>`;
-    div3.addEventListener('click', () => {
-      Navigate('/tutoriel');
-    });
-    div.className = 'anim';
-    div5.id = 'divHomeConnected';
-    main.appendChild(div);
-    div5.appendChild(div2);
-    div5.appendChild(div4);
-    main.appendChild(div5);
-    main.appendChild(div3);
-  }
+  
 }
 
 /*

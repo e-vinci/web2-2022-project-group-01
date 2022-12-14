@@ -35,7 +35,7 @@ const GamePage = () => {
   startPersonnalisation();
   initScore();
   initPlayGround();
-
+  updateSize(20);
   buttonAnime();
 };
 

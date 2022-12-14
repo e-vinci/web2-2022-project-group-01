@@ -125,9 +125,7 @@ function drawOneFrameTroll() {
 
   // eslint-disable-next-line prefer-const
   let tour = Math.round(Math.random() * ((4 - 1) + 1));
-  console.log("tour", tour);
   if(interval !== 0) clearInterval(interval); 
-  tour = 3;
   switch (tour) {
     case 1: drawCircle();
       break;

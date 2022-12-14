@@ -115,6 +115,10 @@ function updateSize(size) {
 }
 
 // ********* TROLL **************
+
+/**
+ * function to draw random type of circle
+ */
 function drawOneFrameTroll() {
   clearFrame();
   setSizeCanvas();
@@ -136,18 +140,26 @@ function drawOneFrameTroll() {
     default: drawCircle();
   }
 }
-
+/*
+** function to draw one circle with changed size 1x
+*/
 function changeSizeClick(){
   updateSize(10);
   drawCircle();
   radius = 20;
 }
 
+/**
+ * function wich teleport the circle every 0.7 second
+ */
 function fastClick() {
   drawOneFrame()
   interval = setInterval(drawOneFrame,700);
 }
 
+/**
+ * function to draw 3 circle but only one is available
+ */
 function drawMultipleCircle() {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 3; i++) {

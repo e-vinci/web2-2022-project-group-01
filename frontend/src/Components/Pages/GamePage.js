@@ -195,11 +195,11 @@ function displayPerso(e) {
       </div>  
       <div class="form-group">
         <label for="size">Size</label>
-        <input type="number" class="form-control" id="size" >
+        <input type="number" class="form-control" id="size"  step="5">
       </div>
       <div class="form-group">
         <label for="color">Color</label>
-        <input type="color" class="form-control" id="color" >
+        <input type="color" class="form-control" id="color" value="#ed2553">
       </div>
       <button type="submit" class="buttonClass btn btn-primary">Submit</button>
     </form>
@@ -221,15 +221,18 @@ function personnalisation(e) {
   const divPerso = document.querySelector('#divPerso');
   divPerso.style.display = 'none';
 
-  const t = document.querySelector('#time').value;
-  const m = document.querySelector('#size').value;
+  const newTime = document.querySelector('#time').value;
+  const newSize = document.querySelector('#size').value;
   const c = document.querySelector('#color').value;
 
-  if (t !== '' && m !== '') {
-    updateTime(t);
-    updateSize(m);
-    updateColor(c);
+  if (newTime !== '' ) {
+    updateTime(newTime);
+  } 
+  if( newSize !== ''){
+      updateSize(newSize);
+
   }
+    updateColor(c);
 }
 
 /*

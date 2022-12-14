@@ -136,26 +136,29 @@ body {
 
 /******UserPage part***********/
 
-#divUser {
+.divUser {
   display: flex;
-  margin: 100px;
-  
+  width: auto;
   justify-content: center;
+  border: 3px solid black;
+  background-color: #fd6186;
+  border-radius: 10px 10px 10px 10px;
+  align-items: center;
 }
 
 .divProfil {
-  
   margin: 20px;
   display: flex;
   float: left;
 }
 
-.divProfil img{
-  width: 200px;
-  
+.divUser img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
 }
 
-.divUser2{
+.divUser2 {
   margin: 20px;
   width: 70%;
   display: flex;
@@ -167,41 +170,45 @@ body {
   margin: 20px;
   width: 100%;
   height: 200px;
-  text-align: center;
-  background-color: #fd6186;
-  border-radius: 10px 10px 10px 10px;
   align-items: center;
   justify-content: center;
   color: #00539CFF;
   font-size: 25px;
   display: flex;
-
+  text-align: center;
+  border: solid;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: antiquewhite;
+  box-shadow: rgb(237, 38, 85, 0.4) 5px 5px, rgba(237, 38, 85, 0.3) 10px 10px,
+    rgba(237, 38, 85, 0.2) 15px 15px, rgba(237, 38, 85, 0.1) 20px 20px,
+    rgba(237, 38, 85, 0.05) 25px 25px;
 }
-
-
-
-
 
 #divNiv {
   border: 3px solid black;
   margin: 20px;
-  width: 500px;
+  width: 100%;
   height: 200px;
-  text-align: center;
-  background-color: #fd6186;
-  border-radius: 10px 10px 10px 10px;
+  align-items: center;
   justify-content: center;
   color: #00539CFF;
-  font-size: 20px;
-  display: grid;
-  align-items: center;
-
+  font-size: 25px;
+  display: flex;
+  text-align: center;
+  border: solid;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: antiquewhite;
+  box-shadow: rgb(237, 38, 85, 0.4) 5px 5px, rgba(237, 38, 85, 0.3) 10px 10px,
+    rgba(237, 38, 85, 0.2) 15px 15px, rgba(237, 38, 85, 0.1) 20px 20px,
+    rgba(237, 38, 85, 0.05) 25px 25px;
 }
 
 #divNumber {
   font-size: 90px;
   font-style: italic;
-  color: white;
+  color: #00539CFF;
   display: flex;
 }
 
@@ -214,9 +221,9 @@ body {
   justify-content: center;
   color: #00539CFF;
   font-size: larger;
-  display: flex;
+  
 
-} 
+}
 
 #divLigne {
   border: 3px solid black;
@@ -232,34 +239,38 @@ body {
   display: flex;
 }
 
-#divPreviousNext{
+#divPreviousNext {
   display: flex;
-  margin:20px;
+  margin: 20px;
   border: 0px solid black;
   justify-content: center;
-  
+
 }
 
-#btnBefore{
+#btnBefore {
   font-size: large;
   margin: 5px;
 }
 
-#btnAfter{
+#btnAfter {
   font-size: large;
   margin: 5px;
 }
 
-#containerGamesInfo{
+#containerGamesInfo {
   display: grid;
 }
 
 @media (min-width: 600px) {
-  .cards { grid-template-columns: repeat(1, 1fr); }
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 @media (min-width: 900px) {
-  .cards { grid-template-columns: repeat(2, 1fr); }
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /******End UserPage part***********/
@@ -301,16 +312,16 @@ body {
   justify-content: center;
 }
 
-#divEndGameDisplay{
+#divEndGameDisplay {
   display: table;
   margin: auto;
   height: 200%;
 }
 
 #divEndGameDisplay div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* search PAGE */
@@ -352,17 +363,17 @@ body {
 
 #addSubmit {
   height: auto;
-} 
+}
 
 /*Tutorial Page*/
-#divTuto{
+#divTuto {
   margin-top: 5%;
   display: flex;
   width: 100%;
-  color:#ed2553;
+  color: #ed2553;
 }
 
-#divTuto2{
+#divTuto2 {
   margin: auto;
   margin-left: 3%;
   display: flex;
@@ -372,7 +383,7 @@ body {
   font-weight: 700;
 }
 
-#gif{
+#gif {
   border: solid;
   border-radius: 5%;
 }

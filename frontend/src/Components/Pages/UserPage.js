@@ -17,7 +17,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import { getAuthenticatedUser } from "../../utils/auths";
-import { clearPage } from "../../utils/render";
+import { clearPage, makeOverflowAuto } from "../../utils/render";
 import profil from "../../img/profil.jpg";
 import { readBestUserScore, readAllUserScore } from "../../models/games";
 import getUserInfo from "../../models/users";
@@ -25,6 +25,7 @@ import { CircularFluidMeter } from 'fluid-meter';
 
 const UserPage = () => {
     clearPage();
+    makeOverflowAuto();
     getUserPage();
 
 };

@@ -8,7 +8,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { gsap } from 'gsap';
-import { clearPage } from '../../utils/render';
+import { clearPage,makeOverflowAuto } from '../../utils/render';
 import {
   drawOneFrame,
   setCanvasContextAndSize,
@@ -28,6 +28,7 @@ let intervalId = 0;
 
 const GamePage = () => {
   clearPage();
+  makeOverflowAuto();
   clearTime();
   initTimer();
   renderPlayZone();

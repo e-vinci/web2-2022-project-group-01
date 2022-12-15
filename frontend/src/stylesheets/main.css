@@ -406,8 +406,7 @@ body {
 
 .errorDiv p {
   text-align: center;
-  font-size: x-large;
-  margin: 10px;
+  font-size: larger;
 }
 
 #errorLogin {
@@ -418,8 +417,17 @@ body {
   color: rgb(0, 0, 0);
 }
 
+#allow{
+  height: 10px;
+}
+#allowCheck{
+  height: 30px;
+}
 
-
+#allowText{
+  font-size: larger;
+  height: 10px;
+}
 /***************************************************************************************
 *    Author: Nothing4us
 *    Availability:https://codepen.io/nothing4us/pen/JjZpBXL
@@ -431,7 +439,11 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
 }
+
+
+
 
 /* Pen Title */
 .pen-title {
@@ -755,6 +767,7 @@ body {
 .card .button-container button:active span,
 .card .button-container button:focus span {
   color: #ed2553;
+
 }
 
 .card .button-container button:active span,

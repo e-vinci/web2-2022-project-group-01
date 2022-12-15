@@ -8,8 +8,8 @@
 /* eslint-disable import/newline-after-import */
 import { gsap } from 'gsap';
 import Navigate from '../Router/Navigate';
-import { clearPage } from '../../utils/render';
-import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import { clearPage ,makeOverflowAuto} from '../../utils/render';
+import {  isAuthenticated } from '../../utils/auths';
 import { setTypeGame } from '../../utils/games';
 import { readUsersScore } from '../../models/games';
 
@@ -23,6 +23,7 @@ const divScoreTable = document.createElement('div');
 
 const HomePage = () => {
   clearPage();
+  makeOverflowAuto()
   getHomePage();
   animation();
 };

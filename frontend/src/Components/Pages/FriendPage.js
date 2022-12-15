@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { clearPage } from '../../utils/render';
+import { clearPage,makeOverflowAuto } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
@@ -7,6 +7,7 @@ let user = null;
 
 const FriendPage = () => {
   clearPage();
+  makeOverflowAuto()
   displaySearch();
   user = getAuthenticatedUser();
 };

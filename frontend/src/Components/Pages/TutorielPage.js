@@ -1,11 +1,12 @@
 // eslint-disable-next-line import/newline-after-import
-import { clearPage } from '../../utils/render';
+import { clearPage,makeOverflowAuto } from '../../utils/render';
 import gif from '../../img/GifJeu.gif';
 import custo from '../../img/Customize.png';
 
 const main = document.querySelector('main');
 const TutorielPage = () => {
   clearPage();
+  makeOverflowAuto();
 
     const div1 = document.createElement("div");
     const div2 = document.createElement("div");

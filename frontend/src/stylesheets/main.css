@@ -152,11 +152,16 @@ body {
   float: left;
 }
 
-.divUser img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+#image{
+  background-image: url("../img/profil.jpg");
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover; 
+  width: 15%;
+
 }
+
+
 
 .divUser2 {
   margin: 20px;
@@ -193,7 +198,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #00539CFF;
-  font-size: 25px;
+  font-size: 30px;
   display: flex;
   text-align: center;
   border: solid;

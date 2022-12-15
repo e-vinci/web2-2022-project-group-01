@@ -26,6 +26,7 @@ function renderRegisterForm() {
    *    Availability: https://codepen.io/nothing4us/pen/JjZpBXL
    *
    ************************************************************************************** */
+  // la base du code pris a ete utilisé cependant des ajouts on été fait ainsi que des modifications afin de repondre a nos besoins
   main.innerHTML += `
   
   <div class="rerun"><a href="">Reload</a></div>

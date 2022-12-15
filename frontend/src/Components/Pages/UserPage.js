@@ -221,7 +221,7 @@ function displayBestUserGames(userBestGames) {
                     </div>`;
         });
     } else {
-        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
+        ligne += ' <p class="noUser"> NO USER\'S GAMES FOUND</p> ';
     }
     ligne += '</div>';
 
@@ -250,7 +250,7 @@ function displayAllUserGames(userAllScore) {
             ligne += '</div>';
         };
     } else {
-        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
+        ligne += ' <p class="noUser"> NO USER\'S GAMES FOUND</p> ';
     }
     ligne += '</div>';
     const divAllGames = document.querySelector(".divGames2");

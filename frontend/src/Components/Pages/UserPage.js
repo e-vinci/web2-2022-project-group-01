@@ -213,7 +213,6 @@ function displayBestUserGames(userBestGames) {
     let ligne = "";
     ligne = "<br> <div id=\"divLigne\"> <p> Your Best Games </p> </div> <div id='gridContainer'>";
     if (userBestGames.length > 0) {
-
         userBestGames.forEach((element) => {
             ligne += `
                   <div class="gridItem">
@@ -221,11 +220,9 @@ function displayBestUserGames(userBestGames) {
                       <p><span>Xp :</span> ${element.xp}</p> 
                     </div>`;
         });
-
     } else {
         ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
-
     ligne += '</div>';
 
     return ligne;
@@ -240,11 +237,9 @@ function displayAllUserGames(userAllScore) {
     ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
     if (userAllScore.length > 0) {
         let valueFor = 3;
-
         if (userAllScore.length < 3) {
             valueFor = userAllScore.length
         }
-
         for (let i = 0; i < valueFor; i++) {
             let element = userAllScore[i];
             ligne += `
@@ -254,13 +249,10 @@ function displayAllUserGames(userAllScore) {
                   `;
             ligne += '</div>';
         };
-
     } else {
         ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
-
     ligne += '</div>';
-
     const divAllGames = document.querySelector(".divGames2");
     divAllGames.innerHTML = ligne;
 

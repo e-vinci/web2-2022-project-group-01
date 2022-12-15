@@ -23,6 +23,8 @@ import { readBestUserScore, readAllUserScore } from "../../models/games";
 import getUserInfo from "../../models/users";
 import { CircularFluidMeter } from 'fluid-meter';
 
+const main = document.querySelector("main");
+
 const UserPage = () => {
     clearPage();
     getUserPage();
@@ -34,21 +36,50 @@ const UserPage = () => {
 */
 async function getUserPage() {
     const user = await getUserInfo();
-    const main = document.querySelector("main");
-    const divUserPage = document.createElement("div");
+    const divGamesInfos = document.createElement('div');
     const divBestGames = document.createElement("div");
     const divAllGames = document.createElement("div");
-
-    divUserPage.className = "divUser";
     divBestGames.className = 'card';
     divBestGames.className = "divGames";
     divAllGames.className = 'card';
     divAllGames.className = "divGames2";
+    divGamesInfos.id = "containerGamesInfo";
 
     // Display the user's profil
+    await displayUserProfil();
+
+    // Display the 3 best user's games    
+    const userBestScore = await readBestUserScore(user.id_user);
+    const userBestGames = displayBestUserGames(userBestScore);
+    divBestGames.innerHTML = userBestGames;
+
+
+    divGamesInfos.appendChild(divBestGames);
+    divGamesInfos.appendChild(divAllGames);
+
+    main.appendChild(divGamesInfos);
+
+    // Display the previous button and the next button
+    displayPreviousOrNextButton();
+
+    // Display the first 3 user's games    
+    const userAllScore = await readAllUserScore(user.id_user);
+    displayAllUserGames(userAllScore);
+    previousOrNextButton(userAllScore);
+
+    // Display the user's circular bar of xp
+    xpBar(user);
+}
+
+/**
+* function that display the user's profil
+*/
+async function displayUserProfil() {
+    const user = await getUserInfo();
+    const divUserPage = document.createElement("div");
+    divUserPage.className = "divUser";
     divUserPage.innerHTML = `  
-            <div class="divProfil">
-                <img src="${profil}" />
+            <div class="divProfil2" id="image">
             </div>    
             <div class="divUser2">
                     <div class="divProfil2">    
@@ -64,38 +95,12 @@ async function getUserPage() {
                     </div>
                     <div id="divXp"> </div>   
             </div>`;
-
-    // Display the 3 best user's games    
-    const userBestScore = await readBestUserScore(user.id_user);
-    const userBestGames = getGamesInfos(userBestScore, true);
-    divBestGames.innerHTML = userBestGames;
-
-
-    // Display the previous button and the next button
-    const divPreviousNext = displayPreviousOrNextButton();
-    const divGamesInfos = document.createElement('div');
-    divGamesInfos.id = "containerGamesInfo";
-
-
-    divGamesInfos.appendChild(divBestGames);
-    divGamesInfos.appendChild(divAllGames);
-
     main.appendChild(divUserPage);
-    main.appendChild(divGamesInfos);
-    main.appendChild(divPreviousNext);
-
-    // Display the first 3 user's games    
-    const userAllScore = await readAllUserScore(user.id_user);
-    getGamesInfos(userAllScore, false);
-    previousOrNextButton(userAllScore);
-
-    // Display the user's circular bar of xp
-    xpBar(user);
 }
 
 
 /**
-* function that call the function for the previous button and for the next button
+* function that call the function for the previous button and for the next button with a click
 */
 function previousOrNextButton(userAllScore) {
     let count = 0;
@@ -108,7 +113,7 @@ function previousOrNextButton(userAllScore) {
     });
 
     const afterButton = document.querySelector('#btnAfter');
-    if (userAllScore.length === 3) {
+    if (userAllScore.length <= 3) {
         afterButton.style.display = "none";
     }
 
@@ -144,7 +149,7 @@ function displayPreviousOrNextButton() {
                 <button type ="submbit" id="btnAfter" class="buttonClass Class btn btn-primary" > Next --></button>
             </div>
             `;
-    return divPreviousNext;
+    main.appendChild(divPreviousNext);
 }
 
 
@@ -178,80 +183,87 @@ function previousPage(userAllScore, count) {
 function nextPage(userAllScore, count) {
     hideShowButtonNextPrevious(count, userAllScore);
     let ligne = "";
-    let nbr = 0;
     ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
     if (userAllScore.length > 0) {
-        if (count < 3) {
-            nbr = count;
-            for (let i = count; i < nbr; i++) {
-                let element = userAllScore[i];
-                ligne += `
-                <div class="gridItem">
-                    <p><span>Score :</span> ${element.best_score}</p>
-                    <p><span>Xp :</span> ${element.xp}</p> 
-                `;
-                ligne += '</div>';
-            };
-        } else{
-            for (let i = count; i < count + 3; i++) {
-                let element = userAllScore[i];
-                ligne += `
-                <div class="gridItem">
-                    <p><span>Score :</span> ${element.best_score}</p>
-                    <p><span>Xp :</span> ${element.xp}</p> 
-                `;
-                ligne += '</div>';
-            };
+        let valueFor = count + 3;
+        if (userAllScore.length - count < 3) {
+            valueFor = userAllScore.length
         }
+        for (let i = count; i < valueFor; i++) {
+            console.log(i);
+            let element = userAllScore[i];
+            ligne += `
+                <div class="gridItem">
+                    <p><span>Score :</span> ${element.best_score}</p>
+                    <p><span>Xp :</span> ${element.xp}</p> 
+                `;
+            ligne += '</div>';
+        };
     }
     ligne += '</div>';
     const divAllGames = document.querySelector(".divGames2");
-    console.log("UUUUUUUUUUUUUUUUUUUUUUU", userAllScore);
     divAllGames.innerHTML = ligne;
 }
 
 
 /**
-* function that display the 3 best user's games and all his games
+* function that display the 3 best user's games
 */
-function getGamesInfos(userAllScore, onlyBestScore) {
+function displayBestUserGames(userBestGames) {
     let ligne = "";
-    // Display the 3 best user's games
-    if (onlyBestScore === true) {
-        ligne = "<br> <div id=\"divLigne\"> <p> Your Best Games </p> </div> <div id='gridContainer'>";
-        if (userAllScore.length > 0) {
-            userAllScore.forEach((element) => {
-                ligne += `
+    ligne = "<br> <div id=\"divLigne\"> <p> Your Best Games </p> </div> <div id='gridContainer'>";
+    if (userBestGames.length > 0) {
+
+        userBestGames.forEach((element) => {
+            ligne += `
                   <div class="gridItem">
                       <p><span>Score :</span> ${element.best_score}</p>
                       <p><span>Xp :</span> ${element.xp}</p> 
                     </div>`;
-            });
-        } else {
-            ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
-        }
-        ligne += '</div>';
+        });
+
+    } else {
+        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
-    // Display the first 3 user's games
-    else {
-        ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
-        if (userAllScore.length > 0) {
-            for (let i = 0; i < 3; i++) {
-                let element = userAllScore[i];
-                ligne += `
+
+    ligne += '</div>';
+
+    return ligne;
+}
+
+
+/**
+* function that display the 3 first user's games
+*/
+function displayAllUserGames(userAllScore) {
+    let ligne = "";
+    ligne = "<br> <div id=\"divLigne\"> <p> All Your Games </p>  </div>  <div id='gridContainer'> ";
+    if (userAllScore.length > 0) {
+        let valueFor = 3;
+
+        if (userAllScore.length < 3) {
+            valueFor = userAllScore.length
+        }
+
+        for (let i = 0; i < valueFor; i++) {
+            let element = userAllScore[i];
+            ligne += `
                   <div class="gridItem">
                       <p><span >Score : </span> ${element.best_score} </p>
                       <p><span>Xp : </span> ${element.xp} </p> 
                   `;
-                ligne += '</div>';
-            };
-        } else {
-            ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
-        }
-        ligne += '</div>';
-        const divAllGames = document.querySelector(".divGames2");
-        divAllGames.innerHTML = ligne;
+            ligne += '</div>';
+        };
+
+    } else {
+        ligne += ' <p> NO USER\'S GAMES FOUND</p> ';
     }
+
+    ligne += '</div>';
+
+    const divAllGames = document.querySelector(".divGames2");
+    divAllGames.innerHTML = ligne;
+
     return ligne;
 }
 
@@ -273,6 +285,5 @@ function hideShowButtonNextPrevious(count, userAllScore) {
         afterButton.style.display = "";
     }
 }
-
 
 export default UserPage;

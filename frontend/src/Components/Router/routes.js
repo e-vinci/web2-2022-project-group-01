@@ -1,11 +1,20 @@
-import GamePage from '../Pages/GamePage';
 import HomePage from '../Pages/HomePage';
-import NewPage from '../Pages/NewPage';
+import Logout from '../Logout/Logout';
+import LoginRegisterPage from '../Pages/LoginRegisterPage';
+import { GamePage } from '../Pages/GamePage';
+import TutorielPage from '../Pages/TutorielPage';
+import FriendPage from '../Pages/FriendPage';
+import UserPage from '../Pages/UserPage';
 
 const routes = {
   '/': HomePage,
+  '/login': LoginRegisterPage,
+  '/register': LoginRegisterPage,
+  '/logout': Logout,
   '/game': GamePage,
-  '/new': NewPage,
+  '/tutoriel': TutorielPage,
+  '/friend': FriendPage,
+  '/user': UserPage,
 };
 
 export default routes;

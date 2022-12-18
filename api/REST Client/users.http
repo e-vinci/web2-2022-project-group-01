@@ -1,4 +1,123 @@
 @baseUrl = http://localhost:3000
 
+# @name admin
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username":"admin2",
+    "password":"admin2"
+}
+
 ### Read all users
 GET {{baseUrl}}/users
+
+### Insert a score
+POST {{baseUrl}}/users/addScore
+Content-Type: application/json
+Authorization: {{admin.response.body.token}}
+
+{
+    "user":1,
+    "score":3333
+}
+
+
+### get all player with the pseudo
+GET {{baseUrl}}/users/getUser?pseudo=a
+Authorization: {{admin.response.body.token}}
+
+### get all friends
+GET {{baseUrl}}/users/getUserFriends?id=1
+Authorization: {{admin.response.body.token}}
+
+
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+Authorization: {{admin.response.body.token}}
+
+{
+    "user1":3,
+    "user2":4
+}
+
+
+# should all return error 
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+Authorization: {{admin.response.body.token}}
+
+
+{
+    "user1":1,
+    "user2":2
+}
+
+### add a friend
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":1,  
+    "user2":1
+}
+
+### add a friend
+
+POST {{baseUrl}}/users/addFriend
+Content-Type: application/json
+
+{
+    "user1":2,
+    "user2":1
+}
+
+
+
+
+
+### add a user
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "username":"hamza2",
+    "password":"admin2"
+}
+
+### login a user known
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username":"omar le j2",
+    "password":"mdp2"
+}
+
+### login a user wrong password
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username":"omar le j2",
+    "password":"REAREZ"
+}
+
+### read the best scores
+GET {{baseUrl}}/users/getUsersScore
+Authorization: {{admin.response.body.token}}
+
+### read the best user'scores
+GET {{baseUrl}}/users/getBestUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
+### read the best user'scores
+GET {{baseUrl}}/users/getAllUserScore?id=1
+Authorization: {{admin.response.body.token}}
+
+
+
